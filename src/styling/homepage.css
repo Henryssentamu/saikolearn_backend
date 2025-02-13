@@ -1,0 +1,17 @@
+.banner-section {
+  position: relative;
+  background-image: url("/pexels-harold-vasquez-853421-2653362.jpg");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 620px;
+  width: 100%;
+  overflow: hidden;
+  margin: 0px;
+  padding: 0px;
+}
+.content-on-banner {
+  position: absolute;
+  top: 180px;
+  left: 80px;
+}
