@@ -51,9 +51,9 @@ export function HomeNav() {
                 </a>
 
                 <ul className="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                  {schools.map((obj) => {
+                  {schools.map((obj, index) => {
                     return (
-                      <li>
+                      <li key={index}>
                         <a data-school-id={obj.schoolId} className="dropdown-item" href="/school">
                           {obj.schoolName}
                         </a>
