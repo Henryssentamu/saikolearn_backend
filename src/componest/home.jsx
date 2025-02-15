@@ -2,6 +2,7 @@ import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import { HomeNav } from "../subcomponets/headers/homepage";
+import { Footer } from "../subcomponets/headers/home";
 import { useState, useEffect } from "react";
 
 export function Home() {
@@ -36,7 +37,7 @@ export function Home() {
         {/* navigation componet */}
         <HomeNav />
         {/* body */}
-        <div className="container" style={{ marginTop: "81px" }}>
+        <div className="container" style={{ marginTop: "75px" }}>
           <div className="row ">
             <section className="banner-details-containr text-white">
               <div className="content-on-banner">
@@ -48,7 +49,7 @@ export function Home() {
                 </div>
                 <div className="mt-5">
                   <a href="#">
-                    <button className="btn btn-outline-info text-white " style={{ padding: "5px 45px", marginBottom: "15px" }}>
+                    <button className="btn btn-outline-info text-white " style={{ padding: "5px 45px", marginBottom: "25px" }}>
                       Register
                     </button>
                   </a>
@@ -58,7 +59,7 @@ export function Home() {
           </div>
         </div>
       </div>
-      <div className="row p-0 m-0 text-center">
+      <div className="row p-0 m-0 text-center ">
         <div className="trendingCourse poppins-black" style={{ fontSize: "26px", marginTop: "40px" }}>
           Our Trending Courses
         </div>
@@ -106,7 +107,7 @@ export function Home() {
           );
         })}
       </div>
-      <div className="row mt-5 text-center">
+      <div className="row mt-5 text-center row-col-sm-1 row-col-md-2 ">
         <div className="mb-5 poppins-black p-3" style={{ fontSize: "26px" }}>
           Collaborate with us as we navigate a journey toward collective growth
         </div>
@@ -182,65 +183,59 @@ export function Home() {
       </div>
 
       <div className="row m-5 d-flex flex-row justify-content-center align-items-center">
-        <div className="text-center poppins-black m-3" style={stylings}>
-          OUR PARTNERS
-        </div>
-        <div className="text-center poppins-regular" style={stylings}>
-          Elevating Tech Futures: Partners in Transformative Talent!
-        </div>
-        {/* slides  */}
-        <div
-          id="carouselExampleCaptions"
-          class="carousel slide"
-          data-bs-ride="carousel"
-          data-bs-interval="3000"
-          style={{ width: "4000px" }}
-        >
-          <div class="carousel-indicators">
-            <button
-              type="button"
-              data-bs-target="#carouselExampleCaptions"
-              data-bs-slide-to="0"
-              class="active"
-              aria-current="true"
-              aria-label="Slide 1"
-            ></button>
-            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
-            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
-          </div>
-          <div class="carousel-inner">
-            <div class="carousel-item active">
-              <img src="/techimage.jpeg" class="d-block w-100" alt="..." />
-              <div class="carousel-caption d-none d-md-block">
-                <h5>Nisa Financing </h5>
-                <p>This Provide us with internship placements .</p>
-              </div>
-            </div>
-            <div class="carousel-item">
-              <img src="/techimage.jpeg" class="d-block w-100" alt="..." />
-              <div class="carousel-caption d-none d-md-block">
-                <h5>Nimlang Ltd</h5>
-                <p>Coprate ally.</p>
-              </div>
-            </div>
-            <div class="carousel-item">
-              <img src="/techimage.jpeg" class="d-block w-100" alt="..." />
-              <div class="carousel-caption d-none d-md-block">
-                <h5>Nisa Financing</h5>
-                <p>This Provide us with internship placements .</p>
-              </div>
+        <section className="our-partner-display-section">
+          <div className="our-partner-display-heading">
+            <h2 className="text text-center poppins-black m-3" style={stylings}>
+              OUR PARTNERS
+            </h2>
+            <div id="partner-tagline" className="text-muted text-center poppins-regular" style={stylings}>
+              Elevating Tech Futures: Partners in Transformative Talent!
             </div>
           </div>
-          <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-          </button>
-          <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-          </button>
-        </div>
+
+          <div className="presentation">
+            <div id="partnerCarousel" className="carousel slide" data-bs-ride="carousel">
+              <div className="carousel-inner">
+                <div className="carousel-item active">
+                  <h1>SISI</h1>
+                  <p>STAY IN SCHOOL INITIATIVE</p>
+                </div>
+                <div className="carousel-item">
+                  <h1>Partner 2</h1>
+                  <p>Your content goes here.</p>
+                </div>
+                <div className="carousel-item">
+                  <h1>Partner 3</h1>
+                  <p>Your content goes here.</p>
+                </div>
+              </div>
+
+              {/* <!-- Hide navigation buttons on small screens --> */}
+              <button
+                className="carousel-control-prev d-none d-md-block"
+                type="button"
+                data-bs-target="#partnerCarousel"
+                data-bs-slide="prev"
+              >
+                <span className="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span className="visually-hidden">Previous</span>
+              </button>
+              <button
+                className="carousel-control-next d-none d-md-block"
+                type="button"
+                data-bs-target="#partnerCarousel"
+                data-bs-slide="next"
+              >
+                <span className="carousel-control-next-icon" aria-hidden="true"></span>
+                <span className="visually-hidden">Next</span>
+              </button>
+            </div>
+          </div>
+        </section>
       </div>
+      {/* footer */}
+
+      <Footer />
     </div>
   );
 }
