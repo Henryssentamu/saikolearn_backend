@@ -5,7 +5,10 @@ import "bootstrap/dist/js/bootstrap.bundle.min.js";
 export function Footer() {
   return (
     <footer style={{ backgroundColor: "#0d0a2c", color: "white", padding: "120px 0", marginTop: "130px", position: "relative" }}>
-      <div className="container px-4 py-4" style={{ backgroundColor: "#0d0a2c", position: "absolute", top: "-75px", maxWidth: "600px" }}>
+      <div
+        className="container px-4 py-4 poppins-regular"
+        style={{ backgroundColor: "#0d0a2c", position: "absolute", top: "-95px", maxWidth: "600px", fontSize: "21px" }}
+      >
         <div>
           Start on a transformative educational journey in our upcoming in-takes , designed for diverse skills and interests. Join us to
           enhance your abilities and explore new horizons.
@@ -14,9 +17,9 @@ export function Footer() {
           Rigester
         </a>
       </div>
-      <div className="container ">
+      <div className="container mt-5 ">
         <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 text-center">
-          <div className="col">
+          <div className="col mt-4">
             <h1>saikolearn</h1>
             <p>
               <b>saikolearn:</b> Your prime Tech skilling center and the ultimate blueprint for recruiting top-notch software talent.

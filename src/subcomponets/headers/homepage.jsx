@@ -23,7 +23,7 @@ export function HomeNav() {
       }}
     >
       <div className="container-fluid">
-        <a href="#" className="navbar-brand text-white">
+        <a href="/" className="navbar-brand text-white">
           SaikLearn
         </a>
         <button
@@ -64,27 +64,27 @@ export function HomeNav() {
               </div>
             </li>
             <li className="nav-item">
-              <a href="#" className="nav-link text-white">
+              <a href="/admission" className="nav-link text-white">
                 Admissions
               </a>
             </li>
             <li className="nav-item">
-              <a href="#" className="nav-link text-white">
+              <a href="/aboutUs" className="nav-link text-white">
                 Aboutus
               </a>
             </li>
             <li className="nav-item">
-              <a href="#" className="nav-link text-white">
+              <a href="/contactUs" className="nav-link text-white">
                 Contact
               </a>
             </li>
             <li className="nav-item">
-              <a href="#" className="nav-link" style={{ color: "#fd7e14" }}>
+              <a href="/signin" className="nav-link" style={{ color: "#fd7e14" }}>
                 Sign In
               </a>
             </li>
             <li className="nav-item">
-              <a href="#" className="nav-link" style={{ color: "#fd7e14" }}>
+              <a href="/signUp" className="nav-link" style={{ color: "#fd7e14" }}>
                 Sign Up
               </a>
             </li>
