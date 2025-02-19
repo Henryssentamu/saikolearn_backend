@@ -6,6 +6,8 @@ import { ContactUs } from "./componest/contactUs";
 import { AboutUs } from "./componest/aboutUs";
 import { SignIn } from "./componest/signin";
 import { SignUp } from "./componest/signUp";
+import { SchoolOfSoftwareEngineering } from "./componest/softwareEngineeringSchool";
+import { SchoolOfDataScience } from "./componest/schoolOfDataScience";
 
 export function App() {
   return (
@@ -18,6 +20,8 @@ export function App() {
           <Route path="/aboutUs" element={<AboutUs />} />
           <Route path="/signin" element={<SignIn />} />
           <Route path="/signUp" element={<SignUp />} />
+          <Route path="/schoolOfSoftwareEngineering" element={<SchoolOfSoftwareEngineering />} />
+          <Route path="/schoolOfDataScience" element={<SchoolOfDataScience />} />
         </Routes>
       </Router>
     </div>

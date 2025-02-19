@@ -22,7 +22,7 @@ export function SignIn() {
             Sign In
           </button>
           <a href="#" className="link m-3">
-            forgot password
+            forgot passwordss
           </a>
           <a href="/signUp" className="link m-3">
             Register

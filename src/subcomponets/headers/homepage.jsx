@@ -5,8 +5,8 @@ import { useState, useRef, useEffect } from "react";
 
 export function HomeNav() {
   const [schools, setSchools] = useState([
-    { schoolId: "1222", schoolName: "Software Engineering", url: "/schools" },
-    { schoolId: "1333", schoolName: "Data Science", url: "/schools" },
+    { schoolId: "1222", schoolName: "Software Engineering", url: "/schoolOfSoftwareEngineering" },
+    { schoolId: "1333", schoolName: "Data Science", url: "/schoolOfDataScience" },
   ]);
   return (
     <div
@@ -54,7 +54,7 @@ export function HomeNav() {
                   {schools.map((obj, index) => {
                     return (
                       <li key={index}>
-                        <a data-school-id={obj.schoolId} className="dropdown-item" href="/school">
+                        <a data-school-id={obj.schoolId} className="dropdown-item" href={obj.url}>
                           {obj.schoolName}
                         </a>
                       </li>

@@ -1,7 +1,7 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
-import { Footer } from "../subcomponets/headers/home";
+import { Footer } from "../subcomponets/footers/home";
 import { HomeNav } from "../subcomponets/headers/homepage";
 
 export function SignUp() {

@@ -1,0 +1,22 @@
+.schoolOfSoftwareEngineering {
+  background-image: url("/techimage.jpeg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 620px;
+  overflow: hidden;
+  width: 100%;
+  margin: 0px;
+  padding: 0px;
+  position: relative;
+}
+
+.banner-content {
+  position: absolute;
+  top: 120px;
+  left: 80;
+  background-color: rgba(0, 0, 0, 0.434);
+  border-radius: 5px;
+  padding: 15px 10px;
+  color: white;
+}

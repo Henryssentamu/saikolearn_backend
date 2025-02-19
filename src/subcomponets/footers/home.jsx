@@ -19,7 +19,7 @@ export function Footer() {
       </div>
       <div className="container mt-5 ">
         <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 text-center">
-          <div className="col mt-4">
+          <div className="col " style={{ marginTop: "100px" }}>
             <h1>saikolearn</h1>
             <p>
               <b>saikolearn:</b> Your prime Tech skilling center and the ultimate blueprint for recruiting top-notch software talent.
