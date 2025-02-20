@@ -99,7 +99,12 @@ export function Home() {
                     </div>
                   </div>
                 </div>
-                <a href="/course" data-course-id={courseObj.courseId} className="btn btn-outline-light " style={{ margin: "15px 10px" }}>
+                <a
+                  href="/introToProgramming"
+                  data-course-id={courseObj.courseId}
+                  className="btn btn-outline-light "
+                  style={{ margin: "15px 10px" }}
+                >
                   Read More
                 </a>
               </div>
