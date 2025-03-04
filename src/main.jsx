@@ -9,7 +9,10 @@ import { SignUp } from "./componest/signUp";
 import { SchoolOfSoftwareEngineering } from "./componest/softwareEngineeringSchool";
 import { SchoolOfDataScience } from "./componest/schoolOfDataScience";
 import { IntroToprogramming } from "./componest/courses/introToProgramming";
-
+import { AdminDashboard } from "./componest/admin/dashboard";
+import { AdminSchoolDashboard } from "./componest/admin/schoolAdminDashbord";
+import { AdminCourseDashboard } from "./componest/admin/courseDashboard";
+// import { AdminCourseDashboard } from "./componest/admin/courseDashboard";
 export function App() {
   return (
     <div>
@@ -24,6 +27,10 @@ export function App() {
           <Route path="/schoolOfSoftwareEngineering" element={<SchoolOfSoftwareEngineering />} />
           <Route path="/schoolOfDataScience" element={<SchoolOfDataScience />} />
           <Route path="/introToProgramming" element={<IntroToprogramming />}></Route>
+          <Route path="/admindashboard" element={<AdminDashboard />} />
+          <Route path="/school" element={<AdminSchoolDashboard />} />
+          <Route path="/courses" element={<AdminCourseDashboard />} />
+          {/* <Route path="/courses" element={<AdminCourseDashboard />} /> */}
         </Routes>
       </Router>
     </div>
