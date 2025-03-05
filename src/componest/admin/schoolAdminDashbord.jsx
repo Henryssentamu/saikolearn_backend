@@ -53,7 +53,7 @@ export function AdminSchoolDashboard() {
             <div className="row">
               {schools.map((school) => (
                 <div key={school.id} className="col-md-4 mb-4">
-                  <a href={`/school-dashboard/${school.id}`} className="text-decoration-none">
+                  <a href="/schooldash" className="text-decoration-none">
                     <div className="card shadow-sm h-100">
                       <div className="card-body text-center">
                         <h5 className="card-title text-primary">{school.name}</h5>

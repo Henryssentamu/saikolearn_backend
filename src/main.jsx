@@ -12,7 +12,9 @@ import { IntroToprogramming } from "./componest/courses/introToProgramming";
 import { AdminDashboard } from "./componest/admin/dashboard";
 import { AdminSchoolDashboard } from "./componest/admin/schoolAdminDashbord";
 import { AdminCourseDashboard } from "./componest/admin/courseDashboard";
-// import { AdminCourseDashboard } from "./componest/admin/courseDashboard";
+import { DashboardOverview } from "./componest/admin/school";
+import { StudentProfile } from "./componest/admin/studentprofile";
+
 export function App() {
   return (
     <div>
@@ -30,7 +32,8 @@ export function App() {
           <Route path="/admindashboard" element={<AdminDashboard />} />
           <Route path="/school" element={<AdminSchoolDashboard />} />
           <Route path="/courses" element={<AdminCourseDashboard />} />
-          {/* <Route path="/courses" element={<AdminCourseDashboard />} /> */}
+          <Route path="/schooldash" element={<DashboardOverview />} />
+          <Route path="/studentprofile" element={<StudentProfile />} />
         </Routes>
       </Router>
     </div>
