@@ -16,7 +16,9 @@ import { DashboardOverview } from "./componest/admin/school";
 import { StudentProfile } from "./componest/admin/studentprofile";
 import { LecturerProfile } from "./componest/admin/lecturerprofile";
 import { CourseAdminDashboard } from "./componest/admin/courses";
-
+import { StudentApplications } from "./componest/admin/student";
+import { EmployeeManagement } from "./componest/admin/employee";
+import { RecruitEmployess } from "./subcomponets/forms/recruitEmployee";
 export function App() {
   return (
     <div>
@@ -38,6 +40,9 @@ export function App() {
           <Route path="/studentprofile" element={<StudentProfile />} />
           <Route path="/tutorprofile" element={<LecturerProfile />} />
           <Route path="/courseAdminDashboard" element={<CourseAdminDashboard />} />
+          <Route path="/registration" element={<StudentApplications />} />
+          <Route path="/employees" element={<EmployeeManagement />} />
+          <Route path="/recruitemployee" element={<RecruitEmployess />} />
         </Routes>
       </Router>
     </div>

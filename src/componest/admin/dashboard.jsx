@@ -43,7 +43,7 @@ export function AdminDashboard() {
           {/* Sidebar */}
           <div className="col-md-2 bg-dark p-3 min-vh-100">
             <nav className="nav flex-column">
-              {["School", "Courses", "Students", "Assessments", "Tutors", "Employees", "Expenditure", "Income", "Plans"].map((item) => (
+              {["School", "Employees", "Registration"].map((item) => (
                 <a className=" btn  btn-outline-info mb-3" key={item} href={`/${item.toLowerCase()}`}>
                   {item}
                 </a>

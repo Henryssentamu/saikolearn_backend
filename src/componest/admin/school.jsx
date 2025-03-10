@@ -12,289 +12,28 @@ import {
   FaStar,
   FaMoneyBillWave,
   FaChartLine,
+  FaPaperPlane,
+  FaUserGraduate,
+  FaChalkboardTeacher,
+  FaBook,
+  FaDollarSign,
+  FaBars,
 } from "react-icons/fa";
 
 import { Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
-// import React, { useState } from "react";
-// import "bootstrap/dist/css/bootstrap.min.css";
-// import "bootstrap/dist/js/bootstrap.bundle.min.js";
-import { FaUserGraduate, FaChalkboardTeacher, FaBook, FaDollarSign, FaBars } from "react-icons/fa";
 
-// import {
-//   FaUserGraduate,
-//   FaChalkboardTeacher,
-//   FaBook,
-//   FaDollarSign,
-//   FaChartLine,
-//   FaVideo,
-//   FaClipboardList,
-//   FaFileInvoice,
-//   FaFolderOpen,
-// } from "react-icons/fa";
-
-// export function DashboardOverview() {
-//   return (
-//     <div className="container mt-4">
-//       <h2 className="mb-3">Dashboard Overview</h2>
-//       <div className="row mb-4">
-//         <div className="col-md-3">
-//           <div className="card text-center shadow-sm p-3">
-//             <FaUserGraduate size={40} className="text-primary" />
-//             <h5 className="mt-2">Total Students</h5>
-//             <h3>1,200</h3>
-//           </div>
-//         </div>
-//         <div className="col-md-3">
-//           <div className="card text-center shadow-sm p-3">
-//             <FaChalkboardTeacher size={40} className="text-success" />
-//             <h5 className="mt-2">Total Teachers</h5>
-//             <h3>50</h3>
-//           </div>
-//         </div>
-//         <div className="col-md-3">
-//           <div className="card text-center shadow-sm p-3">
-//             <FaBook size={40} className="text-warning" />
-//             <h5 className="mt-2">Courses</h5>
-//             <h3>35</h3>
-//           </div>
-//         </div>
-//         <div className="col-md-3">
-//           <div className="card text-center shadow-sm p-3">
-//             <FaDollarSign size={40} className="text-danger" />
-//             <h5 className="mt-2">Pending Fees</h5>
-//             <h3>$5,200</h3>
-//           </div>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// }
-
-// export function StudentManagement() {
-//   return (
-//     <div className="card p-3 shadow-sm">
-//       <h5>Student Management</h5>
-//       <table className="table table-striped table-bordered table-hover table-sm">
-//         <thead>
-//           <tr>
-//             <th>Name</th>
-//             <th>Email</th>
-//             <th>Course</th>
-//             <th>Actions</th>
-//           </tr>
-//         </thead>
-//         <tbody>
-//           <tr>
-//             <td>John Doe</td>
-//             <td>john@example.com</td>
-//             <td>Mathematics</td>
-//             <td>
-//               <button className="btn btn-primary btn-sm">View</button>
-//             </td>
-//           </tr>
-//         </tbody>
-//       </table>
-//     </div>
-//   );
-// }
-
-// Sample Data
-
-//   const [students, setStudents] = useState(initialStudents);
-//   const [studentName, setStudentName] = useState("");
-//   const [selectedStudent, setSelectedStudent] = useState(null);
-//   const [newCourse, setNewCourse] = useState("");
-//   const [newProgress, setNewProgress] = useState(0);
-//   const [newGrade, setNewGrade] = useState("");
-//   const [newAttendance, setNewAttendance] = useState(0);
-//   const [issuedCertificates, setIssuedCertificates] = useState([]);
-//   const addStudent = () => {
-//     const newStudent = { id: students.length + 1, name: studentName, courses: [] };
-//     setStudents([...students, newStudent]);
-//     setStudentName("");
-//   };
-//   const updateCourse = (studentId, courseIndex) => {
-//     const updatedStudents = students.map((student) => {
-//       if (student.id === studentId) {
-//         student.courses[courseIndex] = {
-//           ...student.courses[courseIndex],
-//           progress: newProgress,
-//           grade: newGrade,
-//           attendance: newAttendance,
-//         };
-//       }
-//       return student;
-//     });
-//     setStudents(updatedStudents);
-//     setNewCourse("");
-//     setNewProgress(0);
-//     setNewGrade("");
-//     setNewAttendance(0);
-//   };
-//   const removeStudent = (studentId) => {
-//     const updatedStudents = students.filter((student) => student.id !== studentId);
-//     setStudents(updatedStudents);
-//   };
-//   const issueCertificate = (studentId) => {
-//     const student = students.find((student) => student.id === studentId);
-//     const completedCourses = student.courses.filter((course) => course.completed);
-//     if (completedCourses.length === student.courses.length) {
-//       setIssuedCertificates([...issuedCertificates, `Certificate issued to ${student.name}`]);
-//     } else {
-//       alert("All courses need to be completed before issuing a certificate.");
-//     }
-//   };
-//   const trackPerformance = (studentId) => {
-//     const student = students.find((student) => student.id === studentId);
-//     const totalProgress = student.courses.reduce((acc, course) => acc + course.progress, 0);
-//     const averageProgress = totalProgress / student.courses.length;
-//     alert(`${student.name}'s average progress: ${averageProgress}%`);
-//   };
-//   return (
-//     <div className="container mt-5">
-//       <h1 className="text-center mb-4">Student Management System</h1>
-//       {/* Add Student Form */}
-//       <div className="card p-4 mb-4 shadow-sm">
-//         <h3 className="text-primary">Add New Student</h3>
-//         <div className="d-flex">
-//           <input
-//             type="text"
-//             className="form-control mr-2"
-//             placeholder="Enter student name"
-//             value={studentName}
-//             onChange={(e) => setStudentName(e.target.value)}
-//           />
-//           <button className="btn btn-success" onClick={addStudent}>
-//             Add Student
-//           </button>
-//         </div>
-//       </div>
-//       {/* Student List */}
-//       <div className="row">
-//         {students.map((student) => (
-//           <div key={student.id} className="col-md-4 mb-4">
-//             <div className="card shadow-sm">
-//               <div className="card-body">
-//                 <h4 className="card-title">{student.name}</h4>
-//                 <button className="btn btn-info btn-sm" onClick={() => setSelectedStudent(student)}>
-//                   View Profile
-//                 </button>
-//                 <button className="btn btn-danger btn-sm ml-2" onClick={() => removeStudent(student.id)}>
-//                   Remove
-//                 </button>
-//                 <button className="btn btn-primary btn-sm ml-2" onClick={() => trackPerformance(student.id)}>
-//                   Track Performance
-//                 </button>
-//                 <button className="btn btn-success btn-sm ml-2" onClick={() => issueCertificate(student.id)}>
-//                   Issue Certificate
-//                 </button>
-//                 {selectedStudent && selectedStudent.id === student.id && (
-//                   <div className="mt-3">
-//                     <h5 className="text-muted">Student Profile</h5>
-//                     {student.courses.map((course, index) => (
-//                       <div key={index} className="card p-2 mb-3 shadow-sm">
-//                         <h6>{course.name}</h6>
-//                         <p>Progress: {course.progress}%</p>
-//                         <p>Grade: {course.grade}</p>
-//                         <p>Attendance: {course.attendance}%</p>
-//                         <button className="btn btn-warning btn-sm" onClick={() => updateCourse(student.id, index)}>
-//                           Update Course
-//                         </button>
-//                       </div>
-//                     ))}
-//                   </div>
-//                 )}
-//               </div>
-//             </div>
-//           </div>
-//         ))}
-//       </div>
-//       {/* New Course Form */}
-//       {selectedStudent && (
-//         <div className="card p-4 mt-5 shadow-sm">
-//           <h3 className="text-primary">Add New Course for {selectedStudent.name}</h3>
-//           <div className="form-group">
-//             <input
-//               type="text"
-//               className="form-control"
-//               placeholder="Course Name"
-//               value={newCourse}
-//               onChange={(e) => setNewCourse(e.target.value)}
-//             />
-//           </div>
-//           <div className="form-group">
-//             <input
-//               type="number"
-//               className="form-control"
-//               placeholder="Progress (%)"
-//               value={newProgress}
-//               onChange={(e) => setNewProgress(e.target.value)}
-//             />
-//           </div>
-//           <div className="form-group">
-//             <input
-//               type="text"
-//               className="form-control"
-//               placeholder="Grade"
-//               value={newGrade}
-//               onChange={(e) => setNewGrade(e.target.value)}
-//             />
-//           </div>
-//           <div className="form-group">
-//             <input
-//               type="number"
-//               className="form-control"
-//               placeholder="Attendance (%)"
-//               value={newAttendance}
-//               onChange={(e) => setNewAttendance(e.target.value)}
-//             />
-//           </div>
-//           <button
-//             className="btn btn-success"
-//             onClick={() => {
-//               const updatedStudents = students.map((student) => {
-//                 if (student.id === selectedStudent.id) {
-//                   student.courses.push({
-//                     name: newCourse,
-//                     progress: newProgress,
-//                     grade: newGrade,
-//                     attendance: newAttendance,
-//                     completed: false,
-//                   });
-//                 }
-//                 return student;
-//               });
-//               setStudents(updatedStudents);
-//               setNewCourse("");
-//               setNewProgress(0);
-//               setNewGrade("");
-//               setNewAttendance(0);
-//             }}
-//           >
-//             Add Course
-//           </button>
-//         </div>
-//       )}
-//       {/* Issued Certificates */}
-//       <div className="mt-5">
-//         <h3>Issued Certificates</h3>
-//         {issuedCertificates.length === 0 ? (
-//           <p>No certificates issued yet.</p>
-//         ) : (
-//           <ul className="list-group">
-//             {issuedCertificates.map((certificate, index) => (
-//               <li key={index} className="list-group-item">
-//                 {certificate}
-//               </li>
-//             ))}
-//           </ul>
-//         )}
-//       </div>
-//     </div>
-//   );
-//   / Sample student data
+const schools = [
+  {
+    SchoolId: "se001",
+    SchoolName: "School Of Software Engineering",
+  },
+  {
+    SchoolId: "ds001",
+    SchoolName: "School of Data science",
+  },
+];
 
 const teacherdetails = [
   {
@@ -404,7 +143,7 @@ export function CourseManagement() {
 
     const handleShowModal = (course = null) => {
       setEditMode(!!course);
-      setCurrentCourse(course || { name: "", category: "", tags: "", prerequisites: "", content: "" });
+      setCurrentCourse(course || { name: "", School: "", prerequisites: "", YoutubeCourseLink: "" });
       setShowModal(true);
     };
 
@@ -424,7 +163,19 @@ export function CourseManagement() {
     const handleDeleteCourse = (name) => {
       setCourses(courses.filter((c) => c.name !== name));
     };
+    const sendCourseTobackendserver = () => {
+      if (courses) {
+        // fetch('/api/send-courses', { method: 'POST', body: JSON.stringify(courses) });
+        alert(courses);
+        console.log(courses);
 
+        // reload the page so that it empty the
+        // window.location.reload();
+        setCourses([]);
+      } else {
+        return <div>no course to send </div>;
+      }
+    };
     return (
       <div className="container mt-4">
         <h2 className="mb-4">Course Management</h2>
@@ -435,10 +186,9 @@ export function CourseManagement() {
           <thead>
             <tr>
               <th>Course Name</th>
-              <th>Category</th>
-              <th>Tags</th>
+              <th>School</th>
               <th>Prerequisites</th>
-              <th>Content</th>
+              <th>YoutubeCourseLink</th>
               <th>Actions</th>
             </tr>
           </thead>
@@ -446,12 +196,11 @@ export function CourseManagement() {
             {courses.map((course, index) => (
               <tr key={index}>
                 <td>{course.name}</td>
-                <td>{course.category}</td>
-                <td>{course.tags}</td>
+                <td>{course.School}</td>
                 <td>{course.prerequisites}</td>
                 <td>
-                  {course.content.includes("youtube") ? (
-                    <a href={course.content} target="_blank" rel="noopener noreferrer">
+                  {course.YoutubeCourseLink.includes("youtube") ? (
+                    <a href={course.YoutubeCourseLink} target="_blank" rel="noopener noreferrer">
                       YouTube
                     </a>
                   ) : (
@@ -466,6 +215,9 @@ export function CourseManagement() {
                   </button>
                   <button className="btn btn-danger btn-sm ms-2" onClick={() => handleDeleteCourse(course.name)}>
                     <FaTrash />
+                  </button>
+                  <button className="btn btn-success btn-sm ms-2" onClick={() => sendCourseTobackendserver()}>
+                    <FaPaperPlane />
                   </button>
                 </td>
               </tr>
@@ -500,28 +252,24 @@ export function CourseManagement() {
                     </div>
                     <div className="mb-3">
                       <label htmlFor="course-category" className="form-label">
-                        Category
+                        School
                       </label>
-                      <input
-                        type="text"
-                        className="form-control"
+                      <select
+                        name="School"
                         id="course-category"
-                        value={currentCourse.category}
-                        onChange={(e) => setCurrentCourse({ ...currentCourse, category: e.target.value })}
-                      />
-                    </div>
-                    <div className="mb-3">
-                      <label htmlFor="course-tags" className="form-label">
-                        Tags
-                      </label>
-                      <input
-                        type="text"
                         className="form-control"
-                        id="course-tags"
-                        value={currentCourse.tags}
-                        onChange={(e) => setCurrentCourse({ ...currentCourse, tags: e.target.value })}
-                      />
+                        value={currentCourse.School}
+                        onChange={(e) => setCurrentCourse({ ...currentCourse, School: e.target.value })}
+                      >
+                        <option value="">Select a school</option> {/* Default empty option */}
+                        {schools.map((school) => (
+                          <option key={school.SchoolId} value={school.SchoolId}>
+                            {school.SchoolName}
+                          </option>
+                        ))}
+                      </select>
                     </div>
+
                     <div className="mb-3">
                       <label htmlFor="course-prerequisites" className="form-label">
                         Prerequisites
@@ -536,13 +284,13 @@ export function CourseManagement() {
                     </div>
                     <div className="mb-3">
                       <label htmlFor="course-content" className="form-label">
-                        Course Content (YouTube or Zoom/Google Meet Link)
+                        Course YouTube Link (YouTube or Zoom/Google Meet Link)
                       </label>
                       <input
                         type="text"
                         className="form-control"
                         id="course-content"
-                        value={currentCourse.content}
+                        value={currentCourse.YoutubeCourseLink}
                         onChange={(e) => setCurrentCourse({ ...currentCourse, content: e.target.value })}
                       />
                     </div>
