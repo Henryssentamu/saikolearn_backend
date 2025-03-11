@@ -19,6 +19,8 @@ import { CourseAdminDashboard } from "./componest/admin/courses";
 import { StudentApplications } from "./componest/admin/student";
 import { EmployeeManagement } from "./componest/admin/employee";
 import { RecruitEmployess } from "./subcomponets/forms/recruitEmployee";
+import { Studentportal } from "./componest/studentportal/dashboard";
+import { CourseDashboard } from "./componest/studentportal/coursedashboard";
 export function App() {
   return (
     <div>
@@ -43,6 +45,8 @@ export function App() {
           <Route path="/registration" element={<StudentApplications />} />
           <Route path="/employees" element={<EmployeeManagement />} />
           <Route path="/recruitemployee" element={<RecruitEmployess />} />
+          <Route path="/studentportal" element={<Studentportal />} />
+          <Route path="/coursedashboard" element={<CourseDashboard />} />
         </Routes>
       </Router>
     </div>

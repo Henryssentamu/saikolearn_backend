@@ -242,7 +242,7 @@ export function EmployeeManagement() {
             Admin Panel
           </a>
           <div className="ml-auto d-flex">
-            <a className="nav-link" href="/school" style={{ color: "white" }}>
+            <a className="nav-link" href="/admindashboard" style={{ color: "white" }}>
               Back
             </a>
             <a className="nav-link ms-5" href="/recruitemployee" style={{ color: "white" }}>
