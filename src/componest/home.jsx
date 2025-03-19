@@ -48,7 +48,7 @@ export function Home() {
                   Transform your future By Registering <br /> for upcoming intake.
                 </div>
                 <div className="mt-5">
-                  <a href="#">
+                  <a href="/signUp">
                     <button className="btn btn-outline-info text-white " style={{ padding: "5px 45px", marginBottom: "25px" }}>
                       Register
                     </button>

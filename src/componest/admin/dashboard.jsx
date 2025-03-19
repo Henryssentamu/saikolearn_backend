@@ -1,7 +1,7 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { FaCog } from "react-icons/fa";
 
 export function AdminDashboard() {
@@ -18,6 +18,28 @@ export function AdminDashboard() {
     targetIncome: 60000,
     targetExpenditure: 25000,
   };
+
+  const [studentData, setstudentData] = useState([]);
+  useEffect(() => {
+    fetch("http://127.0.0.1:8000/api/studentdata")
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("api failed to fetch student data");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        if (data) {
+          alert(JSON.stringify(data));
+          console.log(data);
+          setstudentData([...data]);
+        }
+      })
+      .catch((error) => {
+        alert(error);
+        console.log(error);
+      });
+  }, []);
 
   return (
     <>
