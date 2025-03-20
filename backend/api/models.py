@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.hashers import make_password
 import secrets
 
 class GenerateIds:
@@ -21,7 +22,7 @@ class RegisterStudent(models.Model):
     password = models.CharField(max_length=150)
 
     def __str__(self):
-        return f"{self.studentid}"  # Better representation
+        return f"{self.studentid}"  # Better representation. this is sent back to a post request when a student is successfully registered
 
     def save(self, *args, **kwargs):
         """Generate a unique student ID before saving."""
@@ -37,5 +38,10 @@ class RegisterStudent(models.Model):
                 self.studentid = new_id
             except Exception as e:
                 raise Exception(f"Error while generating student ID: {e}")
+            
+            """hashing password b4 populating the register student database"""
+        
+        if self.password and not self.password.startswith("pbkdf2_"):
+            self.password = make_password(self.password)
 
         super().save(*args, **kwargs)  # Corrected super call

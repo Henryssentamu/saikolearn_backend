@@ -1,9 +1,12 @@
-
+from django.contrib.auth import authenticate
+from django.contrib.auth.hashers import check_password
+from django.shortcuts import get_object_or_404
 from rest_framework import generics,status
 from rest_framework.response import Response
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view,  authentication_classes, permission_classes
 from rest_framework.permissions import IsAuthenticated, AllowAny
-
+from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework_simplejwt.authentication import JWTAuthentication
 
 from .models import RegisterStudent
 from .serializers import StudentSerializer
@@ -39,6 +42,8 @@ class FetchStudentDetails(generics.ListAPIView):
         return Response(serializer.data)
 
 @api_view(["GET"])
+@authentication_classes([JWTAuthentication])
+@permission_classes([IsAuthenticated])
 def get_specific_student_details(request, studentid):
     """Retrieve a specific student's details by studentId"""
     try:
@@ -47,6 +52,25 @@ def get_specific_student_details(request, studentid):
         return Response(serializer.data)
     except RegisterStudent.DoesNotExist:
         return Response({"error": "Student not found"}, status=404)
+
+
+# authenticating students
+
+@api_view(["POST"])
+def student_login(request):
+    studentId = request.data.get("studentId")
+    password = request.data.get("password")
+    student = get_object_or_404(RegisterStudent, studentid=studentId)
+    if check_password(password, student.password):
+        refresh = RefreshToken.for_user(student)
+        return Response(
+            {
+                "access": str(refresh.access_token),
+                "refresh":str(refresh)
+            }
+        )
+        
+    return Response({"Error": "invalde credentials"},status=400)
 
 
 

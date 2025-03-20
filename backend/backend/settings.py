@@ -25,7 +25,8 @@ SECRET_KEY = 'django-insecure-b=+74v!%a67n*av!lmkti6^z(g^-idu!gl69@p5r=*(zj&2#@=
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+# in the allowed host, we put astrick so that it allows different hosts during deploment
+ALLOWED_HOSTS = ["*"] 
 
 
 # Application definition
@@ -141,4 +142,27 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",  # Local development
     # "https://example.com",  # For Deployed React app domin 
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',  # Enables JWT authentication
+    ),
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',  # Restricts access to authenticated users
+    ],
+}
+
+
+from datetime import timedelta
+
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=30),  # Adjust token expiration time
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=7),
+    "ROTATE_REFRESH_TOKENS": True,  # Generates a new refresh token on each refresh
+    "BLACKLIST_AFTER_ROTATION": True,
+    "ALGORITHM": "HS256",
+    "SIGNING_KEY": SECRET_KEY,  # Uses Django's SECRET_KEY
+    "AUTH_HEADER_TYPES": ("Bearer",),  # Accepts "Bearer <token>" format in headers
+}
+
 
