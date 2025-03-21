@@ -1,4 +1,4 @@
-export const countries = [
+export const countriesList = [
   "Afghanistan",
   "Albania",
   "Algeria",
@@ -196,7 +196,7 @@ export const countries = [
   "Zimbabwe",
 ];
 
-export const countryCodes = [
+export const countryCodesList = [
   "+93",
   "+355",
   "+213",

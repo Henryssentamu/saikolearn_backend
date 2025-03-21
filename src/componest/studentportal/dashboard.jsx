@@ -1,7 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { FaUserCircle, FaBook, FaCalendarAlt, FaQuestionCircle, FaCog, FaSignOutAlt } from "react-icons/fa";
 import { Link, useSubmit } from "react-router-dom";
+import { apiUrl } from "../../../env";
+import { fetchWithAuth } from "../../assets/tokenservice";
+import { useLocation } from "react-router-dom";
 
 // Calendar Component
 
@@ -42,6 +45,8 @@ const Calendar = ({ events }) => {
 
 // Main App Component
 export function Studentportal() {
+  const location = useLocation();
+  const studentId = location.state?.studentId;
   const [studentData, setstudentData] = useState([
     {
       studentnumber: "213324",
@@ -56,6 +61,37 @@ export function Studentportal() {
       },
     },
   ]);
+
+  async function fetchStudentDetails(token) {
+    return await fetch(`${apiUrl}astudent/${encodeURIComponent(studentId)}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("api failed to fetch student data");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        if (data) {
+          setstudentData([...data]);
+          return true;
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        return false;
+      });
+  }
+
+  useEffect(() => {
+    fetchWithAuth(fetchStudentDetails);
+  }, []);
+
   // Header Component
   function Header() {
     const [show, setshow] = useState(false);
@@ -152,6 +188,7 @@ export function Studentportal() {
       </div>
     );
   }
+  console.log(studentData);
 
   return (
     <div>

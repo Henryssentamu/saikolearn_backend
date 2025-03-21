@@ -163,6 +163,7 @@ SIMPLE_JWT = {
     "ALGORITHM": "HS256",
     "SIGNING_KEY": SECRET_KEY,  # Uses Django's SECRET_KEY
     "AUTH_HEADER_TYPES": ("Bearer",),  # Accepts "Bearer <token>" format in headers
+	"USER_ID_FIELD": "studentid",
 }
 
 

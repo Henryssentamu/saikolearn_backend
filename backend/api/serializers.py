@@ -10,3 +10,7 @@ class StudentSerializer(serializers.ModelSerializer):
             "password": {"write_only": True},  # ✅ Don't return passwords in responses
             "date": {"read_only": True}, 
         }
+
+
+
+

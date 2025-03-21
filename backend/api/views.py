@@ -8,6 +8,11 @@ from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.authentication import JWTAuthentication
 
+import logging
+
+logger = logging.getLogger(__name__)
+
+
 from .models import RegisterStudent
 from .serializers import StudentSerializer
 
@@ -44,9 +49,12 @@ class FetchStudentDetails(generics.ListAPIView):
 @api_view(["GET"])
 @authentication_classes([JWTAuthentication])
 @permission_classes([IsAuthenticated])
-def get_specific_student_details(request, studentid):
+def get_specific_student_details(request):
     """Retrieve a specific student's details by studentId"""
     try:
+        studentid = request.GET.get("studentid")
+        
+        print(f"recieved id:{studentid}")
         student = RegisterStudent.objects.get(studentid=studentid)
         serializer = StudentSerializer(student)
         return Response(serializer.data)
@@ -57,10 +65,14 @@ def get_specific_student_details(request, studentid):
 # authenticating students
 
 @api_view(["POST"])
+@permission_classes([AllowAny])
 def student_login(request):
     studentId = request.data.get("studentId")
     password = request.data.get("password")
+    print(f"studentid:{studentId}, password:{password}")
     student = get_object_or_404(RegisterStudent, studentid=studentId)
+    print(f"Received Password: {password}")
+    print(f"Stored Hashed Password: {student.password}")  # Debugging
     if check_password(password, student.password):
         refresh = RefreshToken.for_user(student)
         return Response(

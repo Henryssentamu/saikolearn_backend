@@ -262,7 +262,7 @@ import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import { Footer } from "../subcomponets/footers/home";
 import { HomeNav } from "../subcomponets/headers/homepage";
 import { apiUrl } from "../../env";
-import { countries, countryCodes } from "../assets/countrycodes";
+import { countriesList, countryCodesList } from "../assets/countrycodes";
 
 export async function Api({ data, root }) {
   try {
@@ -282,6 +282,8 @@ export async function Api({ data, root }) {
 }
 
 export function SignUp() {
+  const countries = [...new Set(countriesList)];
+  const countryCodes = [...new Set(countryCodesList)];
   const [showModal, setShowModal] = useState(false);
   const [studentId, setStudentId] = useState("");
   const [formData, setFormData] = useState({
@@ -296,9 +298,6 @@ export function SignUp() {
     password: "",
     confirmPassword: "",
   });
-
-  // const countries = ["USA", "Canada", "UK", "Australia", "India", "Uganda"];
-  // const countryCodes = ["+1", "+44", "+91", "+256", "+61"];
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
