@@ -166,4 +166,7 @@ SIMPLE_JWT = {
 	"USER_ID_FIELD": "studentid",
 }
 
+# settings.py
+AUTH_USER_MODEL = "api.RegisterStudent"
+
 

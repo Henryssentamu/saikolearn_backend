@@ -7,6 +7,7 @@ from rest_framework.decorators import api_view,  authentication_classes, permiss
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.authentication import JWTAuthentication
+import json
 
 import logging
 
@@ -24,6 +25,8 @@ class StudentRegistrationDetails(generics.ListCreateAPIView):
     def create(self, request, *args, **kwargs):
         # First, you need to initialize the serializer with the incoming request data
         serializer = self.get_serializer(data=request.data)
+        # data = request.data
+        # print(serializer)
         
         # Now, validate the data
         if serializer.is_valid():
@@ -47,16 +50,19 @@ class FetchStudentDetails(generics.ListAPIView):
         return Response(serializer.data)
 
 @api_view(["GET"])
-@authentication_classes([JWTAuthentication])
-@permission_classes([IsAuthenticated])
+@authentication_classes([])
+@permission_classes([])
 def get_specific_student_details(request):
     """Retrieve a specific student's details by studentId"""
+    studentid  = request.query_params.get('param', None)
+    if not studentid:
+        return Response({"error": "studentId parameter is required"}, status=400)
     try:
-        studentid = request.GET.get("studentid")
         
-        print(f"recieved id:{studentid}")
+        print(f"student id:{studentid}")
         student = RegisterStudent.objects.get(studentid=studentid)
         serializer = StudentSerializer(student)
+        print(f"student details")
         return Response(serializer.data)
     except RegisterStudent.DoesNotExist:
         return Response({"error": "Student not found"}, status=404)
@@ -69,20 +75,23 @@ def get_specific_student_details(request):
 def student_login(request):
     studentId = request.data.get("studentId")
     password = request.data.get("password")
-    print(f"studentid:{studentId}, password:{password}")
-    student = get_object_or_404(RegisterStudent, studentid=studentId)
-    print(f"Received Password: {password}")
-    print(f"Stored Hashed Password: {student.password}")  # Debugging
-    if check_password(password, student.password):
-        refresh = RefreshToken.for_user(student)
-        return Response(
-            {
-                "access": str(refresh.access_token),
-                "refresh":str(refresh)
-            }
-        )
-        
-    return Response({"Error": "invalde credentials"},status=400)
+    if not studentId or not password:
+        return Response({"error": "Both studentId and password are required"}, status=400)
+    try:
+
+        student = get_object_or_404(RegisterStudent, studentid=studentId)
+        if check_password(password, student.password):
+            refresh = RefreshToken.for_user(student)
+            return Response(
+                {
+                    "access": str(refresh.access_token),
+                    "refresh":str(refresh)
+                }
+            )
+            
+        return Response({"Error": "invalde credentials"},status=400)
+    except RegisterStudent.DoesNotExist:
+        return Response({"error": "Student not found"}, status=404)
 
 
 

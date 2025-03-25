@@ -6,7 +6,7 @@ urlpatterns =[
 	path("token/refresh", TokenRefreshView.as_view(), name="get_token_refresh"),
 	path("registerstudent/", StudentRegistrationDetails.as_view(), name="register-students"),
 	path("studentlist/",FetchStudentDetails.as_view(), name="student-list"),
-	re_path(r"^astudent/(?P<studentid>.+)/?$", get_specific_student_details, name="get-specific-student"),
+	re_path("astudent/", get_specific_student_details, name="get-specific-student"),
 	path("studentlogin/",student_login,name="student_login"),
 
 	
