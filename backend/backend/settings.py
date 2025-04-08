@@ -47,6 +47,8 @@ INSTALLED_APPS = [
 	
     # installed app
 	'api',
+	# student app
+	"students",
 ]
 
 MIDDLEWARE = [
@@ -167,6 +169,6 @@ SIMPLE_JWT = {
 }
 
 # settings.py
-AUTH_USER_MODEL = "api.RegisterStudent"
+AUTH_USER_MODEL = "students.RegisterStudents"
 
 
