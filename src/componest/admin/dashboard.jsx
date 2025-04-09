@@ -1,12 +1,10 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
-import { fetchWithAuth } from "../../assets/tokenservice";
-
 import React, { useState, useEffect } from "react";
 import { FaCog } from "react-icons/fa";
 
 export function AdminDashboard() {
-  const [studentData, setstudentData] = useState([]);
+  // const [studentData, setstudentData] = useState([]);
   const adminName = "John Doe"; // Replace with actual admin name from state/context
 
   const dataSummary = {
@@ -20,37 +18,6 @@ export function AdminDashboard() {
     targetIncome: 60000,
     targetExpenditure: 25000,
   };
-
-  async function fetchStudentDetails(token) {
-    return await fetch("http://127.0.0.1:8000/api/studentdata", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("api failed to fetch student data");
-        }
-        return response.json();
-      })
-      .then((data) => {
-        if (data) {
-          return data;
-        }
-      })
-      .catch((error) => {
-        return { error: error };
-      });
-  }
-
-  useEffect(() => {
-    const data = fetchWithAuth(fetchStudentDetails);
-    if (data) {
-      setstudentData([...data]);
-    }
-  }, []);
 
   return (
     <>

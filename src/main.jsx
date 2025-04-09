@@ -21,6 +21,7 @@ import { EmployeeManagement } from "./componest/admin/employee";
 import { RecruitEmployess } from "./subcomponets/forms/recruitEmployee";
 import { Studentportal } from "./componest/studentportal/dashboard";
 import { CourseDashboard } from "./componest/studentportal/coursedashboard";
+import { ProgramCourses } from "./componest/studentportal/programes";
 export function App() {
   return (
     <div>
@@ -47,6 +48,7 @@ export function App() {
           <Route path="/recruitemployee" element={<RecruitEmployess />} />
           <Route path="/studentportal" element={<Studentportal />} />
           <Route path="/coursedashboard" element={<CourseDashboard />} />
+          <Route path="/programs" element={<ProgramCourses />} />
         </Routes>
       </Router>
     </div>

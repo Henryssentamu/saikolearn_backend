@@ -91,10 +91,10 @@ export function SignIn() {
       const data = await response.json();
 
       if (response.ok) {
-        localStorage.setItem("accessToken", data.access);
-        localStorage.setItem("refreshToken", data.refresh);
-        console.log("Access Token:", data.access);
-        console.log("Refresh Token:", data.refresh);
+        // localStorage.setItem("accessToken", data.access);
+        // localStorage.setItem("refreshToken", data.refresh);
+        // console.log("Access Token:", data.access);
+        // console.log("Refresh Token:", data.refresh);
         alert("Login successful!");
 
         navigate("/studentportal", { state: { studentId } }); // Corrected

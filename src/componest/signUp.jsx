@@ -1,261 +1,3 @@
-// import { useState } from "react";
-// import "bootstrap/dist/css/bootstrap.min.css";
-// import Select from "react-select";
-// import { getNames, getCode } from "country-list";
-// import { getCountryCallingCode } from "libphonenumber-js";
-
-// const StudentRegistration = () => {
-//   const countries = getNames().map((name) => ({
-//     label: name,
-//     value: name,
-//     code: getCode(name),
-//   }));
-
-//   const [formData, setFormData] = useState({
-//     name: "",
-//     phone: "",
-//     countryCode: "+1",
-//     email: "",
-//     country: "",
-//     dob: "",
-//     gender: "",
-//     password: "",
-//     confirmPassword: "",
-//   });
-
-//   const handleChange = (e) => {
-//     setFormData({ ...formData, [e.target.name]: e.target.value });
-//   };
-
-//   const handleCountryChange = (selectedOption) => {
-//     const countryCode = selectedOption.code ? `+${getCountryCallingCode(selectedOption.code)}` : "+1";
-//     setFormData({ ...formData, country: selectedOption.value, countryCode });
-//   };
-
-//   const handleSubmit = (e) => {
-//     e.preventDefault();
-//     if (formData.password !== formData.confirmPassword) {
-//       alert("Passwords do not match");
-//       return;
-//     }
-//     console.log("Registered Student:", formData);
-//   };
-
-//   return (
-//     <div className="container mt-5">
-//       <div className="card p-4 shadow">
-//         <h2 className="mb-4 text-center">Student Registration</h2>
-//         <form onSubmit={handleSubmit}>
-//           <div className="mb-3">
-//             <label className="form-label">Full Name</label>
-//             <input type="text" name="name" className="form-control" value={formData.name} onChange={handleChange} required />
-//           </div>
-
-//           <div className="mb-3">
-//             <label className="form-label">Country of Origin</label>
-//             <Select options={countries} onChange={handleCountryChange} placeholder="Select Country" />
-//           </div>
-
-//           <div className="mb-3 row">
-//             <div className="col-md-3">
-//               <label className="form-label">Country Code</label>
-//               <input type="text" name="countryCode" className="form-control" value={formData.countryCode} readOnly />
-//             </div>
-//             <div className="col-md-9">
-//               <label className="form-label">Phone Number</label>
-//               <input type="text" name="phone" className="form-control" value={formData.phone} onChange={handleChange} required />
-//             </div>
-//           </div>
-
-//           <div className="mb-3">
-//             <label className="form-label">Email</label>
-//             <input type="email" name="email" className="form-control" value={formData.email} onChange={handleChange} required />
-//           </div>
-
-//           <div className="mb-3">
-//             <label className="form-label">Date of Birth</label>
-//             <input type="date" name="dob" className="form-control" value={formData.dob} onChange={handleChange} required />
-//           </div>
-
-//           <div className="mb-3">
-//             <label className="form-label">Gender</label>
-//             <select name="gender" className="form-select" value={formData.gender} onChange={handleChange} required>
-//               <option value="">Select Gender</option>
-//               <option value="Male">Male</option>
-//               <option value="Female">Female</option>
-//             </select>
-//           </div>
-
-//           <div className="mb-3">
-//             <label className="form-label">Password</label>
-//             <input type="password" name="password" className="form-control" value={formData.password} onChange={handleChange} required />
-//           </div>
-
-//           <div className="mb-3">
-//             <label className="form-label">Confirm Password</label>
-//             <input type="password" name="confirmPassword" className="form-control" value={formData.confirmPassword} onChange={handleChange} required />
-//           </div>
-
-//           <button type="submit" className="btn btn-primary w-100">Register</button>
-//         </form>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default StudentRegistration;
-
-// b4
-
-// import { useState } from "react";
-// import "bootstrap/dist/css/bootstrap.min.css";
-// import "bootstrap/dist/js/bootstrap.bundle.min.js";
-// import { Footer } from "../subcomponets/footers/home";
-// import { HomeNav } from "../subcomponets/headers/homepage";
-// import { apiUrl } from "../../env";
-// // import { data } from "react-router-dom";
-
-// export async function Api({ data, root }) {
-//   try {
-//     const response = await fetch(`${root}registerstudent/`, {
-//       method: "POST",
-//       headers: { "Content-Type": "application/json" },
-//       body: JSON.stringify(data),
-//     });
-//     if (!response.ok) {
-//       throw new Error("Error while sending data to backend API");
-//     }
-//     const responseData = await response.json();
-//     console.log(responseData);
-//   } catch (error) {
-//     console.error("Error:", error);
-//   }
-// }
-
-// export function SignUp() {
-//   const [formData, setFormData] = useState({
-//     fName: "",
-//     sname: "",
-//     phone: "",
-//     countryCode: "+256",
-//     email: "",
-//     country: "",
-//     dob: "",
-//     gender: "",
-//     password: "",
-//     confirmPassword: "",
-//   });
-
-//   const countries = ["USA", "Canada", "UK", "Australia", "India", "Uganda"];
-//   const countryCodes = ["+1", "+44", "+91", "+256", "+61"];
-
-//   const handleChange = (e) => {
-//     setFormData({ ...formData, [e.target.name]: e.target.value });
-//   };
-
-//   const handleSubmit = (e) => {
-//     e.preventDefault();
-//     if (formData.password !== formData.confirmPassword) {
-//       alert("Passwords do not match");
-//       return;
-//     }
-//     Api({ data: formData, root: apiUrl });
-//   };
-
-//   return (
-//     <div>
-//       <HomeNav />
-//       <div className="container " style={{ marginTop: "128px" }}>
-//         <div className="card p-4 shadow">
-//           <h2 className="mb-4 text-center">Student Registration</h2>
-//           <form onSubmit={handleSubmit}>
-//             <div className="mb-3">
-//               <label className="form-label">Given Name</label>
-//               <input type="text" name="fName" className="form-control" value={formData.gname} onChange={handleChange} required />
-//             </div>
-//             <div className="mb-3">
-//               <label className="form-label">Sur Name</label>
-//               <input type="text" name="sname" className="form-control" value={formData.sname} onChange={handleChange} required />
-//             </div>
-
-//             <div className="mb-3 row">
-//               <div className="col-md-3">
-//                 <label className="form-label">Country Code</label>
-//                 <select name="countryCode" className="form-select" value={formData.countryCode} onChange={handleChange}>
-//                   {countryCodes.map((code) => (
-//                     <option key={code} value={code}>
-//                       {code}
-//                     </option>
-//                   ))}
-//                 </select>
-//               </div>
-//               <div className="col-md-9">
-//                 <label className="form-label">Phone Number</label>
-//                 <input type="text" name="phone" className="form-control" value={formData.phone} onChange={handleChange} required />
-//               </div>
-//             </div>
-
-//             <div className="mb-3">
-//               <label className="form-label">Email</label>
-//               <input type="email" name="email" className="form-control" value={formData.email} onChange={handleChange} required />
-//             </div>
-
-//             <div className="mb-3">
-//               <label className="form-label">Country of Origin</label>
-//               <select name="country" className="form-select" value={formData.country} onChange={handleChange} required>
-//                 <option value="">Select Country</option>
-//                 {countries.map((country) => (
-//                   <option key={country} value={country}>
-//                     {country}
-//                   </option>
-//                 ))}
-//               </select>
-//             </div>
-
-//             <div className="mb-3">
-//               <label className="form-label">Date of Birth</label>
-//               <input type="date" name="dob" className="form-control" value={formData.dob} onChange={handleChange} required />
-//             </div>
-
-//             <div className="mb-3">
-//               <label className="form-label">Gender</label>
-//               <select name="gender" className="form-select" value={formData.gender} onChange={handleChange} required>
-//                 <option value="">Select Gender</option>
-//                 <option value="Male">Male</option>
-//                 <option value="Female">Female</option>
-//               </select>
-//             </div>
-
-//             <div className="mb-3">
-//               <label className="form-label">Password</label>
-//               <input type="password" name="password" className="form-control" value={formData.password} onChange={handleChange} required />
-//             </div>
-
-//             <div className="mb-3">
-//               <label className="form-label">Confirm Password</label>
-//               <input
-//                 type="password"
-//                 name="confirmPassword"
-//                 className="form-control"
-//                 value={formData.confirmPassword}
-//                 onChange={handleChange}
-//                 required
-//               />
-//             </div>
-
-//             <button type="submit" className="btn btn-primary w-100">
-//               Register
-//             </button>
-//           </form>
-//         </div>
-//       </div>
-//       {/* <Footer /> */}
-//     </div>
-//   );
-// }
-
-// updated
-
 import { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
@@ -287,14 +29,14 @@ export function SignUp() {
   const [showModal, setShowModal] = useState(false);
   const [studentId, setStudentId] = useState("");
   const [formData, setFormData] = useState({
-    fName: "",
-    sname: "",
-    phonenumber: "",
+    FirstName: "",
+    SecondName: "",
+    PhoneNumber: "",
     countryCode: "+256",
-    email: "",
-    country: "",
-    dateofbirth: "",
-    gender: "",
+    Email: "",
+    Country: "",
+    DateOfBirth: "",
+    Gender: "",
     password: "",
     confirmPassword: "",
   });
@@ -311,14 +53,18 @@ export function SignUp() {
       return;
     }
 
-    const fullPhone = formData.countryCode + formData.phonenumber;
+    const fullPhone = formData.countryCode + formData.PhoneNumber;
     const { confirmPassword, countryCode, ...dataToSend } = formData;
-    dataToSend.phonenumber = fullPhone;
+    dataToSend.PhoneNumber = fullPhone;
 
     try {
+      // console.log(dataToSend);
       const responseData = await Api({ data: dataToSend, root: apiUrl });
-      if (responseData && responseData.studentId) {
-        setStudentId(responseData.studentId);
+      if (responseData) {
+        // console.log(responseData);
+        // console.log(responseData.StudentId);
+        // alert(responseData.StudentId);
+        setStudentId(responseData.StudentId);
         setShowModal(true);
       }
     } catch (error) {
@@ -341,11 +87,11 @@ export function SignUp() {
           <form onSubmit={handleSubmit}>
             <div className="mb-3">
               <label className="form-label">Given Name</label>
-              <input type="text" name="fName" className="form-control" value={formData.fName} onChange={handleChange} required />
+              <input type="text" name="FirstName" className="form-control" value={formData.FirstName} onChange={handleChange} required />
             </div>
             <div className="mb-3">
               <label className="form-label">Sur Name</label>
-              <input type="text" name="sname" className="form-control" value={formData.sname} onChange={handleChange} required />
+              <input type="text" name="SecondName" className="form-control" value={formData.SecondName} onChange={handleChange} required />
             </div>
 
             <div className="mb-3 row">
@@ -363,9 +109,9 @@ export function SignUp() {
                 <label className="form-label">Phone Number</label>
                 <input
                   type="text"
-                  name="phonenumber"
+                  name="PhoneNumber"
                   className="form-control"
-                  value={formData.phonenumber}
+                  value={formData.PhoneNumber}
                   onChange={handleChange}
                   required
                 />
@@ -374,12 +120,12 @@ export function SignUp() {
 
             <div className="mb-3">
               <label className="form-label">Email</label>
-              <input type="email" name="email" className="form-control" value={formData.email} onChange={handleChange} required />
+              <input type="email" name="Email" className="form-control" value={formData.Email} onChange={handleChange} required />
             </div>
 
             <div className="mb-3">
               <label className="form-label">Country of Origin</label>
-              <select name="country" className="form-select" value={formData.country} onChange={handleChange} required>
+              <select name="Country" className="form-select" value={formData.Country} onChange={handleChange} required>
                 <option value="">Select Country</option>
                 {countries.map((country) => (
                   <option key={country} value={country}>
@@ -393,9 +139,9 @@ export function SignUp() {
               <label className="form-label">Date of Birth</label>
               <input
                 type="date"
-                name="dateofbirth"
+                name="DateOfBirth"
                 className="form-control"
-                value={formData.dateofbirth}
+                value={formData.DateOfBirth}
                 onChange={handleChange}
                 required
               />
@@ -403,7 +149,7 @@ export function SignUp() {
 
             <div className="mb-3">
               <label className="form-label">Gender</label>
-              <select name="gender" className="form-select" value={formData.gender} onChange={handleChange} required>
+              <select name="Gender" className="form-select" value={formData.Gender} onChange={handleChange} required>
                 <option value="">Select Gender</option>
                 <option value="Male">Male</option>
                 <option value="Female">Female</option>

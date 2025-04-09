@@ -3,7 +3,7 @@ export async function refreshToken() {
   const refresh = localStorage.getItem("refreshToken");
   if (!refresh) return false;
 
-  const response = await fetch(`${apiUrl}token/refresh/`, {
+  const response = await fetch(`${apiUrl}api/token/refresh/`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ refresh }),
