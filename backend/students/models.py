@@ -1,5 +1,6 @@
 
 from django.db import models
+from django.conf import settings
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 from django.utils.translation import gettext_lazy as _
 from backend.idGenerator import GenerateIds
@@ -8,7 +9,7 @@ from backend.idGenerator import GenerateIds
 
 
 class RegisterStudents(AbstractBaseUser, PermissionsMixin):
-    StudentId = models.CharField(max_length=20, unique=True, editable=False)
+    StudentId = models.CharField(max_length=20, primary_key=True, editable=False)
     FirstName = models.CharField(max_length=100)
     SecondName = models.CharField(max_length=100)
     PhoneNumber = models.CharField(max_length=15, unique=True)
@@ -21,9 +22,8 @@ class RegisterStudents(AbstractBaseUser, PermissionsMixin):
     is_staff = models.BooleanField(default=False)  # 🔥 Required for Django admin
     is_superuser = models.BooleanField(default=False)
 
-    # objects = StudentManager()  # 🔥 Attach custom manager
 
-    USERNAME_FIELD = "Email"  # 🔹 Use Email for login
+    USERNAME_FIELD = "StudentId"  # 🔹 Use Email for login
     REQUIRED_FIELDS = ["FirstName", "SecondName"]
 
     def save(self, *args, **kwargs):
@@ -38,6 +38,19 @@ class RegisterStudents(AbstractBaseUser, PermissionsMixin):
 
         super().save(*args, **kwargs)
 
+    def __str__(self):
+        return self.StudentId
+    
+
+class StudentEnrolledInPrograms(models.Model):
+    StudentId = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        to_field="StudentId",
+        db_column="StudentId"
+    )
+    CourseId = models.CharField(max_length=50, editable=False,unique=True)
+    
     def __str__(self):
         return self.StudentId
 

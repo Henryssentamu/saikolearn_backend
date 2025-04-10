@@ -49,6 +49,8 @@ INSTALLED_APPS = [
 	'api',
 	# student app
 	"students",
+	# school app
+	"Schools",
 ]
 
 MIDDLEWARE = [
@@ -95,8 +97,22 @@ DATABASES = {
         'PASSWORD': 'Hen#@3030',
         'HOST': 'localhost',
         'PORT': '3306',
+    },
+	'SchoolsDb': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'SchoolsDb',
+        'USER': 'root',
+        'PASSWORD': 'Hen#@3030',
+        'HOST': 'localhost',
+        'PORT': '3306',
     }
 }
+
+DATABASE_ROUTERS = [
+    'backend.routers.StudentRouter',
+    'backend.routers.SchoolRouter',
+]
+
 
 
 # Password validation

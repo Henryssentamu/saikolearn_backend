@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import RegisterStudents
+from .models import RegisterStudents,StudentEnrolledInPrograms
 
 class StudentRegisterSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True)  # 🔥 Ensure password is not exposed in API response
@@ -18,3 +18,7 @@ class StudentRegisterSerializer(serializers.ModelSerializer):
         student.save()
         return student
     
+class StudentEnrolledInProgramsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = StudentEnrolledInPrograms
+        fieldd = ["StudentId","CourseId"]
