@@ -1,4 +1,4 @@
-from students.views import loginStudent,Astudent,Students
+from students.views import loginStudent,AstudentBio,Students
 from Schools.views import( 
     SchoolsDetails,
     CourseDetails,
@@ -18,7 +18,7 @@ def login_student_api(request):
     return loginStudent(request)
 
 RegisterAndRetrieveStudentBio = Students.as_view()
-RetrieveUpdateDeleteStudent = Astudent.as_view()
+RetrieveUpdateDeleteStudent = AstudentBio.as_view()
 
 
 

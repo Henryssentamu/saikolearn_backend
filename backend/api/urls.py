@@ -1,4 +1,5 @@
 from django.urls import path
+from students.views import FecthAllStudentAccademicDetails
 from .views import(
 	login_student_api,
 	RegisterAndRetrieveStudentBio,
@@ -8,11 +9,12 @@ from .views import(
 	createAndviewCourseRecoursedetails,
 	fetchUpdateDeleteCourse,
 	fetchUpdateDeleteCourseResourse,
-	fetchUpdateDeleteSchool)
+	fetchUpdateDeleteSchool,)
 urlpatterns = [
     path("student/login/", login_student_api, name="login-student"),
     path("registerstudent/", RegisterAndRetrieveStudentBio, name="register-list-students"),
     path("student/<str:StudentId>/", RetrieveUpdateDeleteStudent, name="retrieve-update-delete-student"),
+	path("student/accademicdetails", FecthAllStudentAccademicDetails, name="student-accademic-details"),
 	path("admin/schooldetails/", createAndViewSchooldetails, name="create-list-school"),
 	path("admin/coursedetails/",createAndViewCoursedetails, name="create-list-courses"),
 	path("admin/courseresoursedetails", createAndviewCourseRecoursedetails, name="create-list-course-resourse"),
