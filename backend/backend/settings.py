@@ -90,7 +90,15 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
 DATABASES = {
-    'default': {
+	'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'EmployeeDb',
+        'USER': 'root',
+        'PASSWORD': 'Hen#@3030',
+        'HOST': 'localhost',
+        'PORT': '3306',
+    },
+    'saikolearndatabase': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'saikolearndatabase',
         'USER': 'root',

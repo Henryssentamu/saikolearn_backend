@@ -8,18 +8,22 @@ from .models import RegisterStudents, StudentEnrolledInPrograms
 from .serializers import StudentRegisterSerializer
 from Schools.models import Course,CourseCohort,CourseResources
 
-@api_view(["POST"])
+# @api_view(["POST"])
 def loginStudent(request):
+    
     try:
-        student = RegisterStudents.objects.get(StudentId=request.data.get("StudentId"))
+        student = RegisterStudents.objects.get(StudentId=request.data.get("studentId"))
         
-        if check_password(request.data.get("Password"), student.Password):
+        if check_password(request.data.get("password"), student.password):
             return Response({"message": "Login successful"}, status=status.HTTP_200_OK)
         return Response({"error": "Invalid credentials"}, status=status.HTTP_401_UNAUTHORIZED)
 
     except RegisterStudents.DoesNotExist:
+        print("Student not found")
         return Response({"error": "Student not found"}, status=status.HTTP_404_NOT_FOUND)
-
+    except Exception as e:
+        print("🔥 An unexpected error occurred:", str(e))
+        return Response({"error": "Something went wrong", "details": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 class Students(generics.ListCreateAPIView):
     """Handles student registration and listing"""

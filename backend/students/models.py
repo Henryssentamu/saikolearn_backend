@@ -40,21 +40,24 @@ class RegisterStudents(AbstractBaseUser, PermissionsMixin):
         super().save(*args, **kwargs)
 
     def __str__(self):
-        return self.StudentId
+        return str(self.StudentId)
     
 
 class StudentEnrolledInPrograms(models.Model):
     StudentId = models.ForeignKey(
-        settings.AUTH_USER_MODEL,
+        RegisterStudents,
         on_delete=models.CASCADE,
         to_field="StudentId",
         db_column="StudentId"
     )
-    CourseId = models.CharField(max_length=50,unique=True)
+    CourseId = models.CharField(max_length=50)
     CohortId = models.CharField(max_length=50)
     
+    class Meta:
+        unique_together = ('StudentId', 'CourseId')
+
     def __str__(self):
-        return self.StudentId
+        return f"{self.StudentId} in {self.CourseId}"
 
 
 
