@@ -19,12 +19,11 @@ from django.http import JsonResponse
 def login_student_api(request):
     try:
         """Calls student app's login function"""
-        print(f"login details sent to loin api:{request.data}")
+        # print(f"login details sent to loin api:{request.data}")
         return loginStudent(request)
     except Exception as e:
-        print(f"in helper:{e}")
-
-    return "yes"
+        # print(f"in helper:{e}")
+        raise Exception(f"error on calling login functionality:{e}")
 
 
 RegisterAndRetrieveStudentBio = Students.as_view()
