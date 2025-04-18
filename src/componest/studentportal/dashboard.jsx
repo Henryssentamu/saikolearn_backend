@@ -70,37 +70,68 @@ export function Studentportal() {
     softwareEngineering: [{ courseId: "233333", CourseName: "Introduction To Programing" }],
     dataScience: [{ courseId: "1233", CourseName: "Introduction To Machine Learning" }],
   });
+  const [schools, setSchools] = useState([]);
 
-  // async function fetchStudentDetails(token) {
-  //   const stringedStudentId = new URLSearchParams(studentId).toString();
-  //   return await fetch(`${apiUrl}astudent/?param=${studentId}`, {
-  //     method: "GET",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //       Authorization: `Bearer ${token}`,
-  //     },
-  //   })
-  //     .then((response) => {
-  //       if (!response.ok) {
-  //         throw new Error("api failed to fetch student data");
-  //       }
-  //       return response.json();
-  //     })
-  //     .then((data) => {
-  //       if (data) {
-  //         setstudentData([data]);
-  //         return true;
-  //       }
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //       return false;
-  //     });
-  // }
+  async function fetchAvailableSchools() {
+    return await fetch(`${apiUrl}student/schooldetails/`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        // this will be activated when we activate users login token, so we attach it on api call for authentication
+        // Authorization:`Bearer ${token}`
+      },
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("school details api call failed");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        if (data) {
+          setSchools(data);
+        }
+        return data;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
 
-  // useEffect(() => {
-  //   fetchWithAuth(fetchStudentDetails);
-  // }, []);
+  async function fetchStudentDetails() {
+    // const stringedStudentId = new URLSearchParams(studentId).toString();
+
+    return await fetch(`${apiUrl}student/accademicdetails/?studentId=${studentId}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        // Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("api failed to fetch student data");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        if (data) {
+          // setstudentData([data]);
+          // console.log(data);
+          return true;
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        return false;
+      });
+  }
+
+  useEffect(() => {
+    // fetchWithAuth(fetchStudentDetails);
+    // fetchStudentDetails();
+    fetchAvailableSchools();
+  }, []);
 
   // Header Component
   function Header() {
@@ -197,16 +228,14 @@ export function Studentportal() {
                 aria-labelledby="programDropdown"
                 style={{ alignItems: "center", margin: "10px", alignContent: "center" }}
               >
-                <li className="p-3">
-                  <Link to={"/programs"} state={{ schoolId: "12233" }}>
-                    <FaBook /> School Of Software Engineering
-                  </Link>
-                </li>
-                <li className="p-3">
-                  <Link to={"/programs"} state={{ schoolId: "156666" }}>
-                    <FaBook /> School Of Data Science
-                  </Link>
-                </li>
+                {schools &&
+                  schools.map((school) => (
+                    <li key={school.SchoolId} className="p-3">
+                      <Link to="/programs" state={{ schoolId: school.SchoolId }}>
+                        <FaBook /> {school.SchoolName}
+                      </Link>
+                    </li>
+                  ))}
               </ul>
             </div>
 

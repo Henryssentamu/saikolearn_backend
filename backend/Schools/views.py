@@ -12,10 +12,24 @@ class SchoolsDetails(generics.ListCreateAPIView):
 	serializer_class = SchoolSerializer
 	permission_classes = [AllowAny]
 
+class SchoolsDetailsForStudents(generics.ListAPIView):
+	queryset = School.objects.all()
+	serializer_class = SchoolSerializer
+	permission_classes = [AllowAny]
+
 class CourseDetails(generics.ListCreateAPIView):
 	queryset = Course.objects.all()
 	serializer_class = CourseSerializer
 	permission_classes = [AllowAny]
+
+class CourseDetailsForStudent(generics.ListAPIView):
+	serializer_class = CourseSerializer
+	permission_classes = [AllowAny]
+	def get_queryset(self):
+		school_id = self.request.query_params.get("SchoolId")
+		if school_id:
+			return Course.objects.filter(SchoolId=school_id)
+		return Course.objects.none()
 class CourseResourseDetails(generics.ListCreateAPIView):
 	queryset = CourseResources.objects.all()
 	serializer_class = CourseResourcesSerializer

@@ -89,10 +89,13 @@ def FetchStudentAccademicDetailsAndBioData(request):
                         "recorded": courseResources.recordedLink
                     } if courseResources else None
                 })  
-        print(results)
+        # print(results)
         return Response(results, status=200)
     except Exception as e:
         return Response({"error": str(e)}, status=500)
+    
+
+
 
 	
 
