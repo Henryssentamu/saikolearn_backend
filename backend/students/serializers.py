@@ -21,4 +21,4 @@ class StudentRegisterSerializer(serializers.ModelSerializer):
 class StudentEnrolledInProgramsSerializer(serializers.ModelSerializer):
     class Meta:
         model = StudentEnrolledInPrograms
-        fieldd = ["StudentId","CourseId","CohortId"]
+        fields = ["StudentId","CourseId","CohortId"]

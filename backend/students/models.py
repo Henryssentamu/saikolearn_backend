@@ -1,7 +1,7 @@
 
 from django.db import models
 from django.conf import settings
-from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin,Group,Permission
 from django.utils.translation import gettext_lazy as _
 from backend.idGenerator import GenerateIds
 
@@ -10,6 +10,20 @@ from backend.idGenerator import GenerateIds
 
 
 class RegisterStudents(AbstractBaseUser, PermissionsMixin):
+    groups = models.ManyToManyField(
+        Group,
+        related_name='student_users',  # 👈 make this unique too
+        blank=True,
+        help_text='The groups this student belongs to.',
+        verbose_name='groups',
+    )
+    user_permissions = models.ManyToManyField(
+        Permission,
+        related_name='student_permissions',  # 👈 make this unique too
+        blank=True,
+        help_text='Specific permissions for this student.',
+        verbose_name='user permissions',
+    )
     StudentId = models.CharField(max_length=20, primary_key=True, editable=False)
     FirstName = models.CharField(max_length=100)
     SecondName = models.CharField(max_length=100)

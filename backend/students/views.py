@@ -5,7 +5,7 @@ from rest_framework import status, generics
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny
 from .models import RegisterStudents, StudentEnrolledInPrograms
-from .serializers import StudentRegisterSerializer
+from .serializers import StudentRegisterSerializer, StudentEnrolledInProgramsSerializer
 from Schools.models import Course,CourseCohort,CourseResources
 
 
@@ -93,6 +93,17 @@ def FetchStudentAccademicDetailsAndBioData(request):
         return Response(results, status=200)
     except Exception as e:
         return Response({"error": str(e)}, status=500)
+    
+
+
+
+class CourseEnrollment(generics.ListCreateAPIView):
+    queryset= StudentEnrolledInPrograms.objects.all()
+    serializer_class = StudentEnrolledInProgramsSerializer
+    permission_classes = [AllowAny]
+
+   
+
     
 
 

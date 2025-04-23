@@ -47,10 +47,13 @@ INSTALLED_APPS = [
 	
     # installed app
 	'api',
+	# employee app
+	"employees",
 	# student app
 	"students",
 	# school app
 	"Schools",
+	
 ]
 
 MIDDLEWARE = [
@@ -119,6 +122,8 @@ DATABASES = {
 DATABASE_ROUTERS = [
     'backend.routers.StudentRouter',
     'backend.routers.SchoolRouter',
+    'backend.routers.EmployeesRouter',
+	
 ]
 
 
@@ -189,10 +194,14 @@ SIMPLE_JWT = {
     "ALGORITHM": "HS256",
     "SIGNING_KEY": SECRET_KEY,  # Uses Django's SECRET_KEY
     "AUTH_HEADER_TYPES": ("Bearer",),  # Accepts "Bearer <token>" format in headers
-	"USER_ID_FIELD": "studentid",
+	"USER_ID_FIELD": "StudentId",
 }
 
 # settings.py
-AUTH_USER_MODEL = "students.RegisterStudents"
+# AUTH_USER_MODEL = 'employees.CustomUser'
+AUTH_USER_MODEL = 'students.RegisterStudents'  # Correct model for student authentication
+
+
+
 
 
