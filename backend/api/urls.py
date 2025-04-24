@@ -5,6 +5,6 @@ from .views import(
 urlpatterns = [
 	path("", include('students.urls')),
 	path("",include('Schools.urls')),
-	path("student/login/", login_student_api, name="login-student"),
+	path("studentlogin/", login_student_api, name="login-student"),
     
 ]

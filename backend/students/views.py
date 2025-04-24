@@ -70,7 +70,7 @@ def FetchStudentAccademicDetailsAndBioData(request):
                 courseCohort = CourseCohort.objects.filter(CohortId=aprogram.CohortId).first()
                 courseResources = CourseResources.objects.filter(
                     courseId=aprogram.CourseId,
-                    cohortId=aprogram.CohortId
+                    CohortId=aprogram.CohortId
                 ).first()
                 results.append({
                     "course": {

@@ -173,6 +173,8 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",  # Local development
     # "https://example.com",  # For Deployed React app domin 
 ]
+CORS_ALLOW_ALL_ORIGINS = True  # ⚠️ not recommended for production
+
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (

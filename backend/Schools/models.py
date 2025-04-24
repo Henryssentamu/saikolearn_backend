@@ -45,6 +45,7 @@ class CourseCohort(models.Model):
 	CohortId = models.CharField(primary_key=True, max_length=50,editable=False)
 	CourseId = models.ForeignKey(Course, on_delete=models.CASCADE, to_field="CourseId",db_column="CourseId")
 	CohortName = models.CharField(max_length=50)
+	CohortStatus = models.BooleanField(default=True)
 
 	def save(self, *args, **kwargs):
 		if not self.CohortId:

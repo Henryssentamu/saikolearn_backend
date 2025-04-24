@@ -16,8 +16,19 @@ class CourseSerializer(serializers.ModelSerializer):
 class CourseCohortSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = CourseCohort
-		fields = ["CohortId","CourseId","CohortName"]
+		fields = ["CohortId","CourseId","CohortName","CohortStatus"]
 		read_only_fields =["CohortId"]
+
+
+
+class CourseWithCohortsSerializer(serializers.ModelSerializer):
+    cohorts = serializers.SerializerMethodField()
+    class Meta:
+        model = Course
+        fields = ["CourseId","CourseName","SchoolId","CourseInstractor","YoutubeLink", "cohorts"]
+
+    def get_cohorts(self, course):
+        return CourseCohortSerializer(course.coursecohort_set.filter(CohortStatus=True), many=True).data
 	
 class CourseResourcesSerializer(serializers.ModelSerializer):
     class Meta:
