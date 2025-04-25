@@ -48,6 +48,34 @@ class AstudentBio(generics.RetrieveUpdateDestroyAPIView):
 
 
 
+def transform_student_data(data):
+    result = {
+        "bioData": {},
+        "enrolledCourses": []
+    }
+
+    for entry in data:
+        # Handle bioData
+        if "bioData" in entry:
+            result["bioData"] = entry["bioData"]
+
+        # Handle enrolled courses
+        if "course" in entry and entry["course"] is not None:
+            course_info = {
+                "courseId": entry["course"].get("courseId"),
+                "courseName": entry["course"].get("courseName"),
+                "courseUrlLink": entry["course"].get("courseUrlLink"),
+                "courseInstructor": entry["course"].get("courseInstructor"),
+                "schoolId": entry["course"].get("schoolId"),
+                "courseCohort": entry.get("courseCohort", {}).get("cohortId"),
+                "courseResources": entry.get("courseResources")
+            }
+            result["enrolledCourses"].append(course_info)
+
+    return result
+
+
+
 @api_view(["GET"])
 @permission_classes([AllowAny])
 def FetchStudentAccademicDetailsAndBioData(request):
@@ -72,7 +100,9 @@ def FetchStudentAccademicDetailsAndBioData(request):
                     courseId=aprogram.CourseId,
                     CohortId=aprogram.CohortId
                 ).first()
-                results.append({
+                
+                results.append(
+                    {
                     "course": {
                         "courseId": course.CourseId,
                         "courseName": course.CourseName,
@@ -82,21 +112,24 @@ def FetchStudentAccademicDetailsAndBioData(request):
                     } if course else None,
                     "courseCohort": {
                         "cohortId": courseCohort.CohortId,
-                        "cohortName": courseCohort.CohortName
+                        "cohortName": courseCohort.CohortName,
+                        "courseId": courseCohort.CourseId.CourseId
+                        
+                        
                     } if courseCohort else None,
                     "courseResources": {
                         "liveLink": courseResources.liveLink,
                         "recorded": courseResources.recordedLink
                     } if courseResources else None
                 })  
-        # print(results)
-        return Response(results, status=200)
+        print(transform_student_data(data=results))
+        return Response(transform_student_data(data=results), status=200)
     except Exception as e:
         return Response({"error": str(e)}, status=500)
     
 
 
-
+ 
 class CourseEnrollment(generics.ListCreateAPIView):
     queryset= StudentEnrolledInPrograms.objects.all()
     serializer_class = StudentEnrolledInProgramsSerializer
@@ -106,8 +139,5 @@ class CourseEnrollment(generics.ListCreateAPIView):
 
     
 
-
-
-	
 
 
