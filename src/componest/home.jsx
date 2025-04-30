@@ -12,22 +12,22 @@ export function Home() {
       courseName: "INTRODUCTION TO PROGRAMMING",
       BreifDiscription: "This course is your gateway to the fascinating realm of coding.",
       Duration: "Duration 12 months",
-      thumbnil: "/pexels-harold-vasquez-853421-2653362.jpg",
+      thumbnil: "/sist1.png",
     },
     {
       courseId: "123",
-      courseName: "INTRODUCTION TO PROGRAMMING",
-      BreifDiscription: "This course is your gateway to the fascinating realm of coding.",
+      courseName: "INTRODUCTION TO MACHINE LEARNING ",
+      BreifDiscription: "This course is your gateway to the fascinating realm of Ai Engineering .",
       Duration: "Duration 12 months",
-      thumbnil: "/pexels-harold-vasquez-853421-2653362.jpg",
+      thumbnil: "/sist2.png",
     },
-    {
-      courseId: "124",
-      courseName: "INTRODUCTION TO PROGRAMMING",
-      BreifDiscription: "This course is your gateway to the fascinating realm of coding.",
-      Duration: "Duration 12 months",
-      thumbnil: "/pexels-harold-vasquez-853421-2653362.jpg",
-    },
+    // {
+    //   courseId: "124",
+    //   courseName: "INTRODUCTION TO PROGRAMMING",
+    //   BreifDiscription: "This course is your gateway to the fascinating realm of coding.",
+    //   Duration: "Duration 12 months",
+    //   thumbnil: "/pexels-harold-vasquez-853421-2653362.jpg",
+    // },
   ]);
 
   const stylings = { fontSize: "18px" };

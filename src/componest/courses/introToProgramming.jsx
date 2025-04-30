@@ -20,10 +20,10 @@ export function IntroToprogramming() {
           <div className=" d-flex flex-row align-items-center p-1 poppins-medium">
             <div>School Of Software Enginering</div>
             <div className=" border-start border-3 mx-3" style={{ height: "30px" }}></div>
-            <div>saikolearn</div>
+            <div>SIST</div>
           </div>
           <div className="row ">
-            <h3 className="poppins-black">Introduction to Programing</h3>
+            <h3 className="poppins-black">Introduction To Software Development</h3>
             <div className="text-center poppins-regular p-3" style={{ width: "500px" }}>
               This comprehensive course is designed to provide you with a solid foundation in programming using the versatile Python
               language. Led by our esteemed faculty of experienced professionals, including top senior engineers, you will delve into the
@@ -38,7 +38,7 @@ export function IntroToprogramming() {
             <div className="m-2 fw-bold  ">Instructors</div>
           </div>
           <div className="col">
-            <a href="#" className="btn btn-outline-success " style={{ margin: "15px 20px", padding: "5px 50px" }}>
+            <a href="/signin" className="btn btn-outline-success " style={{ margin: "15px 20px", padding: "5px 50px" }}>
               apply
             </a>
           </div>

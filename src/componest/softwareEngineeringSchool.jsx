@@ -9,25 +9,25 @@ export function SchoolOfSoftwareEngineering() {
   const [trendingCourses, setTrendingCourses] = useState([
     {
       courseId: "122",
-      courseName: "INTRODUCTION TO PROGRAMMING",
+      courseName: "INTRODUCTION TO Software Development",
       BreifDiscription: "This course is your gateway to the fascinating realm of coding.",
       Duration: "Duration 12 months",
-      thumbnil: "/pexels-harold-vasquez-853421-2653362.jpg",
+      thumbnil: "/sist1.png",
     },
-    {
-      courseId: "123",
-      courseName: "INTRODUCTION TO PROGRAMMING",
-      BreifDiscription: "This course is your gateway to the fascinating realm of coding.",
-      Duration: "Duration 12 months",
-      thumbnil: "/pexels-harold-vasquez-853421-2653362.jpg",
-    },
-    {
-      courseId: "124",
-      courseName: "INTRODUCTION TO PROGRAMMING",
-      BreifDiscription: "This course is your gateway to the fascinating realm of coding.",
-      Duration: "Duration 12 months",
-      thumbnil: "/pexels-harold-vasquez-853421-2653362.jpg",
-    },
+    // {
+    //   courseId: "123",
+    //   courseName: "INTRODUCTION TO PROGRAMMING",
+    //   BreifDiscription: "This course is your gateway to the fascinating realm of coding.",
+    //   Duration: "Duration 12 months",
+    //   thumbnil: "/pexels-harold-vasquez-853421-2653362.jpg",
+    // },
+    // {
+    //   courseId: "124",
+    //   courseName: "INTRODUCTION TO PROGRAMMING",
+    //   BreifDiscription: "This course is your gateway to the fascinating realm of coding.",
+    //   Duration: "Duration 12 months",
+    //   thumbnil: "/pexels-harold-vasquez-853421-2653362.jpg",
+    // },
   ]);
   return (
     <div>
@@ -66,7 +66,7 @@ export function SchoolOfSoftwareEngineering() {
           <div className="d-flex align-items-center mt-3">
             <img src="/techimage2.jpeg" alt="Facebook" className="me-3" width={"40px"} height={"40px"} />
             <div>
-              <div className="fw-bold">Dr. Bukenya Tom</div>
+              <div className="fw-bold">Kawooya Phillip</div>
               <div className="text-muted">School Coordinator</div>
             </div>
           </div>
@@ -120,10 +120,10 @@ export function SchoolOfSoftwareEngineering() {
       </div>
       <div className="row">
         <div className="text-center poppins-black " style={{ fontSize: "36px" }}>
-          Avilable Courses
+          Avilable Programms
         </div>
       </div>
-      <div className="row row-cols-1 row-cols-md-3 row cols-lg-3 d-flex  justify-content-center align-items-center p-3">
+      <div className="row row-cols-1 row-cols-md-1 row cols-lg-1 d-flex  justify-content-center align-items-center p-3">
         {trendingCourses.map((courseObj, index) => {
           return (
             <div key={index} className="col " style={{ width: "500px", margin: "5px 15px", padding: "10px 10px" }}>

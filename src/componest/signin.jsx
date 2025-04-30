@@ -9,7 +9,7 @@ export function SignIn() {
 
   async function login(studentId, password) {
     try {
-      const response = await fetch(`${apiUrl}student/login/`, {
+      const response = await fetch(`${apiUrl}studentlogin/`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ studentId, password }),
@@ -20,7 +20,7 @@ export function SignIn() {
       if (response.ok) {
         // localStorage.setItem("accessToken", data.access);
         // localStorage.setItem("refreshToken", data.refresh);
-
+        localStorage.setItem("studentId", studentId);
         navigate("/studentportal", { state: { studentId } });
       } else {
         alert("Error while sending your details, please try again.");
@@ -64,12 +64,20 @@ export function SignIn() {
           <button type="submit" className="btn w-100" style={{ backgroundColor: "#0d0a2c", color: "white" }}>
             Sign In
           </button>
-          <a href="#" className="link m-3">
-            Forgot password?
-          </a>
-          <a href="/signUp" className="link m-3">
-            Register
-          </a>
+          <div className="row mt-3">
+            {/* <div className="col">
+              <a href="#" className="link m-3">
+                Forgot password?
+              </a>
+            </div> */}
+
+            <div className="col">
+              Don't have account?
+              <a href="/signUp" className="link m-3">
+                Register
+              </a>
+            </div>
+          </div>
         </form>
       </div>
     </div>

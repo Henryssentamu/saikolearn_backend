@@ -9,24 +9,10 @@ export function SchoolOfDataScience() {
   const [trendingCourses, setTrendingCourses] = useState([
     {
       courseId: "122",
-      courseName: "INTRODUCTION TO PROGRAMMING For Data Science",
-      BreifDiscription: "This course is your gateway to the fascinating realm of coding.",
-      Duration: "Duration 8 months",
-      thumbnil: "/pexels-harold-vasquez-853421-2653362.jpg",
-    },
-    {
-      courseId: "123",
-      courseName: "INTRODUCTION TO Statistics",
-      BreifDiscription: "This course is your gateway to the fascinating realm of coding.",
+      courseName: "INTRODUCTION TO MACHINE LEARNING",
+      BreifDiscription: "This course is your gateway to the fascinating realm of Data Science And Ai.",
       Duration: "Duration 12 months",
-      thumbnil: "/pexels-harold-vasquez-853421-2653362.jpg",
-    },
-    {
-      courseId: "124",
-      courseName: "INTRODUCTION TO Machin Learning",
-      BreifDiscription: "This course is your gateway to the fascinating realm of coding.",
-      Duration: "Duration 12 months",
-      thumbnil: "/pexels-harold-vasquez-853421-2653362.jpg",
+      thumbnil: "/sist3.png",
     },
   ]);
   return (
@@ -65,9 +51,9 @@ export function SchoolOfDataScience() {
           </p>
 
           <div className="d-flex align-items-center mt-3">
-            <img src="/techimage2.jpeg" alt="Facebook" className="me-3" width={"40px"} height={"40px"} />
+            <img src="/ssentamu1.jpeg" alt="Facebook" className="me-3" width={"40px"} height={"40px"} />
             <div>
-              <div className="fw-bold">Prof. Henry ssentamu</div>
+              <div className="fw-bold">Mr. Henry ssentamu</div>
               <div className="text-muted">School Coordinator</div>
             </div>
           </div>
@@ -143,7 +129,12 @@ export function SchoolOfDataScience() {
                     </div>
                   </div>
                 </div>
-                <a href="/course" data-course-id={courseObj.courseId} className="btn btn-outline-light " style={{ margin: "15px 10px" }}>
+                <a
+                  href="/introToMachinelearning"
+                  data-course-id={courseObj.courseId}
+                  className="btn btn-outline-light "
+                  style={{ margin: "15px 10px" }}
+                >
                   Read More
                 </a>
               </div>

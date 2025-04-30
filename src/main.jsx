@@ -9,6 +9,7 @@ import { SignUp } from "./componest/signUp";
 import { SchoolOfSoftwareEngineering } from "./componest/softwareEngineeringSchool";
 import { SchoolOfDataScience } from "./componest/schoolOfDataScience";
 import { IntroToprogramming } from "./componest/courses/introToProgramming";
+import { IntroToMachineLearning } from "./componest/courses/introTomachinelearning";
 import { AdminDashboard } from "./componest/admin/dashboard";
 import { AdminSchoolDashboard } from "./componest/admin/schoolAdminDashbord";
 import { AdminCourseDashboard } from "./componest/admin/courseDashboard";
@@ -36,6 +37,8 @@ export function App() {
           <Route path="/schoolOfSoftwareEngineering" element={<SchoolOfSoftwareEngineering />} />
           <Route path="/schoolOfDataScience" element={<SchoolOfDataScience />} />
           <Route path="/introToProgramming" element={<IntroToprogramming />}></Route>
+          <Route path="/introToMachinelearning" element={<IntroToMachineLearning />}></Route>
+
           <Route path="/admindashboard" element={<AdminDashboard />} />
           <Route path="/school" element={<AdminSchoolDashboard />} />
           <Route path="/courses" element={<AdminCourseDashboard />} />

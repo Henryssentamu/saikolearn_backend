@@ -49,23 +49,8 @@ export function Studentportal() {
   // bellow is how data should be stratured from the api
   const NavigateWithSchoolId = useNavigate();
   const location = useLocation();
-  const studentId = location.state?.studentId;
-  const [studentData, setstudentData] = useState({
-    studentid: "213324",
-    fName: "Henry",
-    sname: "Ssentamu",
-    email: "kigwa@gmail.com",
-    phonenumber: "256755981078",
-    country: "Uganda",
-    institution: "ABC University",
-    profilePic: "/pexels-energepic-com-27411-159888.jpg",
-    enrolledCourses: [{ courseId: "12387w3s", courseName: "Introduction to software engineering " }],
-    otherCourses: ["Artificial Intelligence"],
-    events: {
-      "2025-03-15": "Math Exam",
-      "2025-03-20": "Project Submission",
-    },
-  });
+  const studentId = location.state?.studentId || localStorage.getItem("studentId");
+  const [studentData, setstudentData] = useState({});
   const [programs] = useState({
     softwareEngineering: [{ courseId: "233333", CourseName: "Introduction To Programing" }],
     dataScience: [{ courseId: "1233", CourseName: "Introduction To Machine Learning" }],
@@ -73,7 +58,7 @@ export function Studentportal() {
   const [schools, setSchools] = useState([]);
 
   async function fetchAvailableSchools() {
-    return await fetch(`${apiUrl}student/schooldetails/`, {
+    return await fetch(`${apiUrl}schooldetails/`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -101,7 +86,7 @@ export function Studentportal() {
   async function fetchStudentDetails() {
     // const stringedStudentId = new URLSearchParams(studentId).toString();
 
-    return await fetch(`${apiUrl}student/accademicdetails/?studentId=${studentId}`, {
+    return await fetch(`${apiUrl}accademicdetails/?studentId=${studentId}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -116,7 +101,8 @@ export function Studentportal() {
       })
       .then((data) => {
         if (data) {
-          // setstudentData([data]);
+          setstudentData(data);
+          localStorage.setItem("enrolledInCourses", JSON.stringify(data.enrolledCourses));
           // console.log(data);
           return true;
         }
@@ -129,7 +115,7 @@ export function Studentportal() {
 
   useEffect(() => {
     // fetchWithAuth(fetchStudentDetails);
-    // fetchStudentDetails();
+    fetchStudentDetails();
     fetchAvailableSchools();
   }, []);
 
@@ -145,10 +131,16 @@ export function Studentportal() {
         <div className="ms-auto d-flex align-items-center">
           <div>
             <span className="" style={{ marginRight: "10px" }}>
-              {studentData.sname}
+              {studentData?.bioData?.SecondName}
             </span>
-            {studentData.profilePic ? (
-              <img src={studentData.profilePic} className="rounded-circle mt-2" alt="Student" style={{ width: "50px", height: "50px" }} />
+            {studentData?.bioData?.profilePic ? (
+              <img
+                src={studentData.bioData.profilePic}
+                className="rounded-circle mt-2"
+                alt="Student"
+                style={{ width: "50px", height: "50px" }}
+                onClick={() => setshow((prev) => !prev)}
+              />
             ) : (
               <FaUserCircle size={30} className="cursor-pointer" onClick={() => setshow((prev) => !prev)} />
             )}
@@ -185,7 +177,7 @@ export function Studentportal() {
               <FaBook /> Enrolled Programs
             </h5>
             <ul className="list-group mb-3">
-              {studentData.enrolledCourses ? (
+              {studentData.enrolledCourses && studentData.enrolledCourses.length > 0 ? (
                 studentData.enrolledCourses.map((course, index) => {
                   return (
                     <div className="list-group-item" key={index}>
@@ -198,7 +190,7 @@ export function Studentportal() {
               )}
             </ul>
 
-            {studentData.enrolledCourses && (
+            {studentData.events && (
               <div>
                 <h5 className="mt-3">
                   <FaCalendarAlt /> Event Calendar
@@ -231,9 +223,15 @@ export function Studentportal() {
                 {schools &&
                   schools.map((school) => (
                     <li key={school.SchoolId} className="p-3">
-                      <Link to="/programs" state={{ schoolId: school.SchoolId }}>
-                        <FaBook /> {school.SchoolName}
-                      </Link>
+                      <div
+                        onClick={() => {
+                          localStorage.setItem("schoolId", school.schoolId);
+                        }}
+                      >
+                        <Link to="/programs" state={{ schoolId: school.SchoolId }}>
+                          <FaBook /> {school.SchoolName}
+                        </Link>
+                      </div>
                     </li>
                   ))}
               </ul>
