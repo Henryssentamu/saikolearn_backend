@@ -18,7 +18,7 @@ export function SchoolOfDataScience() {
   return (
     <div>
       <HomeNav />
-      <div className="container-fluid schoolOfSoftwareEngineering">
+      <div className="container-fluid schoolOfDataScience">
         <div className="banner-content ">
           <div className="poppins-black m-3" style={{ fontSize: "26px" }}>
             Welcome to school of Data Science!

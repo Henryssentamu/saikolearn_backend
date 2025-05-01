@@ -1,11 +1,23 @@
 .schoolOfSoftwareEngineering {
-  background-image: url("/techimage.jpeg");
+  background-image: url("/softwareEngineeringhub.png");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  height: 620px;
+  height: 1400px;
   overflow: hidden;
-  width: 100%;
+  width: 50%;
+  margin: 0px;
+  padding: 0px;
+  position: relative;
+}
+.schoolOfDataScience {
+  background-image: url("/machinelearninghub.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 1400px;
+  overflow: hidden;
+  width: 50%;
   margin: 0px;
   padding: 0px;
   position: relative;
@@ -13,7 +25,7 @@
 
 .banner-content {
   position: absolute;
-  top: 120px;
+  top: 1100px;
   left: 80;
   background-color: rgba(0, 0, 0, 0.434);
   border-radius: 5px;
