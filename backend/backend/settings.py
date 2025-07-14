@@ -96,7 +96,7 @@ DATABASES = {
 	'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'EmployeeDb',
-        'USER': 'root',
+        'USER': 'django_user',
         'PASSWORD': 'Hen#@3030',
         'HOST': 'localhost',
         'PORT': '3306',
@@ -104,7 +104,7 @@ DATABASES = {
     'saikolearndatabase': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'saikolearndatabase',
-        'USER': 'root',
+        'USER': 'django_user',
         'PASSWORD': 'Hen#@3030',
         'HOST': 'localhost',
         'PORT': '3306',
@@ -112,7 +112,7 @@ DATABASES = {
 	'SchoolsDb': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'SchoolsDb',
-        'USER': 'root',
+        'USER': 'django_user',
         'PASSWORD': 'Hen#@3030',
         'HOST': 'localhost',
         'PORT': '3306',
@@ -200,8 +200,8 @@ SIMPLE_JWT = {
 }
 
 # settings.py
-# AUTH_USER_MODEL = 'employees.CustomUser'
-AUTH_USER_MODEL = 'students.RegisterStudents'  # Correct model for student authentication
+AUTH_USER_MODEL = 'employees.CustomUser'
+# AUTH_USER_MODEL = 'students.RegisterStudents'  # Correct model for student authentication
 
 
 

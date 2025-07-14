@@ -73,6 +73,3 @@ class StudentEnrolledInPrograms(models.Model):
     def __str__(self):
         return f"{self.StudentId} in {self.CourseId}"
 
-
-
-	
