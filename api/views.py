@@ -2,8 +2,8 @@ from django.shortcuts import render
 from django.core.exceptions import ValidationError
 from rest_framework import status, mixins, generics
 from rest_framework.response import Response
-from .models import Student
-from .serializers import StudentSerializer
+from students.models import Student
+from students.serializers import StudentSerializer
 
 # Create your views here.
 
@@ -33,11 +33,10 @@ class listUpdateAndDeleteAspecificStudent(mixins.RetrieveModelMixin, mixins.Upda
             note: in the retrive(),update() and destroy() we dont have to pass pk as it is done by mixins when it calls the get_object() which we've overrided
         """
         if self.request.method == "GET":
-            # checking if pk is passed as a query paramater or request body for get requests
-            pk = self.request.data.get("pk")
-        else:
+            # checking if pk is passed as a query paramater for get requests
             pk = self.request.query_params.get("pk")
-            
+        else:
+            pk = self.request.data.get("pk")
 
         if not pk:
             raise ValidationError("Missing pk in request body")

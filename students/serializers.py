@@ -8,8 +8,25 @@ class StudentSerializer(serializers.ModelSerializer):
         fields = ['student_id','first_name','second_name','phone_number','email','country','date_of_birth','gender','password']
         read_only_fields = ['student_id']
 
-    def save(self, validated_data):
+    def create(self, validated_data):
+        """overrided the create() so that we splite save() for both registering new students and updating : ie both partial (patch) and full update(put)"""
         password = validated_data.pop('password')
         student = Student(**validated_data)
         student.set_password(password)
         student.save()
+        return student
+
+    def update(self, instance, validated_data):
+        """handle both full and partial updates vy using the loop"""
+        password = validated_data.pop('password', None)  # pop password if provided, else None
+
+        # Update all other fields dynamically
+        for attr, value in validated_data.items():
+            setattr(instance, attr, value)
+
+        # If password provided, hash it
+        if password:
+            instance.set_password(password)
+
+        instance.save()
+        return instance
