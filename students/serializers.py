@@ -17,7 +17,7 @@ class StudentSerializer(serializers.ModelSerializer):
         return student
 
     def update(self, instance, validated_data):
-        """handle both full and partial updates vy using the loop"""
+        """handle both full and partial updates vy using the loop as implemented in the api view"""
         password = validated_data.pop('password', None)  # pop password if provided, else None
 
         # Update all other fields dynamically

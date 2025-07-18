@@ -9,6 +9,16 @@ class SchoolSerializer(serializers.ModelSerializer):
         model = School
         fields = '__all__'
         read_only_fields = ['id','school_code']
+
+    # def create(self, validated_data):
+    #     school = School(**validated_data)
+    #     school.save()
+    #     return school
+    # def update(self, instance, validated_data):
+    #     for attr, value in validated_data.items():
+    #         setattr(instance, attr, value)
+    #     instance.save()
+    #     return instance
 class CourseSerializer(serializers.ModelSerializer):
     class Meta:
         model = Course

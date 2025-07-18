@@ -32,10 +32,12 @@ class listUpdateAndDeleteAspecificStudent(mixins.RetrieveModelMixin, mixins.Upda
             which makes it hard for strings on passing and picking it from the urls.py.
             note: in the retrive(),update() and destroy() we dont have to pass pk as it is done by mixins when it calls the get_object() which we've overrided
         """
-        if self.request.method == "GET":
+        if self.request.method == "GET" or self.request.method == "PATCH" or self.request.method == "PUT":
             # checking if pk is passed as a query paramater or request body for get requests
+            # passed in the body request
             pk = self.request.data.get("pk")
         else:
+            # passed as  request param
             pk = self.request.query_params.get("pk")
             
 
@@ -44,7 +46,7 @@ class listUpdateAndDeleteAspecificStudent(mixins.RetrieveModelMixin, mixins.Upda
         try:
             return self.queryset.get(pk=pk)
         except Student.DoesNotExist:
-            raise ValueError(f"student with:{self.request.data.get('pk')} is not found ")
+            raise ValueError(f"student with:{pk} is not found ")
 
     def get(self, request):
         """Retrieve a specific student using 'pk' from query parameters"""

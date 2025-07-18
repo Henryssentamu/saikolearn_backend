@@ -24,7 +24,7 @@ class School(models.Model):
             while schoolCode in existing_school_codes:
                 schoolCode = schoolCodeObj.school_Id()
             self.school_code = schoolCode
-        super().save(*args, *kwargs)
+        super().save(*args, **kwargs)
     def __str__(self):
         return f"{self.school_name}"
 
@@ -45,8 +45,8 @@ class Course(models.Model):
             existing_course_codes = set(Course.objects.values_list('course_code', flat=True))
             while courseCode in existing_course_codes:
                 courseCode = courseCodeObj.course_Id()
-            self.school_code = courseCode
-        super().save(*args, *kwargs)
+            self.course_code = courseCode
+        super().save(*args, **kwargs)
     class Meta:
         verbose_name = "Course"
         verbose_name_plural = "Courses"
