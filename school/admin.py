@@ -12,10 +12,10 @@ class SchoolAdmin(admin.ModelAdmin):
 
 class CourseAdmin(admin.ModelAdmin):
     model = Course
-    list_display = ('course_code','course_name','course_instructor','created_at')
-    list_filter = ('course_code','course_name')
-    ordering = ('course_name',)
-    search_fields = ('school_code','school_name')
+    list_display = ('id','course_code','course_name','course_instructor','created_at')
+    list_filter = ('id','course_code','course_name')
+    ordering = ('id','course_name',)
+    search_fields = ('id','school_code','school_name')
 
 class CourseResourcesAdmin(admin.ModelAdmin):
     model = CourseResource
@@ -27,7 +27,7 @@ class CourseResourcesAdmin(admin.ModelAdmin):
 class EnrollmentAdmin(admin.ModelAdmin):
     model = Enrollment
     list_display = ('student', 'cohort', 'get_course', 'enrollment_date', 'status')
-    list_filter = ('cohort', 'enrollment_date', 'status')
+    list_filter = ('cohort__course__course_name','cohort', 'enrollment_date', 'status')
     ordering = ('cohort__course__course_name',)
     search_fields = ('cohort__course__course_name',)
     def get_course(self,obj):

@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from .models import Student
+from school.serializers import EnrollmentSerializer, CohortSerializer
 
 class StudentSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only = True)
@@ -30,3 +31,16 @@ class StudentSerializer(serializers.ModelSerializer):
 
         instance.save()
         return instance
+    
+
+class FlatStudentCourseResourceSerializer(serializers.Serializer):
+    student_id = serializers.CharField()
+    full_name = serializers.CharField()
+    email = serializers.EmailField()
+    status = serializers.CharField()
+    start_date = serializers.DateField()
+    end_date = serializers.DateField()
+    course_name = serializers.CharField()
+    resource_type = serializers.CharField(allow_blank=True)
+    youtube_link = serializers.CharField(allow_blank=True)
+        

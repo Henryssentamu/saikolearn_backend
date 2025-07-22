@@ -1,9 +1,12 @@
 from django.shortcuts import render
 from django.core.exceptions import ValidationError
 from rest_framework import status, mixins, generics
+from rest_framework.views import APIView
 from rest_framework.response import Response
 from .models import Student
-from .serializers import StudentSerializer
+from .serializers import StudentSerializer, FlatStudentCourseResourceSerializer
+
+
 
 # Create your views here.
 
@@ -60,4 +63,76 @@ class listUpdateAndDeleteAspecificStudent(mixins.RetrieveModelMixin, mixins.Upda
     def delete(self, request):
         """Delete a student by pk"""
         return self.destroy(request=request)
+    
+
+
+
+class StudentDetails:
+    def __init__(self, studentId):
+        self.studentId = studentId
+    def bioData(self):
+        return  Student.objects.get(pk=self.studentId)
+    def WithEnrollment(self):
+        return Student.objects.prefetch_related('enrollments__cohort__course').get(pk=self.studentId) # i would have passed on 'enrollments' and the cohort and course details would've been 
+    # servered by the nested serializer through carrying respecive queries which would make it slow, there4, the entire 'enrollments__cohort__course' is for query optimization
+       
+    
+    
+
+class StudentDetailsView(APIView):
+    def flatten_student_course_data(self, student):
+        flat_data = []
+
+        full_name = f"{student.first_name} {student.second_name}"
+
+        for enrollment in student.enrollments.all():
+            course = enrollment.cohort.course
+            resources = course.resources.all()
+
+            if resources:
+                for resource in resources:
+                    flat_data.append({
+                        "student_id": student.student_id,
+                        "full_name": full_name,
+                        "email": student.email,
+                        "status": enrollment.status,
+                        "start_date": enrollment.start_date,
+                        "end_date": enrollment.end_date,
+                        "course_name": course.course_name,
+                        "resource_type": resource.resource_type,
+                        "youtube_link": resource.youtube_link or ""
+                    })
+            else:
+                # Include course info even if no resources
+                flat_data.append({
+                    "student_id": student.student_id,
+                    "full_name": full_name,
+                    "email": student.email,
+                    "status": enrollment.status,
+                    "start_date": enrollment.start_date,
+                    "end_date": enrollment.end_date,
+                    "course_name": course.course_name,
+                    "resource_type": "",
+                    "youtube_link": ""
+                })
+        
+        return flat_data
+    def get(self, request, *args, **kwargs):
+        if request.method == "GET":
+            pk = request.GET.get("pk")
+            if not pk:
+                raise ValidationError("request body should have studentId with a key pk")
+            try:
+                student = Student.objects.filter(
+                    enrollments__isnull=False
+                ).prefetch_related(
+                    'enrollments__cohort__course__resources'
+                ).get(pk=pk)
+            except Student.DoesNotExist:
+                raise ValidationError(f"no student with {pk}")
+            data = self.flatten_student_course_data(student=student)
+            serializer = FlatStudentCourseResourceSerializer(data, many=True)
+            print(serializer.data)
+            return Response(serializer.data)
+
 

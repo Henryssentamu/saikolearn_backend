@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from django.core.exceptions import ValidationError
 from rest_framework import mixins, generics
-from .models import School, Course
-from .serializers import SchoolSerializer, CourseSerializer
+from .models import School, Course, Enrollment, CourseResource, Cohort
+from .serializers import SchoolSerializer, CourseSerializer,EnrollmentSerializer,CourseResourcesSerializer, CohortSerializer
 
 
 # Create your views here.
@@ -14,6 +14,17 @@ class CreateSchool(generics.ListCreateAPIView):
 class CreateCourse(generics.ListCreateAPIView):
     queryset  = Course.objects.all()
     serializer_class = CourseSerializer
+
+class EnrollAndViewDetails(generics.ListCreateAPIView):
+    queryset = Enrollment.objects.all()
+    serializer_class = EnrollmentSerializer
+class CreateCourseResoursesDetails(generics.ListCreateAPIView):
+    queryset = CourseResource.objects.all()
+    serializer_class = CourseResourcesSerializer
+class CreateCourseCohort(generics.ListCreateAPIView):
+    queryset =  Cohort.objects.all()
+    serializer_class = CohortSerializer
+
 
 class ListUpdateAndDeleteSchool(mixins.RetrieveModelMixin, mixins.UpdateModelMixin, mixins.DestroyModelMixin, generics.GenericAPIView):
     queryset = School.objects.all()
@@ -81,3 +92,4 @@ class ListUpdateAndDeleteCourse(mixins.RetrieveModelMixin, mixins.UpdateModelMix
     def delete(self, request):
         """deleting a course by course code"""
         return self.delete(request=request)
+    

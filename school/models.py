@@ -55,10 +55,11 @@ class Course(models.Model):
 
 class Enrollment(models.Model):
     student = models.ForeignKey('students.Student', on_delete=models.PROTECT, related_name='enrollments')
+    course = models.ForeignKey('Course', on_delete=models.PROTECT, related_name='course_enrollments')
     cohort = models.ForeignKey('Cohort', on_delete=models.PROTECT, related_name='cohort_enrollments') #the course is accessed through the cohort since the cohort references the course model
     enrollment_date = models.DateTimeField(auto_now_add=True)
     status = models.CharField(max_length=20, choices=[('Enrolled', 'Enrolled'), ('Completed', 'Completed'), ('Dropped', 'Dropped')], default='Enrolled')
-    start_date = models.DateField(default=date(2025,10,12))
+    start_date = models.DateField(default=date(2025,7,12))
     end_date = models.DateField(default=date(2025,12,2))
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
