@@ -1,7 +1,9 @@
 from django.shortcuts import render
 from django.core.exceptions import ValidationError
-from rest_framework import mixins, generics
+from rest_framework import mixins, generics,status
+from rest_framework.response import Response
 from .models import School, Course, Enrollment, CourseResource, Cohort
+from students.models import Student
 from .serializers import SchoolSerializer, CourseSerializer,EnrollmentSerializer,CourseResourcesSerializer, CohortSerializer
 
 
@@ -18,6 +20,38 @@ class CreateCourse(generics.ListCreateAPIView):
 class EnrollAndViewDetails(generics.ListCreateAPIView):
     queryset = Enrollment.objects.all()
     serializer_class = EnrollmentSerializer
+    def create(self, request, *args, **kwargs):
+        course_id = request.data.get('course')
+        student_id = request.data.get('student')
+
+        if not course_id or not student_id:
+            return Response({'error': 'Course and Student ID are required.'}, status=400)
+
+        try:
+            student = Student.objects.get(pk=student_id)
+        except Student.DoesNotExist:
+            return Response({'error': 'Student not found.'}, status=404)
+
+        try:
+            # get latest cohort for the course by start_date
+            latest_cohort = Cohort.objects.filter(course__id=course_id).order_by('-created_at').first()
+            if not latest_cohort:
+                return Response({'error': 'No cohort found for this course.'}, status=404)
+        except Course.DoesNotExist:
+            return Response({'error': 'Course not found.'}, status=404)
+        
+        if student:
+            enrollment_data = {
+                'student': student_id,
+                'course': course_id,
+                'cohort': latest_cohort.id
+            }
+
+            serializer = self.get_serializer(data=enrollment_data)
+            serializer.is_valid(raise_exception=True)
+            self.perform_create(serializer)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+
 class CreateCourseResoursesDetails(generics.ListCreateAPIView):
     queryset = CourseResource.objects.all()
     serializer_class = CourseResourcesSerializer

@@ -37,6 +37,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+     # Added corsheaders here
+    'corsheaders',
+    # added rest framework
     'rest_framework',
     'authentication',
     'user',
@@ -46,6 +50,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware', # to enable communcation btn frontend and backend
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -127,6 +132,13 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:5173",  # Local development
+    # "https://example.com",  # For Deployed React app domin 
+]
+CORS_ALLOW_ALL_ORIGINS = True  # ⚠️ not recommended for production
+
 
 
 AUTH_USER_MODEL = 'user.User'

@@ -37,10 +37,18 @@ class FlatStudentCourseResourceSerializer(serializers.Serializer):
     student_id = serializers.CharField()
     full_name = serializers.CharField()
     email = serializers.EmailField()
-    status = serializers.CharField()
-    start_date = serializers.DateField()
-    end_date = serializers.DateField()
-    course_name = serializers.CharField()
-    resource_type = serializers.CharField(allow_blank=True)
-    youtube_link = serializers.CharField(allow_blank=True)
+    country = serializers.CharField()
+    gender = serializers.CharField()
+    phone_number = serializers.CharField()
+
+    # These are optional if the student has no enrollment
+    status = serializers.CharField(required=False, allow_blank=True)
+    course_code = serializers.CharField(required=False, allow_blank=True)
+    start_date = serializers.DateField(required=False, allow_null=True)
+    end_date = serializers.DateField(required=False, allow_null=True)
+    course_name = serializers.CharField(required=False, allow_blank=True)
+
+    # These are optional if the course has no resources
+    resource_type = serializers.CharField(required=False, allow_blank=True)
+    youtube_link = serializers.CharField(required=False, allow_blank=True)
         
