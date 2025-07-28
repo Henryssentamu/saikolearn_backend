@@ -5,7 +5,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from .models import Student
 from .serializers import StudentSerializer, FlatStudentCourseResourceSerializer
-
+from sistemail.views import SendGmail
 
 
 # Create your views here.
@@ -19,7 +19,12 @@ class ListAndCreateStudents(generics.ListCreateAPIView):
     queryset = Student.objects.all()
     serializer_class = StudentSerializer
 
-
+    def perform_create(self, serializer):
+        # overrided this methode so that after it calls our cutome create() in studentserializer, it saves the student in the bd and 
+        # the access that student and send them the student id via the provided email
+        student = serializer.save()
+        SendGmail(email_address=student.email).send_student_is_email(studentId=student.student_id)
+    
 class listUpdateAndDeleteAspecificStudent(mixins.RetrieveModelMixin, mixins.UpdateModelMixin, mixins.DestroyModelMixin, generics.GenericAPIView):
 
     """

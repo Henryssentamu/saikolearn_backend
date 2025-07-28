@@ -46,7 +46,8 @@ INSTALLED_APPS = [
     'user',
     'students',
     'school',
-    'api'
+    'api',
+    'sistemail'
 ]
 
 MIDDLEWARE = [
@@ -147,3 +148,13 @@ AUTHENTICATION_BACKENDS = [
     'authentication.auth_backend.UserAuthentication',  # <- my custom authentication (logic)
     'django.contrib.auth.backends.ModelBackend',  # Django's default authentication logic
 ]
+
+# gmail app configurations
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'ssentamuinstituteofscienceandt@gmail.com'
+EMAIL_HOST_PASSWORD = 'hqzbxtqevtcqcqow'  # Use App Password, not your Gmail password
+
