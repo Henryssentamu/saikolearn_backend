@@ -43,7 +43,8 @@ export function SignIn() {
 
   async function handlesubmit(e) {
     e.preventDefault(); // Prevents page reload
-    await login(formData.studentId, formData.password);
+    // await login(formData.studentId, formData.password);
+    navigate("/studentportal")
   }
 
   return (

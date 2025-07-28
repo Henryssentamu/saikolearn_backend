@@ -8,7 +8,7 @@ import { countriesList, countryCodesList } from "../assets/countrycodes";
 
 export async function Api({ data, root }) {
   try {
-    const response = await fetch(`${root}registerstudent/`, {
+    const response = await fetch(`${root}students/registerandregisteredstudents/`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
@@ -26,17 +26,18 @@ export async function Api({ data, root }) {
 export function SignUp() {
   const countries = [...new Set(countriesList)];
   const countryCodes = [...new Set(countryCodesList)];
+  const [cssloader, setcssloader] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  const [studentId, setStudentId] = useState("");
+  const [student_id, setStudentId] = useState("");
   const [formData, setFormData] = useState({
-    FirstName: "",
-    SecondName: "",
-    PhoneNumber: "",
+    first_name: "",
+    second_name: "",
+    phone_number: "",
     countryCode: "+256",
-    Email: "",
-    Country: "",
-    DateOfBirth: "",
-    Gender: "",
+    email: "",
+    country: "",
+    date_of_birth: "",
+    gender: "",
     password: "",
     confirmPassword: "",
   });
@@ -53,18 +54,17 @@ export function SignUp() {
       return;
     }
 
-    const fullPhone = formData.countryCode + formData.PhoneNumber;
+    const fullPhone = formData.countryCode + formData.phone_number;
     const { confirmPassword, countryCode, ...dataToSend } = formData;
-    dataToSend.PhoneNumber = fullPhone;
+    dataToSend.phone_number = fullPhone;
 
     try {
-      // console.log(dataToSend);
+      console.log(dataToSend);
+      setcssloader(true)
       const responseData = await Api({ data: dataToSend, root: apiUrl });
       if (responseData) {
-        // console.log(responseData);
-        // console.log(responseData.StudentId);
-        // alert(responseData.StudentId);
-        setStudentId(responseData.StudentId);
+        setStudentId(responseData.student_id);
+        setcssloader(false)
         setShowModal(true);
       }
     } catch (error) {
@@ -82,16 +82,22 @@ export function SignUp() {
     <div>
       <HomeNav />
       <div className="container" style={{ marginTop: "128px" }}>
+        {/* css loader */}
+        {cssloader && (<div className="d-flex justify-content-center my-3">
+          <div className="spinner-border text-success" role="status">
+            <span className="visually-hidden">Loading...</span>
+          </div>
+        </div>)}
         <div className="card p-4 shadow">
           <h2 className="mb-4 text-center">Student Registration</h2>
           <form onSubmit={handleSubmit}>
             <div className="mb-3">
-              <label className="form-label">Given Name</label>
-              <input type="text" name="FirstName" className="form-control" value={formData.FirstName} onChange={handleChange} required />
+              <label className="form-label">First Name</label>
+              <input type="text" name="first_name" className="form-control" value={formData.first_name} onChange={handleChange} required />
             </div>
             <div className="mb-3">
               <label className="form-label">Sur Name</label>
-              <input type="text" name="SecondName" className="form-control" value={formData.SecondName} onChange={handleChange} required />
+              <input type="text" name="second_name" className="form-control" value={formData.second_name} onChange={handleChange} required />
             </div>
 
             <div className="mb-3 row">
@@ -109,9 +115,9 @@ export function SignUp() {
                 <label className="form-label">Phone Number</label>
                 <input
                   type="text"
-                  name="PhoneNumber"
+                  name="phone_number"
                   className="form-control"
-                  value={formData.PhoneNumber}
+                  value={formData.phone_number}
                   onChange={handleChange}
                   required
                 />
@@ -120,12 +126,12 @@ export function SignUp() {
 
             <div className="mb-3">
               <label className="form-label">Email</label>
-              <input type="email" name="Email" className="form-control" value={formData.Email} onChange={handleChange} required />
+              <input type="email" name="email" className="form-control" value={formData.email} onChange={handleChange} required />
             </div>
 
             <div className="mb-3">
               <label className="form-label">Country of Origin</label>
-              <select name="Country" className="form-select" value={formData.Country} onChange={handleChange} required>
+              <select name="country" className="form-select" value={formData.country} onChange={handleChange} required>
                 <option value="">Select Country</option>
                 {countries.map((country) => (
                   <option key={country} value={country}>
@@ -139,9 +145,9 @@ export function SignUp() {
               <label className="form-label">Date of Birth</label>
               <input
                 type="date"
-                name="DateOfBirth"
+                name="date_of_birth"
                 className="form-control"
-                value={formData.DateOfBirth}
+                value={formData.date_of_birth}
                 onChange={handleChange}
                 required
               />
@@ -149,7 +155,7 @@ export function SignUp() {
 
             <div className="mb-3">
               <label className="form-label">Gender</label>
-              <select name="Gender" className="form-select" value={formData.Gender} onChange={handleChange} required>
+              <select name="gender" className="form-select" value={formData.gender} onChange={handleChange} required>
                 <option value="">Select Gender</option>
                 <option value="Male">Male</option>
                 <option value="Female">Female</option>
@@ -189,10 +195,10 @@ export function SignUp() {
               <button type="button" className="btn-close" onClick={handleModalClose}></button>
             </div>
             <div className="modal-body">
-              <p>Please keep your student ID, as you will need it to log in to your student portal.</p>
-              <p>
-                Your Student ID: <strong>{studentId}</strong>
-              </p>
+              <p>Your student Id has been sent to your email.</p>
+              {/* <p>
+                Your Student ID: <strong>{student_id}</strong>
+              </p> */}
             </div>
             <div className="modal-footer">
               <button type="button" className="btn btn-primary" onClick={handleModalClose}>
