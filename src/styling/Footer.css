@@ -1,0 +1,49 @@
+.footer {
+  background-color: #0d0a2c;
+  padding-top: 4rem;
+  padding-bottom: 2rem;
+}
+
+.cta-container {
+  margin-top: -6rem;
+}
+
+.cta-card {
+  max-width: 700px;
+  margin: 0 auto;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.footer-brand {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.footer-link {
+  color: rgba(255, 255, 255, 0.8);
+  text-decoration: none;
+  transition: color 0.3s ease;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.footer-link:hover {
+  color: #ffffff;
+  text-decoration: none;
+}
+
+h3 {
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+@media (max-width: 768px) {
+  .cta-card {
+    padding: 2rem;
+  }
+  
+  .footer-brand {
+    font-size: 1.75rem;
+  }
+}

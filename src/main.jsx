@@ -23,6 +23,7 @@ import { RecruitEmployess } from "./subcomponets/forms/recruitEmployee";
 import { Studentportal } from "./componest/studentportal/dashboard";
 import { CourseDashboard } from "./componest/studentportal/coursedashboard";
 import { ProgramCourses } from "./componest/studentportal/programes";
+import { CodingProgramPage } from "./componest/courses/coursedetailsubcomponent/highschoolcodingcourse";
 export function App() {
   return (
     <div>
@@ -52,6 +53,7 @@ export function App() {
           <Route path="/studentportal" element={<Studentportal />} />
           <Route path="/coursedashboard" element={<CourseDashboard />} />
           <Route path="/programs" element={<ProgramCourses />} />
+          <Route path="/highschoolcoding" element={ < CodingProgramPage />}/>
         </Routes>
       </Router>
     </div>
