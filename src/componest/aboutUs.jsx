@@ -11,7 +11,7 @@ export function AboutUs() {
         <div className="text-center mb-5">
           <h1 className="poppins-black">About Us</h1>
           <p className="poppins-regular">
-            Facilitating career acceleration, Saikolearn delivers technology training for young technophiles, arming them with practical and
+            Facilitating career acceleration, Ssentamu Innovation Hub Of Science And Technology - SIST delivers technology training for young technophiles, arming them with practical and
             technical expertise. This skill set is instrumental in propelling their achievements in today's digital-centric professional
             environment.
           </p>

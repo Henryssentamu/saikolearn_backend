@@ -16,7 +16,7 @@ export function Home() {
       BreifDiscription: "This course is your gateway to the fascinating realm of coding.",
       Duration: "Duration 12 months",
       thumbnil: "/sist1.png",
-      courseurl: "/highschoolcoding"
+      courseurl: "/programming"
     },
     {
       courseId: "123",
@@ -24,7 +24,7 @@ export function Home() {
       BreifDiscription: "This course is your gateway to the fascinating realm of Ai Engineering .",
       Duration: "Duration 12 months",
       thumbnil: "/sist2.png",
-      courseurl: "/highschoolcoding"
+      courseurl: "/machinelearning"
     },
     {
       courseId: "124",
@@ -140,7 +140,7 @@ export function Home() {
       </div> */}
       <section className="trending-courses py-5">
       <Container>
-        <h2 className="text-center poppins-black mb-3">Our Trending Courses</h2>
+        <h2 className="text-center poppins-black mb-3">Our Trending Programs</h2>
         <p className="text-center poppins-regular  mb-5 lead">
           Embark on a transformative career journey with real-world skills aligned to industry demands. Invest in practical knowledge, earn
           certifications in cutting-edge programs guided by top tech experts, and elevate your career trajectory.
@@ -188,7 +188,7 @@ export function Home() {
             </div>
             <div className="card-body">
               <div className="card-title text-center" style={stylings}>
-                Collaborate with saikolearn to revolutionize the tech talent landscape in Africa, impacting one learner at a time!
+                Collaborate with Ssentamu Innovation Hub Of Science And Technology - SIST to revolutionize the tech talent landscape in Africa, impacting one learner at a time!
               </div>
               <div className="card-text poppins-medium mb-3 mt-3 " style={{ fontSize: "22px" }}>
                 Why Invest in the Grant Partner Initiative?
@@ -209,7 +209,7 @@ export function Home() {
               </div>
               <div className="card-body">
                 <div className="card-text text-center" style={stylings}>
-                  Back saikolearn's skilling, placement, and Microwork initiatives to ensure optimal talent connects with the finest
+                  Back Ssentamu Innovation Hub Of Science And Technology - SIST's skilling, placement, and Microwork initiatives to ensure optimal talent connects with the finest
                   opportunities!
                 </div>
                 <div className="card-text poppins-medium mb-3 mt-3" style={{ fontSize: "22px" }}>
@@ -217,9 +217,9 @@ export function Home() {
                 </div>
                 <div className="card-text poppins-regular " style={stylings}>
                   Strategically align skilled talent with premier opportunities through the Corporate Ally Program, investing in a finely
-                  tuned talent pipeline for your industry's evolving needs. Your support enhances saikolearn's renowned skilling programs,
+                  tuned talent pipeline for your industry's evolving needs. Your support enhances Ssentamu Innovation Hub Of Science And Technology - SIST's renowned skilling programs,
                   ensuring a continuous influx of industry-ready professionals. Shape a workforce that exceeds expectations by partnering
-                  with saikolearn for optimal placement solutions.
+                  with Ssentamu Innovation Hub Of Science And Technology - SIST for optimal placement solutions.
                 </div>
               </div>
             </div>
@@ -233,18 +233,18 @@ export function Home() {
               Our Corporate Ally
             </div>
             <div className="text m-1 p-1" style={stylings}>
-              saikolearn collaborates with public, private, and development sectors to equip, enhance skills, and position tech talent in
+              Ssentamu Innovation Hub Of Science And Technology - SIST collaborates with public, private, and development sectors to equip, enhance skills, and position tech talent in
               rewarding employment opportunities, both locally and globally.
             </div>
             <div className="text m-1 p-1" style={stylings}>
               Our collaborators enable this by backing skilling initiatives, sponsoring underprivileged students, sharing resources for
-              saikolearn programs to reach underserved communities, and offering workspaces to mentor and hire our talent.
+              Ssentamu Innovation Hub Of Science And Technology - SIST programs to reach underserved communities, and offering workspaces to mentor and hire our talent.
             </div>
             <div className="card-text text-center poppins-regular mb-3 mt-3" style={stylings}>
               Our Grant Partners
             </div>
             <div className="text p-1" style={stylings}>
-              Grant Partners fuel student success by sponsoring course enrollment and supporting saikolearn's operations financially. Their
+              Grant Partners fuel student success by sponsoring course enrollment and supporting Ssentamu Innovation Hub Of Science And Technology - SIST's operations financially. Their
               generosity unlocks educational opportunities, shaping tech talent and fostering innovation.
             </div>
             <button className="btn btn-outline-success m-3 ">Become A Partner</button>
@@ -263,7 +263,7 @@ export function Home() {
                 <Card.Body className="text-center">
                   <Card.Title className="poppins-medium mb-3">Grant Partner</Card.Title>
                   <Card.Text className="text-muted mb-4">
-                    Collaborate with SaikoLearn to revolutionize Africa's tech talent landscape, impacting one learner at a time!
+                    Collaborate with Ssentamu Innovation Hub Of Science And Technology - SIST to revolutionize Africa's tech talent landscape, impacting one learner at a time!
                   </Card.Text>
                   <Card.Subtitle className="poppins-medium mb-3">
                     Why Invest in the Grant Partner Initiative?
@@ -281,13 +281,13 @@ export function Home() {
                 <Card.Body className="text-center">
                   <Card.Title className="poppins-medium mb-3">Corporate Ally</Card.Title>
                   <Card.Text className="text-muted mb-4">
-                    Support SaikoLearn's skilling, placement, and microwork initiatives to connect top talent with premier opportunities!
+                    Support Ssentamu Innovation Hub Of Science And Technology - SIST's skilling, placement, and microwork initiatives to connect top talent with premier opportunities!
                   </Card.Text>
                   <Card.Subtitle className="poppins-medium mb-3">
                     Why Become a Corporate Ally?
                   </Card.Subtitle>
                   <Card.Text className="poppins-regular text-muted">
-                    Align skilled talent with industry needs through the Corporate Ally Program. Enhance SaikoLearn's skilling programs to ensure a continuous pipeline of industry-ready professionals. Shape a workforce that exceeds expectations with optimal placement solutions.
+                    Align skilled talent with industry needs through the Corporate Ally Program. Enhance Ssentamu Innovation Hub Of Science And Technology - SIST's skilling programs to ensure a continuous pipeline of industry-ready professionals. Shape a workforce that exceeds expectations with optimal placement solutions.
                   </Card.Text>
                 </Card.Body>
               </Card>
@@ -300,14 +300,14 @@ export function Home() {
                   <Card.Title className="poppins-black mb-3">Our Support Network</Card.Title>
                   <Card.Subtitle className="poppins-regular mb-3">Our Corporate Allies</Card.Subtitle>
                   <Card.Text className="text-muted mb-3">
-                    SaikoLearn collaborates with public, private, and development sectors to equip and position tech talent in rewarding local and global opportunities.
+                    Ssentamu Innovation Hub Of Science And Technology - SIST collaborates with public, private, and development sectors to equip and position tech talent in rewarding local and global opportunities.
                   </Card.Text>
                   <Card.Text className="text-muted mb-4">
                     Our allies support skilling initiatives, sponsor underprivileged students, share resources for underserved communities, and provide mentorship and hiring opportunities.
                   </Card.Text>
                   <Card.Subtitle className="poppins-regular mb-3">Our Grant Partners</Card.Subtitle>
                   <Card.Text className="text-muted mb-4">
-                    Grant Partners fuel student success by sponsoring course enrollment and supporting SaikoLearn's operations, unlocking educational opportunities and fostering innovation.
+                    Grant Partners fuel student success by sponsoring course enrollment and supporting Ssentamu Innovation Hub Of Science And Technology - SIST's operations, unlocking educational opportunities and fostering innovation.
                   </Card.Text>
                   <Button variant="outline-success" href="/partner">Become a Partner</Button>
                 </Card.Body>

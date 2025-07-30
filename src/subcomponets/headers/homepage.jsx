@@ -24,7 +24,7 @@ export function HomeNav() {
     >
       <div className="container-fluid">
         <a href="/" className="navbar-brand text-white">
-          SaikLearn
+          <strong>SIST</strong>
         </a>
         <button
           className="navbar-toggler"
@@ -47,7 +47,7 @@ export function HomeNav() {
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
                 >
-                  Schools
+                  Hubs
                 </a>
 
                 <ul className="dropdown-menu" aria-labelledby="dropdownMenuLink">

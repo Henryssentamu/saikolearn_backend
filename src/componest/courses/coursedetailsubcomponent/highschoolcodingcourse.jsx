@@ -64,7 +64,7 @@ export function CodingProgramPage(){
         <div className="container">
           <h2 className="text-center display-5 fw-bold mb-5">Course Duration</h2>
           <div className="row g-4">
-            <div className="col-md-4">
+            <div className="col-md-3">
               <div className="border rounded p-4 text-center">
                 <h4 className="text-primary">Term 1</h4>
                 <small className="text-muted">First Term Holiday</small>
@@ -75,7 +75,7 @@ export function CodingProgramPage(){
                 </ul>
               </div>
             </div>
-            <div className="col-md-4">
+            <div className="col-md-3">
               <div className="border rounded p-4 text-center">
                 <h4 className="text-success">Term 2</h4>
                 <small className="text-muted">Second Term Holiday</small>
@@ -86,7 +86,7 @@ export function CodingProgramPage(){
                 </ul>
               </div>
             </div>
-            <div className="col-md-4">
+            <div className="col-md-3">
               <div className="border rounded p-4 text-center">
                 <h4 className="text-warning">Term 3</h4>
                 <small className="text-muted">Third Term Holiday</small>
@@ -95,6 +95,17 @@ export function CodingProgramPage(){
                     <li>Integrating HTML, CSS & JavaScript</li>
                     <li>Personal Portfolio Development</li>
                     {/* <li>Career Readiness & Tech Pathways</li> */}
+                </ul>
+              </div>
+            </div>
+            <div className="col-md-3">
+              <div className="border rounded p-4 text-center">
+                <h4 className="text-success">Course Fee</h4>
+                <small className="text-muted">Ugx: 300,000</small>
+                <ul className="list-unstyled mt-3">
+                    <li>One-time payment for all 3 terms</li>
+                    <li>Includes all learning materials</li>
+                    <li>Access to mentorship & support</li>
                 </ul>
               </div>
             </div>
@@ -109,6 +120,7 @@ export function CodingProgramPage(){
               <div className="col-sm-6 col-md-4">Flexible Timing</div>
             </div>
           </div>
+          
         </div>
       </section>
 

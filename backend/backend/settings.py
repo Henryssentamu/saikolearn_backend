@@ -101,9 +101,9 @@ DATABASES = {
         'HOST': 'localhost',
         'PORT': '3306',
     },
-    'saikolearndatabase': {
+    'Ssentamu Innovation Hub Of Science And Technology - SISTdatabase': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'saikolearndatabase',
+        'NAME': 'Ssentamu Innovation Hub Of Science And Technology - SISTdatabase',
         'USER': 'django_user',
         'PASSWORD': 'Hen#@3030',
         'HOST': 'localhost',

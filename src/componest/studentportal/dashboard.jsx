@@ -126,7 +126,7 @@
 //     return (
 //       <nav className="navbar navbar-expand-lg navbar-light  text-white p-3" style={{ backgroundColor: "#0d0a2c" }}>
 //         <a className="navbar-brand text-white" href="#">
-//           Saikolearn Student Portal
+//           Ssentamu Innovation Hub Of Science And Technology - SIST Student Portal
 //         </a>
 //         <div className="ms-auto d-flex align-items-center">
 //           <div>
@@ -166,7 +166,7 @@
 //         <div className="row g-4">
 //           {/* Left Section */}
 //           <div className="col-md-3 text-center p-3 rounded shadow-sm" style={{ backgroundColor: "#f8f9fa" }}>
-//             <h5 className="mt-2">Saikolearn Academy</h5>
+//             <h5 className="mt-2">Ssentamu Innovation Hub Of Science And Technology - SIST Academy</h5>
 
 //             {/* <img src={student.profilePic} className="rounded-circle mt-2" alt="Student" style={{ width: "150px", height: "150px" }} /> */}
 //           </div>
@@ -256,6 +256,7 @@
 
 
 import React, { useEffect, useState } from "react";
+
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import { apiUrl } from "../../../env";
@@ -269,13 +270,16 @@ export function Studentportal() {
   const [showModal, setShowModal] = useState(false);
 
   // const studentId = "SIST/28983/NA";
-  const studentId = "SIST/73679/NA"
+  // const studentId = "SIST/73679/NA"
+
+  // accessing student is
+  const user_id = localStorage.getItem("user_id");
 
   const formatDate = (dateStr) =>
     new Date(dateStr).toLocaleDateString("en-GB");
 
   const fetchStudentDetails = async () => {
-    const encodedId = encodeURIComponent(studentId);
+    const encodedId = encodeURIComponent(user_id);
     try {
       const res = await fetch(
         `${apiUrl}students/studentenrollmentdetails/?pk=${encodedId}`

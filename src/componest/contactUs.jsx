@@ -20,7 +20,7 @@ export function ContactUs() {
                 <strong c>Office Number:</strong> +2567981066
               </p>
               <p>
-                <strong>Admin's Webmail:</strong> admin@saikolearnschool.org
+                <strong>Admin's Webmail:</strong> admin@Ssentamu Innovation Hub Of Science And Technology - SISTschool.org
               </p>
             </div>
 

@@ -7,21 +7,31 @@ import { apiUrl } from "../../env";
 export function SignIn() {
   const navigate = useNavigate();
 
-  async function login(studentId, password) {
+  async function login(username, password) {
+    const dataSend = { student_id:username, password:password}
     try {
-      const response = await fetch(`${apiUrl}studentlogin/`, {
+      const response = await fetch(`${apiUrl}authenticate/token/`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ studentId, password }),
+        body: JSON.stringify(dataSend),
       });
 
       const data = await response.json();
 
       if (response.ok) {
-        // localStorage.setItem("accessToken", data.access);
-        // localStorage.setItem("refreshToken", data.refresh);
-        localStorage.setItem("studentId", studentId);
-        navigate("/studentportal", { state: { studentId } });
+        console.log(data)
+        localStorage.setItem("access", data.access);
+        localStorage.setItem("refresh", data.darefresh);
+        localStorage.setItem("user_id", data.user_id);
+        localStorage.setItem("user_type", data.user_type);
+        if (user_type === "student") {
+          navigate("/studentportal");
+        } else {
+          // window.location.href = `/employee/${user_id}`;
+          console.log("i will handle employees here")
+          console.log("feid")
+        }
+  
       } else {
         alert("Error while sending your details, please try again.");
         navigate("/signin");
@@ -33,7 +43,7 @@ export function SignIn() {
   }
 
   const [formData, setFormData] = useState({
-    studentId: "",
+    username: "",
     password: "",
   });
 
@@ -43,7 +53,7 @@ export function SignIn() {
 
   async function handlesubmit(e) {
     e.preventDefault(); // Prevents page reload
-    await login(formData.studentId, formData.password);
+    await login(formData.username, formData.password);
     // navigate("/studentportal")
   }
 
@@ -56,7 +66,7 @@ export function SignIn() {
         <form onSubmit={handlesubmit}>
           <div className="mb-3">
             <label className="form-label">Student Number</label>
-            <input type="text" className="form-control" name="studentId" value={formData.studentId} onChange={handleChanges} required />
+            <input type="text" className="form-control" name="username" value={formData.username} onChange={handleChanges} required />
           </div>
           <div className="mb-3">
             <label className="form-label">Password</label>

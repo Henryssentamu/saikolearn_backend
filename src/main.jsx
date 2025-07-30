@@ -24,6 +24,8 @@ import { Studentportal } from "./componest/studentportal/dashboard";
 import { CourseDashboard } from "./componest/studentportal/coursedashboard";
 import { ProgramCourses } from "./componest/studentportal/programes";
 import { CodingProgramPage } from "./componest/courses/coursedetailsubcomponent/highschoolcodingcourse";
+import { IntroductionToProgramming } from "./componest/courses/coursedetailsubcomponent/introToprogramming";
+import { MachineLearningProgramPage } from "./componest/courses/coursedetailsubcomponent/IntroTomachinelearning";
 export function App() {
   return (
     <div>
@@ -54,6 +56,8 @@ export function App() {
           <Route path="/coursedashboard" element={<CourseDashboard />} />
           <Route path="/programs" element={<ProgramCourses />} />
           <Route path="/highschoolcoding" element={ < CodingProgramPage />}/>
+          <Route path="/programming" element={ < IntroductionToProgramming />}/>
+          <Route path="/machinelearning" element= {< MachineLearningProgramPage/>}/>
         </Routes>
       </Router>
     </div>
