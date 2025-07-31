@@ -119,44 +119,44 @@
 //     fetchAvailableSchools();
 //   }, []);
 
-//   // Header Component
-//   function Header() {
-//     const [show, setshow] = useState(false);
+  // // Header Component
+  // function Header() {
+  //   const [show, setshow] = useState(false);
 
 //     return (
-//       <nav className="navbar navbar-expand-lg navbar-light  text-white p-3" style={{ backgroundColor: "#0d0a2c" }}>
-//         <a className="navbar-brand text-white" href="#">
-//           Ssentamu Innovation Hub Of Science And Technology - SIST Student Portal
-//         </a>
-//         <div className="ms-auto d-flex align-items-center">
-//           <div>
-//             <span className="" style={{ marginRight: "10px" }}>
-//               {studentData?.bioData?.SecondName}
-//             </span>
-//             {studentData?.bioData?.profilePic ? (
-//               <img
-//                 src={studentData.bioData.profilePic}
-//                 className="rounded-circle mt-2"
-//                 alt="Student"
-//                 style={{ width: "50px", height: "50px" }}
-//                 onClick={() => setshow((prev) => !prev)}
-//               />
-//             ) : (
-//               <FaUserCircle size={30} className="cursor-pointer" onClick={() => setshow((prev) => !prev)} />
-//             )}
-//           </div>
-//         </div>
-//         {show && (
-//           <div className="position-absolute bg-white shadow rounded p-3" style={{ right: "10px", top: "50px" }}>
-//             <button className="btn btn-outline-primary w-100 mb-2">
-//               <FaCog /> Settings
-//             </button>
-//             <a href="/" className="btn btn-outline-danger w-100">
-//               <FaSignOutAlt /> Logout
-//             </a>
-//           </div>
-//         )}
-//       </nav>
+      // <nav className="navbar navbar-expand-lg navbar-light  text-white p-3" style={{ backgroundColor: "#0d0a2c" }}>
+      //   <a className="navbar-brand text-white" href="#">
+      //     Ssentamu Innovation Hub Of Science And Technology - SIST Student Portal
+      //   </a>
+      //   <div className="ms-auto d-flex align-items-center">
+      //     <div>
+      //       <span className="" style={{ marginRight: "10px" }}>
+      //         {studentData?.bioData?.SecondName}
+      //       </span>
+      //       {studentData?.bioData?.profilePic ? (
+      //         <img
+      //           src={studentData.bioData.profilePic}
+      //           className="rounded-circle mt-2"
+      //           alt="Student"
+      //           style={{ width: "50px", height: "50px" }}
+      //           onClick={() => setshow((prev) => !prev)}
+      //         />
+      //       ) : (
+      //         <FaUserCircle size={30} className="cursor-pointer" onClick={() => setshow((prev) => !prev)} />
+      //       )}
+      //     </div>
+      //   </div>
+      //   {show && (
+      //     <div className="position-absolute bg-white shadow rounded p-3" style={{ right: "10px", top: "50px" }}>
+      //       <button className="btn btn-outline-primary w-100 mb-2">
+      //         <FaCog /> Settings
+      //       </button>
+      //       <a href="/" className="btn btn-outline-danger w-100">
+      //         <FaSignOutAlt /> Logout
+      //       </a>
+      //     </div>
+      //   )}
+      // </nav>
 //     );
 //   }
 
@@ -256,10 +256,14 @@
 
 
 import React, { useEffect, useState } from "react";
+// import { fetchWithAuth } from "../../assets/tokenservice";
+import { useLocation, useNavigate } from "react-router-dom";
+import { FaUserCircle, FaBook, FaCalendarAlt, FaQuestionCircle, FaCog, FaSignOutAlt } from "react-icons/fa";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import { apiUrl } from "../../../env";
+
 
 export function Studentportal() {
   const [student, setStudent] = useState(null);
@@ -272,6 +276,56 @@ export function Studentportal() {
   // const studentId = "SIST/28983/NA";
   // const studentId = "SIST/73679/NA"
 
+  // / Header Component
+  function Header() {
+    const [show, setshow] = useState(false);
+    function logout() {
+    // Remove tokens from storage
+    localStorage.removeItem('access');
+    localStorage.removeItem('refresh');
+    console.log('Logged out successfully');
+    // Optionally redirect to login page
+    window.location.href = '/';
+    }
+
+    return (
+      <nav className="navbar navbar-expand-lg navbar-light  text-white p-3" style={{ backgroundColor: "#0d0a2c" }}>
+        <a className="navbar-brand text-white" href="#">
+          Ssentamu Innovation Hub Of Science And Technology - SIST Student Portal
+        </a>
+        <div className="ms-auto d-flex align-items-center">
+          <div>
+            <span className="" style={{ marginRight: "10px" }}>
+              {student?.full_name}
+            </span>
+            {student?.profilePic ? (
+              <img
+                src={studentData.bioData.profilePic}
+                className="rounded-circle mt-2"
+                alt="Student"
+                style={{ width: "50px", height: "50px" }}
+                onClick={() => setshow((prev) => !prev)}
+              />
+            ) : (
+              <FaUserCircle size={30} className="cursor-pointer" onClick={() => setshow((prev) => !prev)} />
+            )}
+          </div>
+        </div>
+        {show && (
+          <div className="position-absolute bg-white shadow rounded p-3" style={{ right: "10px", top: "50px" }}>
+            <button className="btn btn-outline-success w-100 mb-2">
+              <FaCog /> Settings
+            </button>
+            <a onClick={() => logout()} className="btn btn-outline-danger w-100">
+              <FaSignOutAlt /> Logout
+            </a>
+          </div>
+        )}
+      </nav>
+    );
+  }
+
+
   // accessing student is
   const user_id = localStorage.getItem("user_id");
 
@@ -280,10 +334,15 @@ export function Studentportal() {
 
   const fetchStudentDetails = async () => {
     const encodedId = encodeURIComponent(user_id);
+    const accessToken = localStorage.getItem("access")
     try {
-      const res = await fetch(
-        `${apiUrl}students/studentenrollmentdetails/?pk=${encodedId}`
-      );
+      const res = await fetch(`${apiUrl}students/studentenrollmentdetails/?pk=${encodedId}`,{
+        method : "GET",
+        headers:{
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${accessToken}`,
+        }
+      } );
       if (!res.ok) throw new Error("Failed to fetch student data");
       const data = await res.json();
 
@@ -371,15 +430,20 @@ export function Studentportal() {
   if (!student) {
     return <div className="container py-4">Loading student data...</div>;
   }
+  console.log(student)
 
   return (
-    <div className="container py-4">
-      <div className="bg-success text-white p-4 rounded mb-4">
-        <h2>Welcome back, {student.full_name.split(" ")[0]}!</h2>
-        <p id="studentid" data-student-id={student.student_id}>
-          Student ID: {student.student_id}
-        </p>
-      </div>
+    <>
+      {/* Top Navbar */}
+      < Header />
+    {/* Dashboard Content */}
+      <div className="container py-4">
+        {/* <div className="bg-success text-white p-4 rounded mb-4">
+          <h2>Welcome back, {student.full_name.split(" ")[0]}!</h2>
+          <p id="studentid" data-student-id={student.student_id}>
+            Student ID: {student.student_id}
+          </p>
+        </div> */}
 
       <div className="row mb-4">
         <div className="col-md-4">
@@ -508,5 +572,9 @@ export function Studentportal() {
         </div>
       )}
     </div>
+
+    
+    </>
+    
   );
 }

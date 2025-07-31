@@ -8,7 +8,7 @@ export function SignIn() {
   const navigate = useNavigate();
 
   async function login(username, password) {
-    const dataSend = { student_id:username, password:password}
+    const dataSend = { username:username, password:password}
     try {
       const response = await fetch(`${apiUrl}authenticate/token/`, {
         method: "POST",
@@ -19,11 +19,12 @@ export function SignIn() {
       const data = await response.json();
 
       if (response.ok) {
-        console.log(data)
+        // console.log(data)
         localStorage.setItem("access", data.access);
         localStorage.setItem("refresh", data.darefresh);
         localStorage.setItem("user_id", data.user_id);
         localStorage.setItem("user_type", data.user_type);
+        const user_type = data.user_type;
         if (user_type === "student") {
           navigate("/studentportal");
         } else {
