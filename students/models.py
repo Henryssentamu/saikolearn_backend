@@ -10,14 +10,15 @@ class StudentManager(BaseUserManager):
     def create_student(self, email=None, password=None, **extra_fields):
         if not email:
             raise ValueError("student email is required")
-        emial = self.normalize_email(emial)
+        email = self.normalize_email(email)
         student = self.model(email=email, **extra_fields)
         student.set_password(password)
         student.save()
         extra_fields.setdefault("is_staff", False)
         extra_fields.setdefault("is_superuser", False)
         extra_fields.setdefault("is_active", True)
-        return self.create_student(email=email, password=password, **extra_fields)
+        # return self.create_student(email=email, password=password, **extra_fields)
+        return student
        
     def create_superuser(self, *args, **kwargs):
         raise NotImplementedError("Students can't be superusers.")

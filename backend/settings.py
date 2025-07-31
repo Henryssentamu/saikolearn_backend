@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+from datetime import timedelta 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -42,6 +43,7 @@ INSTALLED_APPS = [
     'corsheaders',
     # added rest framework
     'rest_framework',
+    'rest_framework_simplejwt',
     'authentication',
     'user',
     'students',
@@ -142,12 +144,32 @@ CORS_ALLOW_ALL_ORIGINS = True  # ⚠️ not recommended for production
 
 
 
+# AUTH_USER_MODEL = 'students.Student'
 AUTH_USER_MODEL = 'user.User'
 
 AUTHENTICATION_BACKENDS = [
     'authentication.auth_backend.UserAuthentication',  # <- my custom authentication (logic)
     'django.contrib.auth.backends.ModelBackend',  # Django's default authentication logic
 ]
+
+# Default JWT configuration
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        # 'rest_framework_simplejwt.authentication.JWTAuthentication',
+        'authentication.auth_backend.CustomJWTAuthentication', # Use custom JWT authentication instead of the defualt jwt above
+    )
+}
+
+# configuring simple jwt
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+    'AUTH_HEADER_TYPES': ('Bearer',),
+    'USER_ID_FIELD': 'pk',
+    'USER_ID_CLAIM': 'user_id',
+    'ROTATE_REFRESH_TOKENS': True,
+    'BLACKLIST_AFTER_ROTATION': True,
+}
 
 # gmail app configurations
 
@@ -158,3 +180,21 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'ssentamuinstituteofscienceandt@gmail.com'
 EMAIL_HOST_PASSWORD = 'hqzbxtqevtcqcqow'  # Use App Password, not your Gmail password
 
+
+
+# accessing the logging errors 
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'loggers': {
+        '': {
+            'handlers': ['console'],
+            'level': 'INFO',
+        },
+    },
+}
