@@ -4,6 +4,9 @@ from rest_framework import status, mixins, generics
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
+import logging
+
+logger = logging.getLogger(__name__)
 # from rest_framework.permissions import isAuthenticated
 from .models import Student
 from .serializers import StudentSerializer, FlatStudentCourseResourceSerializer
@@ -86,11 +89,69 @@ class StudentDetails:
     
     
 
+# class StudentDetailsView(APIView):
+    # permission_classes = [IsAuthenticated]
+    # def flatten_student_course_data(self, student):
+    #     flat_data = []
+
+    #     full_name = f"{student.first_name} {student.second_name}"
+
+    #     if student.enrollments.exists():
+    #         for enrollment in student.enrollments.all():
+    #             course = enrollment.cohort.course
+    #             resources = course.resources.all()
+    #             if resources:
+    #                 for resource in resources:
+    #                     flat_data.append({
+    #                         "student_id": student.student_id,
+    #                         "full_name": full_name,
+    #                         "email": student.email,
+    #                         "country":student.country,
+    #                         "gender":student.gender,
+    #                         "phone_number":student.phone_number,
+    #                         "status": enrollment.status,
+    #                         "course_code":course.course_code,
+    #                         "start_date": enrollment.start_date,
+    #                         "end_date": enrollment.end_date,
+    #                         "course_name": course.course_name,
+    #                         "resource_type": resource.resource_type,
+    #                         "youtube_link": resource.youtube_link or ""})
+        
+    #     else:
+    #         flat_data.append({
+    #                     "student_id": student.student_id,
+    #                     "full_name": full_name,
+    #                     "email": student.email,
+    #                     "country":student.country,
+    #                     "gender":student.gender,
+    #                     "phone_number":student.phone_number
+    #                 })
+    #     return flat_data
+    # def get(self, request, *args, **kwargs):
+    #     if request.method == "GET":
+    #         pk = request.GET.get("pk")
+    #         if not pk:
+    #             raise ValidationError("request body should have studentId with a key pk")
+    #         try:
+    #             student = Student.objects.prefetch_related(
+    #                 'enrollments__cohort__course__resources'
+    #             ).get(student_id=pk)
+    #         except Student.DoesNotExist:
+    #             raise ValidationError(f"no student with {pk}")
+    #         # print(student)
+    #         data = self.flatten_student_course_data(student=student)
+    #         serializer = FlatStudentCourseResourceSerializer(data, many=True)
+    #         serializer
+    #         # print(serializer.data)
+    #         return Response(serializer.data)
+
+
+
 class StudentDetailsView(APIView):
     permission_classes = [IsAuthenticated]
+
     def flatten_student_course_data(self, student):
         flat_data = []
-
         full_name = f"{student.first_name} {student.second_name}"
 
         if student.enrollments.exists():
@@ -103,44 +164,53 @@ class StudentDetailsView(APIView):
                             "student_id": student.student_id,
                             "full_name": full_name,
                             "email": student.email,
-                            "country":student.country,
-                            "gender":student.gender,
-                            "phone_number":student.phone_number,
+                            "country": student.country,
+                            "gender": student.gender,
+                            "phone_number": student.phone_number,
                             "status": enrollment.status,
-                            "course_code":course.course_code,
+                            "course_code": course.course_code,
                             "start_date": enrollment.start_date,
                             "end_date": enrollment.end_date,
                             "course_name": course.course_name,
                             "resource_type": resource.resource_type,
-                            "youtube_link": resource.youtube_link or ""})
-        
+                            "youtube_link": resource.youtube_link or ""
+                        })
         else:
             flat_data.append({
-                        "student_id": student.student_id,
-                        "full_name": full_name,
-                        "email": student.email,
-                        "country":student.country,
-                        "gender":student.gender,
-                        "phone_number":student.phone_number
-                    })
+                "student_id": student.student_id,
+                "full_name": full_name,
+                "email": student.email,
+                "country": student.country,
+                "gender": student.gender,
+                "phone_number": student.phone_number
+            })
         return flat_data
+
     def get(self, request, *args, **kwargs):
-        if request.method == "GET":
-            pk = request.GET.get("pk")
-            if not pk:
-                raise ValidationError("request body should have studentId with a key pk")
-            try:
-                student = Student.objects.prefetch_related(
-                    'enrollments__cohort__course__resources'
-                ).get(student_id=pk)
-            except Student.DoesNotExist:
-                raise ValidationError(f"no student with {pk}")
-            # print(student)
-            data = self.flatten_student_course_data(student=student)
-            serializer = FlatStudentCourseResourceSerializer(data, many=True)
-            serializer
-            # print(serializer.data)
-            return Response(serializer.data)
+        student_id = request.GET.get("pk")
+        logger.info(f"StudentDetailsView: Received student_id: {student_id}")
+        if not student_id:
+            raise ValidationError("Request must include student_id with key 'pk'")
+
+        try:
+            student = Student.objects.prefetch_related(
+                'enrollments__cohort__course__resources'
+            ).get(student_id=student_id)
+            logger.info(f"Found student: {student}")
+        except Student.DoesNotExist:
+            logger.error(f"No student found with student_id: {student_id}")
+            raise ValidationError(f"No student found with student_id {student_id}")
+
+        data = self.flatten_student_course_data(student=student)
+        serializer = FlatStudentCourseResourceSerializer(data, many=True)
+        return Response(serializer.data, status=200)
+        # if not serializer.is_valid():
+        #     logger.error(f"Serializer errors: {serializer.errors}")
+        #     raise ValidationError(serializer.errors)
+        # logger.info(f"Serialized data: {serializer.data}")
+        # return Response(serializer.data)
+
+    
 
 # students/views.py
 # from rest_framework.views import APIView

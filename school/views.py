@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.core.exceptions import ValidationError
 from rest_framework import mixins, generics,status
 from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticated
 from .models import School, Course, Enrollment, CourseResource, Cohort
 from students.models import Student
 from .serializers import SchoolSerializer, CourseSerializer,EnrollmentSerializer,CourseResourcesSerializer, CohortSerializer
@@ -14,10 +15,12 @@ class CreateSchool(generics.ListCreateAPIView):
     serializer_class = SchoolSerializer
 
 class CreateCourse(generics.ListCreateAPIView):
+    permission_classes = [IsAuthenticated]
     queryset  = Course.objects.all()
     serializer_class = CourseSerializer
 
 class EnrollAndViewDetails(generics.ListCreateAPIView):
+    permission_classes = [IsAuthenticated]
     queryset = Enrollment.objects.all()
     serializer_class = EnrollmentSerializer
     def create(self, request, *args, **kwargs):
