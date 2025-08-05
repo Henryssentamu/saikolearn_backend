@@ -17,4 +17,7 @@ class GenerateIds:
         return f"{self.institute_prefix }/{str(secrets.randbelow(1000)).zfill(4)}/coh"  # Generates unique ID
     def employeeId(self):
         return f"{self.institute_prefix }/{str(secrets.randbelow(100000)).zfill(5)}/NA"  # Generates unique ID
+    def payment_reference_number(self):
+        return f"{self.institute_prefix }/{str(secrets.randbelow(10000000000)).zfill(10)}"  # Generates unique ID
+
 

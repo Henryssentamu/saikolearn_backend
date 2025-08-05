@@ -52,6 +52,12 @@ class Course(models.Model):
         verbose_name_plural = "Courses"
     def __str__(self):
         return f"{self.course_name}"
+    
+class CourseFee(models.Model):
+    course = models.ForeignKey('Course', on_delete=models.PROTECT, related_name='course_fee')
+    amount = models.PositiveIntegerField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
 class Enrollment(models.Model):
     student = models.ForeignKey('students.Student', on_delete=models.PROTECT, related_name='enrollments')

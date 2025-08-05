@@ -8,8 +8,8 @@ import logging
 
 logger = logging.getLogger(__name__)
 # from rest_framework.permissions import isAuthenticated
-from .models import Student
-from .serializers import StudentSerializer, FlatStudentCourseResourceSerializer
+from .models import Student, StudentPayments
+from .serializers import StudentSerializer, FlatStudentCourseResourceSerializer, StudentPaymentSerializer
 from sistemail.views import SendGmail
 
 
@@ -29,6 +29,11 @@ class ListAndCreateStudents(generics.ListCreateAPIView):
         # the access that student and send them the student id via the provided email
         student = serializer.save()
         SendGmail(email_address=student.email).send_student_is_email(studentId=student.student_id)
+    
+class ListAndCreateStudentpayments(generics.ListCreateAPIView):
+    queryset = StudentPayments.objects.all()
+    serializer_class = StudentPaymentSerializer
+
     
 class listUpdateAndDeleteAspecificStudent(mixins.RetrieveModelMixin, mixins.UpdateModelMixin, mixins.DestroyModelMixin, generics.GenericAPIView):
 
@@ -184,6 +189,7 @@ class StudentDetailsView(APIView):
                 "gender": student.gender,
                 "phone_number": student.phone_number
             })
+        print(flat_data)
         return flat_data
 
     def get(self, request, *args, **kwargs):

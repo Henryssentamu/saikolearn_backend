@@ -61,10 +61,22 @@ class Student(AbstractBaseUser, PermissionsMixin):
             self.student_id = studentId
 
         super().save(*args, **kwargs)
-    objects = StudentManager
+    objects = StudentManager()
 
     def __str__(self):
         return str(self.student_id)
+    
+class StudentPayments(models.Model):
+    student = models.ForeignKey('Student', on_delete=models.PROTECT, related_name="student_payments")
+    amount = models.PositiveIntegerField()
+    reference_number = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f"{self.student.student_id} - UGX {self.amount}"
+
+
     
 
 

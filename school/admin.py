@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import School,Cohort,Course,CourseResource, Enrollment
+from .models import School,Cohort,Course,CourseResource, Enrollment, CourseFee
 
 # Register your models here.
 
@@ -45,8 +45,16 @@ class CohortAdmin(admin.ModelAdmin):
     ordering = ('course','cohort_code')
     search_fields = ('cohort_code',)
 
+class CourseFeeAdmin(admin.ModelAdmin):
+    model =  CourseFee
+    list_display = ('course','amount')
+    list_filter = ('course','amount')
+    ordering = ('course','amount')
+    search_fields = ('course','amount')
+
 admin.site.register(School,SchoolAdmin)
 admin.site.register(Course, CourseAdmin)
 admin.site.register(CourseResource, CourseResourcesAdmin)
 admin.site.register(Enrollment, EnrollmentAdmin)
 admin.site.register(Cohort, CohortAdmin)
+admin.site.register(CourseFee, CourseFeeAdmin)

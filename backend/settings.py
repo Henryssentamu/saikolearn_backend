@@ -49,7 +49,8 @@ INSTALLED_APPS = [
     'students',
     'school',
     'api',
-    'sistemail'
+    'sistemail',
+    'payment'
 ]
 
 MIDDLEWARE = [

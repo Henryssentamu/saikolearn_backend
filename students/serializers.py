@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Student
+from .models import Student, StudentPayments
 from school.serializers import EnrollmentSerializer, CohortSerializer
 
 class StudentSerializer(serializers.ModelSerializer):
@@ -32,6 +32,12 @@ class StudentSerializer(serializers.ModelSerializer):
         instance.save()
         return instance
     
+
+
+class StudentPaymentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = StudentPayments
+        fields = "__all__"
 
 class FlatStudentCourseResourceSerializer(serializers.Serializer):
     student_id = serializers.CharField()

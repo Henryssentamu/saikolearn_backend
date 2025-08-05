@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from django.core.exceptions import ValidationError
-from .models import School,Course, Enrollment, CourseResource, Cohort
+from .models import School,Course, Enrollment, CourseResource, Cohort, CourseFee
 
 
 
@@ -37,12 +37,14 @@ class CohortSerializer(serializers.ModelSerializer):
 
 
 class EnrollmentSerializer(serializers.ModelSerializer):
+    # print("serializer is called")
     # cohort = CohortSerializer(read_only=True) # for relationship purpose ie include cohort details in fetch enrollment 
     class Meta:
         model = Enrollment
         fields = '__all__'
         read_only_fields = ['id']
     def validate(self, data):
+        # print("validating data is reached")
         # overrided this method in order to call clean() as explained in the model class
         instance = Enrollment(**data)
         try:
@@ -50,6 +52,12 @@ class EnrollmentSerializer(serializers.ModelSerializer):
         except ValidationError as e:
             raise serializers.ValidationError(e.message_dict if hasattr(e, 'message_dict') else str(e))
         return data
+    
+
+class CourseFeeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CourseFee
+        fields = "__all__"
 
 
 
