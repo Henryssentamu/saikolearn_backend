@@ -667,6 +667,7 @@ export function Studentportal() {
 
       if (data[0].course_code) {
         setEnrolledCourses(data);
+        // console.log(data)
       } else {
         setEnrolledCourses([]);
       }
@@ -680,33 +681,66 @@ export function Studentportal() {
       const res = await fetchWithAuth(`${apiUrl}schools/createcourse/`);
       if (!res.ok) throw new Error("Failed to fetch available courses");
       const data = await res.json();
+      // console.log(data)
       setAvailableCourses(data);
     } catch (err) {
       console.error(err);
     }
   };
 
+  // const handleEnrollment = async (course) => {
+  //   const studentid = student.student_id;
+  //   const courseDetails = {
+  //     course: course.id,
+  //     student: studentid,
+  //   };
+
+  //   try {
+  //     const res = await fetchWithAuth(`${apiUrl}schools/enrollStudent/`, {
+  //       method: "POST",
+  //       headers: { "Content-Type": "application/json" },
+  //       body: JSON.stringify(courseDetails),
+  //     });
+
+  //     if (!res.ok) throw new Error("Failed to enroll");
+  //     await res.json();
+  //     fetchStudentDetails();
+  //   } catch (err) {
+  //     console.error(err);
+  //   }
+  // };
+
   const handleEnrollment = async (course) => {
-    const studentid = student.student_id;
-    const courseDetails = {
-      course: course.id,
-      student: studentid,
-    };
-
-    try {
-      const res = await fetchWithAuth(`${apiUrl}schools/enrollStudent/`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(courseDetails),
-      });
-
-      if (!res.ok) throw new Error("Failed to enroll");
-      await res.json();
-      fetchStudentDetails();
-    } catch (err) {
-      console.error(err);
-    }
+  const studentid = student.student_id;
+  const courseDetails = {
+    course: course.id,
+    student: studentid,
   };
+  const access = localStorage.getItem("access");
+  console.log(courseDetails)
+  // console.log("Access token:", access); // Debug log
+  if (!access) {
+    console.error("No access token found in localStorage");
+    return;
+  }
+
+  try {
+    const res = await fetchWithAuth(`${apiUrl}schools/enrollStudent/`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(courseDetails),
+    });
+
+    if (!res.ok) {
+      const errorData = await res.json();
+      throw new Error(`Failed to enroll: ${errorData.detail || "Unknown error"}`);
+    }
+    await res.json();
+    fetchStudentDetails();
+  } catch (err) {
+    console.error(err);
+  }
+};
 
   useEffect(() => {
     fetchStudentDetails();
@@ -768,7 +802,7 @@ export function Studentportal() {
                         {formatDate(course.start_date)} - {formatDate(course.end_date)}
                       </p>
                       <button
-                        className="btn btn-outline-primary"
+                        className="btn btn-outline-success"
                         onClick={() => {
                           setSelectedCourse(course);
                           setShowModal(true);
@@ -816,13 +850,13 @@ export function Studentportal() {
                   <button type="button" className="btn-close" onClick={() => setShowModal(false)}></button>
                 </div>
                 <div className="modal-body">
-                  <button className="btn btn-outline-primary w-100 mb-2" onClick={() => window.open(selectedCourse.youtube_link, "_blank")}>
+                  <button className="btn btn-outline-success w-100 mb-2" onClick={() => window.open(selectedCourse.youtube_link, "_blank")}>
                     Course Material
                   </button>
-                  <button className="btn btn-outline-secondary w-100 mb-2" onClick={() => window.open("https://meet.google.com/", "_blank")}>
+                  <button className="btn btn-outline-secondary w-100 mb-2" onClick={() => window.open(selectedCourse.youtube_link, "_blank")}>
                     Live Class
                   </button>
-                  <button className="btn btn-outline-success w-100" onClick={() => window.open("https://drive.google.com/", "_blank")}>
+                  <button className="btn btn-outline-success w-100" onClick={() => window.open(selectedCourse.youtube_link, "_blank")}>
                     Recordings
                   </button>
                 </div>

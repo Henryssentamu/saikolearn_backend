@@ -309,7 +309,7 @@ export function Home() {
                   <Card.Text className="text-muted mb-4">
                     Grant Partners fuel student success by sponsoring course enrollment and supporting Ssentamu Innovation Hub Of Science And Technology - SIST's operations, unlocking educational opportunities and fostering innovation.
                   </Card.Text>
-                  <Button variant="outline-success" href="/partner">Become a Partner</Button>
+                  <Button variant="outline-success" href="mailto:ssentamuinstituteofscienceandt@gmail.com">Become a Partner</Button>
                 </Card.Body>
               </Card>
             </Col>
