@@ -1,164 +1,341 @@
-# from django.shortcuts import render
-import json
-import requests
-import secrets
+# # from django.shortcuts import render
+# import json
+# import requests
+# import secrets
 
-# Create your views here.
+# # Create your views here.
 
 
-class Payments:
-    def __init__(self):
-        self.authentication_body = ""
-        self.baseurl = " https://cybqa.pesapal.com/pesapalv3/api/" # this will be changed to that of live/production from the api document
-        self.payload = json.dumps({
-            "consumer_key": "TDpigBOOhs+zAl8cwH2Fl82jJGyD8xev", # will be changed to that of production sent to email
-            "consumer_secret": "1KpqkfsMaihIcOlhnBo/gBZ5smw=" # will be changed to that of production sent to email
+# class Payments:
+#     def __init__(self):
+#         self.authentication_body = ""
+#         self.baseurl = "https://cybqa.pesapal.com/pesapalv3/api/" # this will be changed to that of live/production from the api document
+#         self.payload = json.dumps({
+#             "consumer_key": "TDpigBOOhs+zAl8cwH2Fl82jJGyD8xev", # will be changed to that of production sent to email
+#             "consumer_secret": "1KpqkfsMaihIcOlhnBo/gBZ5smw=" # will be changed to that of production sent to email
 
-        })
+#         })
 
-    def generate_refno(self):
-        return str(secrets.randbelow(10**10)).zfill(8)
+#     def generate_refno(self):
+#         return str(secrets.randbelow(10**10)).zfill(8)
 
-    def authenticate(self):
-        """this methode authenticate us to pepal and it retun a dic with response code, 
-        a message and atoken which is used to authorize us to access other pesapal payment services"""
-        headers = {
-            'accept':'application/json',
-            'Content-Type':'application/json'
-        }
-        endpoint = "Auth/RequestToken"
-        api = self.baseurl+endpoint
-        response =  requests.request('POST',url=api,headers=headers,data=self.payload)
-        return response.json()
-    def registeripn_url(self, authentication_token):
-        """
-            this methode registers ipn url
-            on successful registration, it returns a dic with status,message,registrated url, notification_type, pin_id, and etc
-            and ipn_id is used in submiting order 
-        """
-        # ensuring that we are authenticated otherwise we dont proceed with payment
-        if authentication_token:
-            endpoint = "URLSetup/RegisterIPN"
-            api = self.baseurl + endpoint
-            url_toregister = "https://e9f10fe0d8ac.ngrok-free.app/ipn" #this should be changed in production to ours we want to register
-            header = {
-                'Accept':'application/json',
-                'Content-Type':'application/json',
-                'Authorization':authentication_token #token is needed in order to register ipn url passed  as a beerer
-            }
-            payload = json.dumps({
-                "url": url_toregister,
-                "ipn_notification_type": "GET"
-            })
-            response = requests.request(method='POST',url=api, headers=header,data=payload)
-            return response.json()
-        raise ValueError("didnt provide the authentication token from registration")
+#     def authenticate(self):
+#         """this methode authenticate us to pepal and it retun a dic with response code, 
+#         a message and atoken which is used to authorize us to access other pesapal payment services"""
+#         headers = {
+#             'accept':'application/json',
+#             'Content-Type':'application/json'
+#         }
+#         endpoint = "Auth/RequestToken"
+#         api = self.baseurl+endpoint
+#         response =  requests.request('POST',url=api,headers=headers,data=self.payload)
+#         return response.json()
+#     def registeripn_url(self, authentication_token):
+#         """
+#             this methode registers ipn url
+#             on successful registration, it returns a dic with status,message,registrated url, notification_type, pin_id, and etc
+#             and ipn_id is used in submiting order 
+#         """
+#         # ensuring that we are authenticated otherwise we dont proceed with payment
+#         if authentication_token:
+#             endpoint = "URLSetup/RegisterIPN"
+#             api = self.baseurl + endpoint
+#             url_toregister = "https://e9f10fe0d8ac.ngrok-free.app/ipn" #this should be changed in production to ours we want to register
+#             header = {
+#                 'Accept':'application/json',
+#                 'Content-Type':'application/json',
+#                 'Authorization':f"Bearer {authentication_token}" #token is needed in order to register ipn url passed  as a beerer
+#             }
+#             payload = json.dumps({
+#                 "url": url_toregister,
+#                 "ipn_notification_type": "GET"
+#             })
+#             response = requests.request(method='POST',url=api, headers=header,data=payload)
+#             return response.json()
+#         raise ValueError("didnt provide the authentication token from registration")
     
 
-    def get_all_registeredipn_url(self, authentication_token):
-        # this fetches all registered inp urls ; no payload is required coz it is get request
-        endpoint = 'URLSetup/GetIpnList'
-        api = self.baseurl+endpoint
-        header = {
-                'Accept':'application/json',
-                'Content-Type':'application/json',
-                'Authorization':authentication_token #token is needed in order to register ipn url passed  as a beerer
-            }
-        responspe = requests.request('GET',url=api, headers=header)
-        return responspe.json()
+#     def get_all_registeredipn_url(self, authentication_token):
+#         # this fetches all registered inp urls ; no payload is required coz it is get request
+#         endpoint = 'URLSetup/GetIpnList'
+#         api = self.baseurl+endpoint
+#         header = {
+#                 'Accept':'application/json',
+#                 'Content-Type':'application/json',
+#                 'Authorization':authentication_token #token is needed in order to register ipn url passed  as a beerer
+#             }
+#         responspe = requests.request('GET',url=api, headers=header)
+#         return responspe.json()
     
-    def submitOrderRequest(self,authentication_token, ipn_id, firstName,lastName, email, phonenumber, coursename, amount):
-        """
-            This methode submits the clients order we want to process
-            on success it retuns a dic including :
-            order tracking id : used (as the endpoint) to check whether payment was successfully made or not,
-            redirect url: which direct customer to payment page,
-            status code and etc
-        """
-        endpoint = "Transactions/SubmitOrderRequest"
-        api = self.baseurl+endpoint
-        if authentication_token:
-            header = {
-                'Accept':'application/json',
-                'Content-Type':'application/json',
-                'Authorization':authentication_token
-            }
-            payload = json.dumps({
-                "id": self.generate_refno(), #this is  generated by my server and #max 50
-                "currency": "KES",
-                "amount": amount, #this must be the course fee
-                "description": f"Fee payment for {coursename}",
-                "callback_url": "https://e9f10fe0d8ac.ngrok-free.app", # replace this with the url that point to the page where cutomers will be redired on successful payment
-                "redirect_mode": "",
-                "notification_id": ipn_id,
-                "branch": coursename,
-                "billing_address": {
-                    "email_address": email,
-                    "phone_number": phonenumber,
-                    "country_code": "KE",
-                    "first_name": firstName,
-                    "middle_name": "",
-                    "last_name": lastName,
-                    "line_1": "Pesapal Limited",
-                    "line_2": "",
-                    "city": "",
-                    "state": "",
-                    "postal_code": "",
-                    "zip_code": ""
-                }
-            })
+#     def submitOrderRequest(self,authentication_token, ipn_id, firstName,lastName, email, phonenumber, coursename, amount):
+#         """
+#             This methode submits the clients order we want to process
+#             on success it retuns a dic including :
+#             order tracking id : used (as the endpoint) to check whether payment was successfully made or not,
+#             redirect url: which direct customer to payment page,
+#             status code and etc
+#         """
+#         endpoint = "Transactions/SubmitOrderRequest"
+#         api = self.baseurl+endpoint
+#         if authentication_token:
+#             header = {
+#                 'Accept':'application/json',
+#                 'Content-Type':'application/json',
+#                 'Authorization':authentication_token
+#             }
+#             payload = json.dumps({
+#                 "id": self.generate_refno(), #this is  generated by my server and #max 50
+#                 "currency": "UGX",
+#                 "amount": amount, #this must be the course fee
+#                 "description": f"Fee payment for {coursename}",
+#                 "callback_url": "https://e9f10fe0d8ac.ngrok-free.app", # replace this with the url that point to the page where cutomers will be redired on successful payment
+#                 "redirect_mode": "",
+#                 "notification_id": ipn_id,
+#                 "branch": coursename,
+#                 "billing_address": {
+#                     "email_address": email,
+#                     "phone_number": phonenumber,
+#                     "country_code": "UG",
+#                     "first_name": firstName,
+#                     "middle_name": "",
+#                     "last_name": lastName,
+#                     "line_1": "Pesapal Limited",
+#                     "line_2": "",
+#                     "city": "",
+#                     "state": "",
+#                     "postal_code": "",
+#                     "zip_code": ""
+#                 }
+#             })
 
-            response = requests.request('POST',url=api,headers=header,data=payload)
-            return response.json()
+#             response = requests.request('POST',url=api,headers=header,data=payload)
+#             return response.json()
         
-    def get_transaction_status(self,authentication_token, order_trackind_id):
-        endpoint = f"Transactions/GetTransactionStatus?orderTrackingId={order_trackind_id}"
-        api = self.baseurl+endpoint
-        header = {
-                'Accept':'application/json',
-                'Content-Type':'application/json',
-                'Authorization':authentication_token
-            }
-        response = requests.request('GET',url=api,headers=header)
-        return response.json()
+#     def get_transaction_status(self,authentication_token, order_trackind_id):
+#         endpoint = f"Transactions/GetTransactionStatus?orderTrackingId={order_trackind_id}"
+#         api = self.baseurl+endpoint
+#         header = {
+#                 'Accept':'application/json',
+#                 'Content-Type':'application/json',
+#                 'Authorization':authentication_token
+#             }
+#         response = requests.request('GET',url=api,headers=header)
+#         return response.json()
     
 
 
 
-# print(Payments().get_all_registeredipn_url())
-# getting course amount and student details
+# # print(Payments().get_all_registeredipn_url())
+# # getting course amount and student details
 
-# this is how it should be in the enrollment class
-    # amount = course.amount
-    # fname = student.first_name
-    # lname = student.second_name
-    # email = student.email
-    # phonenumber = student.phone_number
-    # coursename = course.course.course_name
-    # # oder_data = (amount,fname,lname,email,phonenumber,coursename)
-# print(o)
-
-
-amount = 1000
-fname = "hnery"
-lname = "nankyinga"
-email = "henry@gmail.com"
-phonenumber = "0755981066"
-coursename = "pyuy"
+# # this is how it should be in the enrollment class
+#     # amount = course.amount
+#     # fname = student.first_name
+#     # lname = student.second_name
+#     # email = student.email
+#     # phonenumber = student.phone_number
+#     # coursename = course.course.course_name
+#     # # oder_data = (amount,fname,lname,email,phonenumber,coursename)
+# # print(o)
 
 
-payment_obj = Payments()
-auth_response = payment_obj.authenticate()
-auth_token = auth_response['token']
-ipn_url_registration = payment_obj.registeripn_url(authentication_token=auth_token)
-ipn_id = ipn_url_registration['ipn_id']
-order_resp = payment_obj.submitOrderRequest(authentication_token=auth_token, ipn_id=ipn_id,firstName=fname,lastName=lname,email=email,phonenumber=phonenumber,coursename=coursename, amount=amount)
+# amount = 1000
+# fname = "hnery"
+# lname = "nankyinga"
+# email = "henry@gmail.com"
+# phonenumber = "0755981066"
+# coursename = "pyuy"
+
+
+# payment_obj = Payments()
+# auth_response = payment_obj.authenticate()
+# auth_token = auth_response['token']
+# ipn_url_registration = payment_obj.registeripn_url(authentication_token=auth_token)
+# ipn_id = ipn_url_registration['ipn_id']
+# order_resp = payment_obj.submitOrderRequest(authentication_token=auth_token, ipn_id=ipn_id,firstName=fname,lastName=lname,email=email,phonenumber=phonenumber,coursename=coursename, amount=amount)
 
 # oder_tracking_id = order_resp['order_tracking_id']
 # print(order_resp)
 # print(payment_obj.get_transaction_status(authentication_token=auth_token,order_trackind_id=oder_tracking_id))
 
 
-    
+
+
+
+
+import json
+import requests
+import secrets
+from django.shortcuts import render
+
+
+
+def payment_response(request):
+    """
+    This view is called by Pesapal after payment.
+    You can display a success/failure page to the customer.
+    Pesapal will also send an IPN separately to confirm payment.
+    """
+    context = {
+        "status": request.GET.get("status", "unknown"),
+        "tracking_id": request.GET.get("tracking_id", ""),
+        "merchant_reference": request.GET.get("merchant_reference", ""),
+    }
+    return render(request, "payments/response_page.html", context)
+
+
+
+
+class Payments:
+    def __init__(self):
+        self.baseurl = "https://cybqa.pesapal.com/pesapalv3/api/"  # No extra space
+        self.payload = json.dumps({
+            "consumer_key": "TDpigBOOhs+zAl8cwH2Fl82jJGyD8xev",  # sandbox keys
+            "consumer_secret": "1KpqkfsMaihIcOlhnBo/gBZ5smw="
+        })
+
+    def generate_refno(self):
+        return str(secrets.randbelow(10**10)).zfill(8)
+
+    def authenticate(self):
+        """Authenticate with Pesapal and return token."""
+        headers = {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        }
+        endpoint = "Auth/RequestToken"
+        api = self.baseurl + endpoint
+        response = requests.post(url=api, headers=headers, data=self.payload)
+        return response.json()
+
+    def registeripn_url(self, authentication_token):
+        """Register IPN URL and return IPN ID."""
+        if not authentication_token:
+            raise ValueError("Authentication token missing")
+
+        endpoint = "URLSetup/RegisterIPN"
+        api = self.baseurl + endpoint
+        url_toregister = "https://e9f10fe0d8ac.ngrok-free.app/ipn"  # change in production
+        headers = {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': f'Bearer {authentication_token}'
+        }
+        payload = json.dumps({
+            "url": url_toregister,
+            "ipn_notification_type": "POST"  # recommended
+        })
+        response = requests.post(url=api, headers=headers, data=payload)
+        return response.json()
+
+    def get_all_registeredipn_url(self, authentication_token):
+        """Fetch all registered IPN URLs."""
+        endpoint = 'URLSetup/GetIpnList'
+        api = self.baseurl + endpoint
+        headers = {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': f'Bearer {authentication_token}'
+        }
+        response = requests.get(url=api, headers=headers)
+        return response.json()
+
+    def submitOrderRequest(self, authentication_token, ipn_id, firstName, lastName, email, phonenumber, coursename, amount):
+        """Submit a payment order."""
+        if not authentication_token:
+            raise ValueError("Authentication token missing")
+
+        endpoint = "Transactions/SubmitOrderRequest"
+        api = self.baseurl + endpoint
+        headers = {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': f'Bearer {authentication_token}'
+        }
+        payload = json.dumps({
+            "id": self.generate_refno(),
+            "currency": "UGX",
+            "amount": amount,
+            "description": f"Fee payment for {coursename}",
+            "callback_url": "https://e9f10fe0d8ac.ngrok-free.app/response-page",  # change in production
+            "redirect_mode": "",
+            "notification_id": ipn_id,
+            "branch": coursename,
+            "billing_address": {
+                "email_address": email,
+                "phone_number": phonenumber,
+                "country_code": "UG",
+                "first_name": firstName,
+                "middle_name": "",
+                "last_name": lastName,
+                "line_1": "Pesapal Limited",
+                "line_2": "",
+                "city": "",
+                "state": "",
+                "postal_code": "",
+                "zip_code": ""
+            }
+        })
+        response = requests.post(url=api, headers=headers, data=payload)
+        return response.json()
+
+    def get_transaction_status(self, authentication_token, order_tracking_id):
+        """Check transaction status."""
+        endpoint = f"Transactions/GetTransactionStatus?orderTrackingId={order_tracking_id}"
+        api = self.baseurl + endpoint
+        headers = {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': f'Bearer {authentication_token}'
+        }
+        response = requests.get(url=api, headers=headers)
+        return response.json()
+
+
+# === Example Test Run ===
+# if __name__ == "__main__":
+amount = 1000
+fname = "Henry"
+lname = "Nankyinga"
+email = "henry@gmail.com"
+phonenumber = "0755981066"
+coursename = "Python Course"
+
+payment_obj = Payments()
+
+# Authenticate
+auth_response = payment_obj.authenticate()
+# print("Auth Response:", auth_response)
+auth_token = auth_response.get('token')
+if not auth_token:
+    raise Exception("Authentication failed. Check your consumer_key and consumer_secret.")
+
+# Register IPN
+ipn_url_registration = payment_obj.registeripn_url(authentication_token=auth_token)
+# print("IPN Registration Response:", ipn_url_registration)
+ipn_id = ipn_url_registration.get('ipn_id')
+if not ipn_id:
+    raise Exception("IPN registration failed. Check response above.")
+
+# Submit Order
+order_resp = payment_obj.submitOrderRequest(
+    authentication_token=auth_token,
+    ipn_id=ipn_id,
+    firstName=fname,
+    lastName=lname,
+    email=email,
+    phonenumber=phonenumber,
+    coursename=coursename,
+    amount=amount
+)
+# print("Order Response:", order_resp)
+order_tracking_id = order_resp.get('order_tracking_id')
+if not order_tracking_id:
+    raise Exception("Order submission failed. Check response above.")
+
+# Get Transaction Status
+status = payment_obj.get_transaction_status(authentication_token=auth_token, order_tracking_id=order_tracking_id)
+print("Transaction Status:", status)
+
 
 

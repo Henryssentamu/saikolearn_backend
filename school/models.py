@@ -58,6 +58,8 @@ class CourseFee(models.Model):
     amount = models.PositiveIntegerField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    def __str__(self):
+        return Course.id
 
 class Enrollment(models.Model):
     student = models.ForeignKey('students.Student', on_delete=models.PROTECT, related_name='enrollments')

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Payment Response</title>
+</head>
+<body>
+    <h1>Payment Status: {{ status }}</h1>
+    <p>Order Tracking ID: {{ tracking_id }}</p>
+    <p>Reference: {{ merchant_reference }}</p>
+
+    {% if status == "COMPLETED" %}
+        <p>Thank you! Your payment has been received.</p>
+    {% elif status == "FAILED" %}
+        <p>Sorry, your payment failed. Please try again.</p>
+    {% else %}
+        <p>We are processing your payment. Please check back later.</p>
+    {% endif %}
+</body>
+</html>
