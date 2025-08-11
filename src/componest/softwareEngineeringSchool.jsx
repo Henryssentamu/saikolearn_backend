@@ -13,7 +13,16 @@ export function SchoolOfSoftwareEngineering() {
       BreifDiscription: "This course is your gateway to the fascinating realm of coding.",
       Duration: "Duration 12 months",
       thumbnil: "/sist1.png",
+      courseurl: "/programming"
     },
+    {
+      courseId: "124",
+      courseName: "HIGH SCHOOL CODING PROGRAM",
+      BreifDiscription: "This program is designed for high school students, tailored to their flexible schedules",
+      Duration: "Duration 3 term holidays",
+      thumbnil: "/pexels-harold-vasquez-853421-2653362.jpg",
+      courseurl: "/highschoolcoding"
+    }
     // {
     //   courseId: "123",
     //   courseName: "INTRODUCTION TO PROGRAMMING",
@@ -143,7 +152,7 @@ export function SchoolOfSoftwareEngineering() {
                   </div>
                 </div>
                 <a
-                  href="/introToProgramming"
+                  href={courseObj.courseurl}
                   data-course-id={courseObj.courseId}
                   className="btn btn-outline-light "
                   style={{ margin: "15px 10px" }}

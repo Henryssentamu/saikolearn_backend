@@ -13,6 +13,7 @@ export function SchoolOfDataScience() {
       BreifDiscription: "This course is your gateway to the fascinating realm of Data Science And Ai.",
       Duration: "Duration 12 months",
       thumbnil: "/sist3.png",
+      courseurl: "/machinelearning"
     },
   ]);
   return (
@@ -130,7 +131,7 @@ export function SchoolOfDataScience() {
                   </div>
                 </div>
                 <a
-                  href="/introToMachinelearning"
+                  href={courseObj.courseurl}
                   data-course-id={courseObj.courseId}
                   className="btn btn-outline-light "
                   style={{ margin: "15px 10px" }}
