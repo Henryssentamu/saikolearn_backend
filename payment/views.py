@@ -163,6 +163,11 @@
 
 
 
+
+
+
+
+
 import json
 import requests
 import secrets
@@ -293,49 +298,49 @@ class Payments:
 
 
 # === Example Test Run ===
-# if __name__ == "__main__":
-amount = 1000
-fname = "Henry"
-lname = "Nankyinga"
-email = "henry@gmail.com"
-phonenumber = "0755981066"
-coursename = "Python Course"
+if __name__ == "__main__":
+    amount = 1000
+    fname = "Henry"
+    lname = "Nankyinga"
+    email = "henry@gmail.com"
+    phonenumber = "0755981066"
+    coursename = "Python Course"
 
-payment_obj = Payments()
+    payment_obj = Payments()
 
-# Authenticate
-auth_response = payment_obj.authenticate()
-# print("Auth Response:", auth_response)
-auth_token = auth_response.get('token')
-if not auth_token:
-    raise Exception("Authentication failed. Check your consumer_key and consumer_secret.")
+    # Authenticate
+    auth_response = payment_obj.authenticate()
+    # print("Auth Response:", auth_response)
+    auth_token = auth_response.get('token')
+    if not auth_token:
+        raise Exception("Authentication failed. Check your consumer_key and consumer_secret.")
 
-# Register IPN
-ipn_url_registration = payment_obj.registeripn_url(authentication_token=auth_token)
-# print("IPN Registration Response:", ipn_url_registration)
-ipn_id = ipn_url_registration.get('ipn_id')
-if not ipn_id:
-    raise Exception("IPN registration failed. Check response above.")
+    # Register IPN
+    ipn_url_registration = payment_obj.registeripn_url(authentication_token=auth_token)
+    print("IPN Registration Response:", ipn_url_registration)
+    ipn_id = ipn_url_registration.get('ipn_id')
+    if not ipn_id:
+        raise Exception("IPN registration failed. Check response above.")
 
-# Submit Order
-order_resp = payment_obj.submitOrderRequest(
-    authentication_token=auth_token,
-    ipn_id=ipn_id,
-    firstName=fname,
-    lastName=lname,
-    email=email,
-    phonenumber=phonenumber,
-    coursename=coursename,
-    amount=amount
-)
-# print("Order Response:", order_resp)
-order_tracking_id = order_resp.get('order_tracking_id')
-if not order_tracking_id:
-    raise Exception("Order submission failed. Check response above.")
+    # Submit Order
+    order_resp = payment_obj.submitOrderRequest(
+        authentication_token=auth_token,
+        ipn_id=ipn_id,
+        firstName=fname,
+        lastName=lname,
+        email=email,
+        phonenumber=phonenumber,
+        coursename=coursename,
+        amount=amount
+    )
+    print("Order Response:", order_resp)
+    order_tracking_id = order_resp.get('order_tracking_id')
+    if not order_tracking_id:
+        raise Exception("Order submission failed. Check response above.")
 
-# Get Transaction Status
-status = payment_obj.get_transaction_status(authentication_token=auth_token, order_tracking_id=order_tracking_id)
-print("Transaction Status:", status)
+    # Get Transaction Status
+    status = payment_obj.get_transaction_status(authentication_token=auth_token, order_tracking_id=order_tracking_id)
+    print("Transaction Status:", status)
 
 
 

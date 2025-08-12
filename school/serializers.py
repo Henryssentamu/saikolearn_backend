@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from django.core.exceptions import ValidationError
-from .models import School,Course, Enrollment, CourseResource, Cohort, CourseFee
+from .models import School,Course, Enrollment, CourseResource, Cohort, CourseFee, CourseLiveClasses, CourseLiveRecordedSessions
 
 
 
@@ -27,6 +27,32 @@ class CourseResourcesSerializer(serializers.ModelSerializer):
         if data['resource_type'] == 'YouTube' and not data.get('youtube_link'):
             raise serializers.ValidationError('YouTube link is required for YouTube resources.')
         return data
+    
+
+
+
+class CourseLiveRecordedSessionsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CourseLiveRecordedSessions
+        fields = '__all__'
+        read_only_fields = ['id']
+    def validate(self, data):
+        if data['resource_type'] == 'YouTube' and not data.get('resourse_link'):
+            raise serializers.ValidationError('YouTube link is required for YouTube resources.')
+        return data
+    
+
+class CourseLiveClassesSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CourseLiveClasses
+        fields = '__all__'
+        read_only_fields = ['id']
+    def validate(self, data):
+        if data['resource_type'] == 'YouTube' and not data.get('class_link'):
+            raise serializers.ValidationError('YouTube link is required for YouTube resources.')
+        return data
+    
+
 class CohortSerializer(serializers.ModelSerializer):
     # course = CourseSerializer(read_only=True) # for the relationship purpose, ie include course details in cohort fetch details
     class Meta:

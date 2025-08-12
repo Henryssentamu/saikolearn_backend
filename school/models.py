@@ -105,6 +105,37 @@ class CourseResource(models.Model):
         verbose_name_plural = "Course Resources"
     def __str__(self):
         return f"{self.resource_type}"
+    
+
+class CourseLiveRecordedSessions(models.Model):
+    """one course can have multiple resourses ie youtube, github , tiktalk etc hence one to many (model.foreign key)"""
+    course = models.ForeignKey('Course', on_delete=models.CASCADE, related_name='recorded')
+    resource_type = models.CharField(max_length=50, choices=[('YouTube', 'YouTube'), ('PDF', 'PDF'), ('Link', 'Link')], default='YouTube')
+    resourse_link = models.URLField(max_length=200, blank=True)  # Only for YouTube resources
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name = "Course live recorded session"
+        verbose_name_plural = "Course live recorded sessions"
+    def __str__(self):
+        return f"{self.resourse_link}"
+    
+
+class CourseLiveClasses(models.Model):
+    """one course can have multiple resourses ie youtube, github , tiktalk etc hence one to many (model.foreign key)"""
+    course = models.ForeignKey('Course', on_delete=models.CASCADE, related_name='live_classes')
+    resource_type = models.CharField(max_length=50, choices=[('YouTube', 'YouTube'), ('Zoom', 'Zoom'), ('googleMeet', 'googleMeet')], default='YouTube')
+    class_link = models.URLField(max_length=200, blank=True)  # Only for YouTube resources
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name = "Course live  class"
+        verbose_name_plural = "Course live classes"
+    def __str__(self):
+        return f"{self.class_link}"
+
 
 class Cohort(models.Model):
     course = models.ForeignKey('Course', on_delete=models.PROTECT, related_name='cohorts')

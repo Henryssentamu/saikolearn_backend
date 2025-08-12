@@ -3,10 +3,10 @@ from django.core.exceptions import ValidationError
 from rest_framework import mixins, generics,status
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
-from .models import School, Course, Enrollment, CourseResource, Cohort, CourseFee
+from .models import *
 from payment.views import Payments
 from students.models import Student
-from .serializers import SchoolSerializer, CourseSerializer,EnrollmentSerializer,CourseResourcesSerializer, CohortSerializer,CourseFeeSerializer
+from .serializers import *
 
 
 # Create your views here.
@@ -67,6 +67,16 @@ class EnrollAndViewDetails(generics.ListCreateAPIView):
 class CreateCourseResoursesDetails(generics.ListCreateAPIView):
     queryset = CourseResource.objects.all()
     serializer_class = CourseResourcesSerializer
+
+class CreateCourseLiveRecordedSessions(generics.ListCreateAPIView):
+    queryset = CourseLiveRecordedSessions.objects.all()
+    serializer_class = CourseLiveRecordedSessionsSerializer
+
+class CreateCourseLiveclass(generics.ListCreateAPIView):
+    queryset = CourseLiveClasses.objects.all()
+    serializer_class = CourseLiveClassesSerializer
+    
+
 class CreateCourseCohort(generics.ListCreateAPIView):
     queryset =  Cohort.objects.all()
     serializer_class = CohortSerializer
@@ -74,6 +84,57 @@ class CreateCourseCohort(generics.ListCreateAPIView):
 class createCourseFeeDetails(generics.ListCreateAPIView):
     queryset =  CourseFee.objects.all()
     serializer_class = CourseFeeSerializer
+
+
+class ListUpdateDeleteClassLiveSessions(mixins.RetrieveModelMixin, mixins.UpdateModelMixin, mixins.DestroyModelMixin, generics.GenericAPIView):
+    queryset = CourseLiveClasses.objects.all()
+    serializer_class = CourseLiveClassesSerializer
+    def get_object(self):
+        try:
+            # getting course code from the request body or querry param
+            course_code = self.request.data.get("course_code") or  self.request.query_params.get("course_code")    
+        except Exception as e:
+            raise ValidationError(f"error while retrieving course code:{e}")
+        if not course_code:
+            raise ValidationError("course code missing in both request body and request param")
+        try:
+            return self.queryset.get(course__course_code=course_code)
+        except CourseLiveClasses.DoesNotExist:
+            raise ValidationError(f"no live class with: {course_code} ")
+    def get(self, request):
+        return self.retrieve(request=request)
+    def put(self,request):
+        return self.update(request= request)
+    def patch(self, request):
+        """partial update: only changed fields  required"""
+        return self.partial_update(request=request)
+    def delete(self,request):
+        return self.destroy(request=request)
+    
+class ListUpdateDeleteCourseLiveRecordedSessions(mixins.RetrieveModelMixin, mixins.UpdateModelMixin, mixins.DestroyModelMixin, generics.GenericAPIView):
+    queryset = CourseLiveRecordedSessions.objects.all()
+    serializer_class = CourseLiveRecordedSessionsSerializer
+    def get_object(self):
+        try:
+            # getting course code from the request body or querry param
+            course_code = self.request.data.get("course_code") or  self.request.query_params.get("course_code")    
+        except Exception as e:
+            raise ValidationError(f"error while retrieving course code:{e}")
+        if not course_code:
+            raise ValidationError("course code missing in both request body and request param")
+        try:
+            return self.queryset.get(course__course_code=course_code)
+        except CourseLiveRecordedSessions.DoesNotExist:
+            raise ValidationError(f"no live class with: {course_code} ")
+    def get(self, request):
+        return self.retrieve(request=request)
+    def put(self,request):
+        return self.update(request= request)
+    def patch(self, request):
+        """partial update: only changed fields  required"""
+        return self.partial_update(request=request)
+    def delete(self,request):
+        return self.destroy(request=request)
 
 
 
