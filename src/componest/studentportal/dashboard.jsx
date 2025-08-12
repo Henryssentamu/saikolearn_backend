@@ -607,6 +607,8 @@ export function Studentportal() {
   const [availableCourses, setAvailableCourses] = useState([]);
   const [filteredCourses, setFilteredCourses] = useState([]);
   const [selectedCourse, setSelectedCourse] = useState(null);
+  const [liveclasscourse_id, setliveclasscourse_id] = useState(null);
+  // const [live_class_link,setlive_class_link] = useState(null)
   const [showModal, setShowModal] = useState(false);
   const [show, setShow] = useState(false);
 
@@ -688,27 +690,45 @@ export function Studentportal() {
     }
   };
 
-  // const handleEnrollment = async (course) => {
-  //   const studentid = student.student_id;
-  //   const courseDetails = {
-  //     course: course.id,
-  //     student: studentid,
-  //   };
+  async function fetchliveClasslink(course_code) {
+  try {
+    const resp = await fetchWithAuth(
+      `${apiUrl}schools/listupdatedeletecourseliveclass/?course_code=${encodeURIComponent(course_code)}`
+    );
 
-  //   try {
-  //     const res = await fetchWithAuth(`${apiUrl}schools/enrollStudent/`, {
-  //       method: "POST",
-  //       headers: { "Content-Type": "application/json" },
-  //       body: JSON.stringify(courseDetails),
-  //     });
+    if (!resp.ok) throw new Error("Error while fetching live class link");
 
-  //     if (!res.ok) throw new Error("Failed to enroll");
-  //     await res.json();
-  //     fetchStudentDetails();
-  //   } catch (err) {
-  //     console.error(err);
-  //   }
-  // };
+    const data = await resp.json();
+    if (data && data.class_link) {
+      window.open(data.class_link, "_blank"); // Open immediately after fetch
+    } else {
+      console.warn("No class link found");
+    }
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+async function fetchliveClassRecordings(course_code) {
+  try {
+    const resp = await fetchWithAuth(
+      `${apiUrl}schools/listupdatedeletecourserecordedlivesessions/?course_code=${encodeURIComponent(course_code)}`
+    );
+
+    if (!resp.ok) throw new Error("Error while fetching live class link");
+
+    const data = await resp.json();
+    if (data && data.resourse_link) {
+      window.open(data.resourse_link, "_blank"); // Open immediately after fetch
+    } else {
+      console.warn("No class link found");
+    }
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+
 
   const handleEnrollment = async (course) => {
   const studentid = student.student_id;
@@ -804,6 +824,7 @@ export function Studentportal() {
                       <button
                         className="btn btn-outline-success"
                         onClick={() => {
+                          setliveclasscourse_id(course.course_code)
                           setSelectedCourse(course);
                           setShowModal(true);
                         }}
@@ -842,7 +863,7 @@ export function Studentportal() {
         )}
 
         {selectedCourse && showModal && (
-          <div className="modal show fade d-block" tabIndex="-1" role="dialog">
+          <div className="modal show fade d-block bg-dark" tabIndex="-1" role="dialog" >
             <div className="modal-dialog" role="document">
               <div className="modal-content">
                 <div className="modal-header">
@@ -853,10 +874,18 @@ export function Studentportal() {
                   <button className="btn btn-outline-success w-100 mb-2" onClick={() => window.open(selectedCourse.youtube_link, "_blank")}>
                     Course Material
                   </button>
-                  <button className="btn btn-outline-secondary w-100 mb-2" onClick={() => window.open(selectedCourse.youtube_link, "_blank")}>
+                  <button className="btn btn-outline-secondary w-100 mb-2" onClick={() => {
+                    if(liveclasscourse_id){
+                      fetchliveClasslink(liveclasscourse_id)
+                    }
+                  }}>
                     Live Class
                   </button>
-                  <button className="btn btn-outline-success w-100" onClick={() => window.open(selectedCourse.youtube_link, "_blank")}>
+                  <button className="btn btn-outline-success w-100" onClick={() =>{
+                    if(liveclasscourse_id){
+                      fetchliveClassRecordings(liveclasscourse_id)
+                    }
+                  }}>
                     Recordings
                   </button>
                 </div>
